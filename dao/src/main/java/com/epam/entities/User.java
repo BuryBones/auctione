@@ -53,7 +53,11 @@ public class User {
 
   @Override
   public String toString() {
-    return String.format("User ID: %d, %s %s", getId(),getLastName(), getFirstName());
+    StringBuilder sb = new StringBuilder();
+    String base = String.format("User ID: %d, %s %s%n", getId(),getLastName(), getFirstName());
+    sb.append(base);
+    getUserRoles().forEach(role -> sb.append(role).append(", "));
+    return sb.toString();
   }
 
   public int getId() {
