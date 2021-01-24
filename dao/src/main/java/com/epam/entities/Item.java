@@ -35,6 +35,12 @@ public class Item {
   public Item() {
   }
 
+  @Override
+  public String toString() {
+    return String.format("Item ID: %d, %s, %n(%s)%nOwner: %s %s",
+        getId(), getName(), getDescript(), getUser().getLastName(), getUser().getFirstName());
+  }
+
   public int getId() {
     return id;
   }

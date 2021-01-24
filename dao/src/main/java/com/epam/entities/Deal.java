@@ -46,6 +46,15 @@ public class Deal {
 
   public Deal() {}
 
+  @Override
+  public String toString() {
+    return String.format("Deal ID: %d, from %t till %t%n"
+            + " start price %d, Open: %b%nSeller: %s %s%n"
+            + "Item: %S",
+        getId(),getOpenTime(),getCloseTime(),getInit_price(),getStatus(),getUser().getLastName(),
+        getUser().getFirstName(),getItem().getName());
+  }
+
   public int getId() {
     return id;
   }
@@ -78,7 +87,7 @@ public class Deal {
     this.closeTime = closeTime;
   }
 
-  public boolean isStatus() {
+  public boolean getStatus() {
     return status;
   }
 

@@ -51,6 +51,11 @@ public class User {
   public User() {
   }
 
+  @Override
+  public String toString() {
+    return String.format("User ID: %d, %s %s", getId(),getLastName(), getFirstName());
+  }
+
   public int getId() {
     return id;
   }

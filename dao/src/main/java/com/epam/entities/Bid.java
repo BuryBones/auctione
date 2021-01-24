@@ -35,6 +35,12 @@ public class Bid {
 
   public Bid() {}
 
+  @Override
+  public String toString() {
+    return String.format("Bid ID: %d by %s %s for deal #%d at %t%n"
+        + "Offer: %d",getId(),getUser().getLastName(), getUser().getFirstName(),getDeal().getId(),getOffer());
+  }
+
   public int getId() {
     return id;
   }

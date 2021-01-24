@@ -24,6 +24,11 @@ public class Role {
 
   public Role() {}
 
+  @Override
+  public String toString() {
+    return String.format("Role ID: %d, %s",getId(),getRoleName());
+  }
+
   public int getId() {
     return id;
   }
