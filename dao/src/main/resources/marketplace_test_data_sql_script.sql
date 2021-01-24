@@ -1,3 +1,8 @@
+INSERT INTO role (role_name) VALUES
+	('ADMIN'),
+	('REGULAR_USER')
+;
+
 INSERT INTO "user" (login,firstname,lastname,password) VALUES
 	('ivan1990','Ivan','Ivanov','12345678'),
 	('alex777','Alexander','Kalushenko','111$$$abc'),
@@ -9,26 +14,26 @@ INSERT INTO "user" (login,firstname,lastname,password) VALUES
 	('andrew25','Andrew','Smirnoff','somePassword1111')
 ;
 
-INSERT INTO item (name,descript) VALUES
-	('Колесо от кировца','Б\У колесо от трактора "Кировец", использовалось 40 лет'),
-	('Лопасть вертолёта МИ-8',DEFAULT),
-	('Глобус Украины','Круглый'),
-	('Пуговица Пушкина','Толстовка Толстого в подарок!'),
-	('Статуя Чапаева','масштаб 1/4'),
-	('Бюст Эраста П. Фандорина','Гипсовый'),
-	('Набор фишек с покемонами','104 шт.'),
-	('Колода карт (52) Fallout',DEFAULT)
+INSERT INTO user_role (user_id, role_id) VALUES 
+	(1,1),
+	(2,2),
+	(3,2),
+	(4,2),
+	(5,2),
+	(6,2),
+	(7,2),
+	(8,2)
 ;
 
-INSERT INTO user_item (user_id,item_id) VALUES
-	(1,1),
-	(7,3),
-	(2,5),
-	(3,2),
-	(5,4),
-	(4,6),
-	(7,7),
-	(7,8)
+INSERT INTO item (name,user_id,descript) VALUES
+	('Колесо от кировца',1,'Б\У колесо от трактора "Кировец", использовалось 40 лет'),
+	('Лопасть вертолёта МИ-8',3,DEFAULT),
+	('Глобус Украины',7,'Круглый'),
+	('Пуговица Пушкина',5,'Толстовка Толстого в подарок!'),
+	('Статуя Чапаева',2,'масштаб 1/4'),
+	('Бюст Эраста П. Фандорина',4,'Гипсовый'),
+	('Набор фишек с покемонами',7,'104 шт.'),
+	('Колода карт (52) Fallout',7,DEFAULT)
 ;
 
 INSERT INTO deal (user_id,item_id,init_price) VALUES
@@ -40,7 +45,7 @@ INSERT INTO deal (user_id,item_id,init_price) VALUES
 ;
 
 INSERT INTO deal (user_id,item_id,init_price,open_time,status) VALUES
-	(4,6,10000,(NOW() - INTERVAL '2 DAY'),false)
+	(4,6,10000,(NOW() - INTERVAL '7 DAY'),false)
 ;
 
 INSERT INTO bid (user_id,deal_id,date_and_time,offer) VALUES
