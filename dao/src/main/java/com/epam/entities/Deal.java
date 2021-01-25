@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,7 +19,7 @@ import javax.persistence.Table;
 public class Deal {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
   @Column(name = "init_price")
@@ -48,11 +49,55 @@ public class Deal {
 
   @Override
   public String toString() {
-    return String.format("Deal ID: %d, from %t till %t%n"
-            + " start price %d, Open: %b%nSeller: %s %s%n"
-            + "Item: %S",
-        getId(),getOpenTime(),getCloseTime(),getInit_price(),getStatus(),getUser().getLastName(),
-        getUser().getFirstName(),getItem().getName());
+    return String.format("Deal ID: %d, from %s till %s%n start price %s, Open: %b",
+        getId(),getOpenTime(),getCloseTime(),getInit_price(),getStatus());
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Deal deal = (Deal) o;
+
+    if (getId() != deal.getId()) {
+      return false;
+    }
+    if (getStatus() != deal.getStatus()) {
+      return false;
+    }
+    if (!getInit_price().equals(deal.getInit_price())) {
+      return false;
+    }
+    if (!getOpenTime().equals(deal.getOpenTime())) {
+      return false;
+    }
+    if (!getCloseTime().equals(deal.getCloseTime())) {
+      return false;
+    }
+    if (!getUser().equals(deal.getUser())) {
+      return false;
+    }
+    if (!getItem().equals(deal.getItem())) {
+      return false;
+    }
+    return getBids() != null ? getBids().equals(deal.getBids()) : deal.getBids() == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = getId();
+    result = 31 * result + getInit_price().hashCode();
+    result = 31 * result + getOpenTime().hashCode();
+    result = 31 * result + getCloseTime().hashCode();
+    result = 31 * result + (getStatus() ? 1 : 0);
+    result = 31 * result + getUser().hashCode();
+    result = 31 * result + getItem().hashCode();
+    return result;
   }
 
   public int getId() {

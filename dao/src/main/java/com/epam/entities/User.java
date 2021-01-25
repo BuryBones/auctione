@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 public class User {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
   @Column(name = "login")
@@ -32,7 +33,7 @@ public class User {
   @Column(name = "password")
   private String password;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
       name = "user_role",
       joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -54,10 +55,55 @@ public class User {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    String base = String.format("User ID: %d, %s %s%n", getId(),getLastName(), getFirstName());
-    sb.append(base);
-    getUserRoles().forEach(role -> sb.append(role).append(", "));
-    return sb.toString();
+    return String.format("User ID: %d, %s %s%n", getId(), getLastName(), getFirstName());
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    User user = (User) o;
+
+    if (getId() != user.getId()) {
+      return false;
+    }
+    if (!getLogin().equals(user.getLogin())) {
+      return false;
+    }
+    if (!getFirstName().equals(user.getFirstName())) {
+      return false;
+    }
+    if (!getLastName().equals(user.getLastName())) {
+      return false;
+    }
+    if (!getPassword().equals(user.getPassword())) {
+      return false;
+    }
+    if (getUserRoles() != null ? !getUserRoles().equals(user.getUserRoles())
+        : user.getUserRoles() != null) {
+      return false;
+    }
+    if (getItems() != null ? !getItems().equals(user.getItems()) : user.getItems() != null) {
+      return false;
+    }
+    if (getDeals() != null ? !getDeals().equals(user.getDeals()) : user.getDeals() != null) {
+      return false;
+    }
+    return getBids() != null ? getBids().equals(user.getBids()) : user.getBids() == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = getId();
+    result = 31 * result + getLogin().hashCode();
+    result = 31 * result + getFirstName().hashCode();
+    result = 31 * result + getLastName().hashCode();
+    return result;
   }
 
   public int getId() {

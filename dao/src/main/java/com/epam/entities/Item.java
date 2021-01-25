@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 public class Item {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
   @Column(name = "name")
@@ -37,8 +38,39 @@ public class Item {
 
   @Override
   public String toString() {
-    return String.format("Item ID: %d, %s, %n(%s)%nOwner: %s %s",
-        getId(), getName(), getDescript(), getUser().getLastName(), getUser().getFirstName());
+    return String.format("Item ID: %d, %s, %n(%s)",
+        getId(), getName(), getDescript());
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    Item item = (Item) o;
+
+    if (getId() != item.getId()) {
+      return false;
+    }
+    if (!getName().equals(item.getName())) {
+      return false;
+    }
+    if (!getDescript().equals(item.getDescript())) {
+      return false;
+    }
+    return getUser().equals(item.getUser());
+  }
+
+  @Override
+  public int hashCode() {
+    int result = getId();
+    result = 31 * result + getName().hashCode();
+    result = 31 * result + getDescript().hashCode();
+    return result;
   }
 
   public int getId() {
