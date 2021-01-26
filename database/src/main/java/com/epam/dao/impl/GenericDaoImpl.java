@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Optional;
 import javax.persistence.criteria.CriteriaQuery;
 import main.java.com.epam.HibernateUtil;
+import main.java.com.epam.dao.CommonDao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class GenericDaoImpl<T> {
+public class GenericDaoImpl<T> implements CommonDao<T> {
 
   private final Class<T> type;
 
