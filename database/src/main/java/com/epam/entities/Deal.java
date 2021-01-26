@@ -2,7 +2,7 @@ package main.java.com.epam.entities;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,7 +23,7 @@ public class Deal {
   private int id;
 
   @Column(name = "init_price")
-  private BigDecimal init_price;
+  private BigDecimal initPrice;
 
   @Column(name = "open_time")
   private Timestamp openTime;
@@ -43,14 +43,14 @@ public class Deal {
   private Item item;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "deal")
-  private List<Bid> bids;
+  private Set<Bid> bids;
 
   public Deal() {}
 
   @Override
   public String toString() {
     return String.format("Deal ID: %d, from %s till %s%n start price %s, Open: %b",
-        getId(),getOpenTime(),getCloseTime(),getInit_price(),getStatus());
+        getId(),getOpenTime(),getCloseTime(), getInitPrice(),getStatus());
   }
 
   @Override
@@ -70,7 +70,7 @@ public class Deal {
     if (getStatus() != deal.getStatus()) {
       return false;
     }
-    if (!getInit_price().equals(deal.getInit_price())) {
+    if (!getInitPrice().equals(deal.getInitPrice())) {
       return false;
     }
     if (!getOpenTime().equals(deal.getOpenTime())) {
@@ -91,7 +91,7 @@ public class Deal {
   @Override
   public int hashCode() {
     int result = getId();
-    result = 31 * result + getInit_price().hashCode();
+    result = 31 * result + getInitPrice().hashCode();
     result = 31 * result + getOpenTime().hashCode();
     result = 31 * result + getCloseTime().hashCode();
     result = 31 * result + (getStatus() ? 1 : 0);
@@ -108,12 +108,12 @@ public class Deal {
     this.id = id;
   }
 
-  public BigDecimal getInit_price() {
-    return init_price;
+  public BigDecimal getInitPrice() {
+    return initPrice;
   }
 
-  public void setInit_price(BigDecimal init_price) {
-    this.init_price = init_price;
+  public void setInitPrice(BigDecimal initPrice) {
+    this.initPrice = initPrice;
   }
 
   public Timestamp getOpenTime() {
@@ -156,11 +156,11 @@ public class Deal {
     this.item = item;
   }
 
-  public List<Bid> getBids() {
+  public Set<Bid> getBids() {
     return bids;
   }
 
-  public void setBids(List<Bid> bids) {
+  public void setBids(Set<Bid> bids) {
     this.bids = bids;
   }
 }

@@ -1,6 +1,7 @@
 package main.java.com.epam.entities;
 
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,7 +32,7 @@ public class Item {
   private User user;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
-  private List<Deal> deals;
+  private Set<Deal> deals;
 
   public Item() {
   }
@@ -105,11 +106,11 @@ public class Item {
     this.user = user;
   }
 
-  public List<Deal> getDeals() {
+  public Set<Deal> getDeals() {
     return deals;
   }
 
-  public void setDeals(List<Deal> deals) {
+  public void setDeals(Set<Deal> deals) {
     this.deals = deals;
   }
 }

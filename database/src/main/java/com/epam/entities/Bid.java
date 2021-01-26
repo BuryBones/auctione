@@ -38,7 +38,7 @@ public class Bid {
 
   @Override
   public String toString() {
-    return String.format("Bid ID: %d Offer: %s",getId(),getOffer());
+    return String.format("Bid ID: %d Offer: %s, Date: %s",getId(),getOffer(),getDateAndTime());
   }
 
   @Override

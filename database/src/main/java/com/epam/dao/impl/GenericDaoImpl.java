@@ -1,14 +1,13 @@
-package main.java.com.epam.implementations;
+package main.java.com.epam.dao.impl;
 
 import java.util.List;
 import javax.persistence.criteria.CriteriaQuery;
 import main.java.com.epam.HibernateUtil;
-import main.java.com.epam.services.CommonDao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class GenericDaoImpl<T> implements CommonDao<T> {
+public class GenericDaoImpl<T> {
 
   private final Class<T> type;
 
@@ -21,7 +20,6 @@ public class GenericDaoImpl<T> implements CommonDao<T> {
     type = clazz;
   }
 
-  @Override
   public T findById(int id) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     T result = session.get(type,id);
@@ -29,7 +27,6 @@ public class GenericDaoImpl<T> implements CommonDao<T> {
     return result;
   }
 
-  @Override
   public List<T> findAll() {
     Session session = HibernateUtil.getSessionFactory().openSession();
     CriteriaQuery<T> criteria = session.getCriteriaBuilder().createQuery(type);
@@ -39,7 +36,6 @@ public class GenericDaoImpl<T> implements CommonDao<T> {
     return result;
   }
 
-  @Override
   public void save(T object) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     Transaction transaction = null;
@@ -61,7 +57,6 @@ public class GenericDaoImpl<T> implements CommonDao<T> {
     }
   }
 
-  @Override
   public void update(T object) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     Transaction transaction = null;
@@ -83,7 +78,6 @@ public class GenericDaoImpl<T> implements CommonDao<T> {
     }
   }
 
-  @Override
   public void delete(T object) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     Transaction transaction = null;

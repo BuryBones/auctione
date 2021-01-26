@@ -1,6 +1,7 @@
 package main.java.com.epam.entities;
 
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "\"user\"")
@@ -21,6 +23,7 @@ public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
+  @NaturalId
   @Column(name = "login")
   private String login;
 
@@ -38,19 +41,29 @@ public class User {
       name = "user_role",
       joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-  private List<Role> userRoles;
+  private Set<Role> userRoles;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-  private List<Item> items;
+  private Set<Item> items;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-  private List<Deal> deals;
+  private Set<Deal> deals;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-  private List<Bid> bids;
+  private Set<Bid> bids;
 
   public User() {
   }
+
+//  public void addOffice(Office office) {
+//    getOffices().add(office);
+//    office.setOrganization(this);
+//  }
+//
+//  public void removeOffice(Office office) {
+//    getOffices().remove(office);
+//    office.setOrganization(null);
+//  }
 
   @Override
   public String toString() {
@@ -146,35 +159,35 @@ public class User {
     this.password = password;
   }
 
-  public List<Role> getUserRoles() {
+  public Set<Role> getUserRoles() {
     return userRoles;
   }
 
-  public void setUserRoles(List<Role> userRoles) {
+  public void setUserRoles(Set<Role> userRoles) {
     this.userRoles = userRoles;
   }
 
-  public List<Item> getItems() {
+  public Set<Item> getItems() {
     return items;
   }
 
-  public void setItems(List<Item> items) {
+  public void setItems(Set<Item> items) {
     this.items = items;
   }
 
-  public List<Deal> getDeals() {
+  public Set<Deal> getDeals() {
     return deals;
   }
 
-  public void setDeals(List<Deal> deals) {
+  public void setDeals(Set<Deal> deals) {
     this.deals = deals;
   }
 
-  public List<Bid> getBids() {
+  public Set<Bid> getBids() {
     return bids;
   }
 
-  public void setBids(List<Bid> bids) {
+  public void setBids(Set<Bid> bids) {
     this.bids = bids;
   }
 }

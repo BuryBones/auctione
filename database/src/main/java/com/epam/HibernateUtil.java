@@ -1,7 +1,5 @@
 package main.java.com.epam;
 
-import java.util.HashMap;
-import java.util.Map;
 import main.java.com.epam.entities.Bid;
 import main.java.com.epam.entities.Deal;
 import main.java.com.epam.entities.Item;
@@ -13,7 +11,6 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.cfg.Environment;
 
 public class HibernateUtil {
 
@@ -26,15 +23,6 @@ public class HibernateUtil {
         Configuration configuration = new Configuration().configure();
         StandardServiceRegistryBuilder registryBuilder =
             new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-
-//        Map<String,String> settings = new HashMap<>();
-//        settings.put(Environment.DRIVER, "org.postgresql.Driver");
-//        settings.put(Environment.URL,"jdbc:postgresql://localhost:5432/market");
-//        settings.put(Environment.USER,"postgres");
-//        settings.put(Environment.PASS,"admin");
-//        settings.put(Environment.DIALECT,"org.hibernate.dialect.PostgreSQL9Dialect");
-//
-//        registryBuilder.applySettings(settings);
 
         registry = registryBuilder.build();
 
