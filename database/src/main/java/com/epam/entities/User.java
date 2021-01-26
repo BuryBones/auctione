@@ -2,6 +2,7 @@ package main.java.com.epam.entities;
 
 import java.util.List;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -36,20 +37,20 @@ public class User {
   @Column(name = "password")
   private String password;
 
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
   @JoinTable(
       name = "user_role",
       joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
   private Set<Role> userRoles;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "user",cascade = CascadeType.ALL)
   private Set<Item> items;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "user",cascade = CascadeType.ALL)
   private Set<Deal> deals;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "user",cascade = CascadeType.ALL)
   private Set<Bid> bids;
 
   public User() {
@@ -115,37 +116,13 @@ public class User {
     if (getId() != user.getId()) {
       return false;
     }
-    if (!getLogin().equals(user.getLogin())) {
-      return false;
-    }
-    if (!getFirstName().equals(user.getFirstName())) {
-      return false;
-    }
-    if (!getLastName().equals(user.getLastName())) {
-      return false;
-    }
-    if (!getPassword().equals(user.getPassword())) {
-      return false;
-    }
-    if (getUserRoles() != null ? !getUserRoles().equals(user.getUserRoles())
-        : user.getUserRoles() != null) {
-      return false;
-    }
-    if (getItems() != null ? !getItems().equals(user.getItems()) : user.getItems() != null) {
-      return false;
-    }
-    if (getDeals() != null ? !getDeals().equals(user.getDeals()) : user.getDeals() != null) {
-      return false;
-    }
-    return getBids() != null ? getBids().equals(user.getBids()) : user.getBids() == null;
+    return getLogin().equals(user.getLogin());
   }
 
   @Override
   public int hashCode() {
     int result = getId();
     result = 31 * result + getLogin().hashCode();
-    result = 31 * result + getFirstName().hashCode();
-    result = 31 * result + getLastName().hashCode();
     return result;
   }
 

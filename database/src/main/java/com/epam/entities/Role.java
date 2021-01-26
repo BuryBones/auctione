@@ -1,6 +1,7 @@
 package main.java.com.epam.entities;
 
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ public class Role {
   @Column(name = "role_name")
   private String roleName;
 
-  @ManyToMany(mappedBy = "userRoles")
+  @ManyToMany(mappedBy = "userRoles",cascade = CascadeType.ALL)
   private Set<User> users;
 
   public Role() {}
@@ -57,9 +58,7 @@ public class Role {
 
   @Override
   public int hashCode() {
-    int result = getId();
-    result = 31 * result + getRoleName().hashCode();
-    return result;
+    return getId();
   }
 
   public int getId() {

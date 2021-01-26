@@ -2,6 +2,7 @@ package main.java.com.epam.entities;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,11 +27,11 @@ public class Bid {
   @Column(name = "offer")
   private BigDecimal offer;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id")
   private User user;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
   @JoinColumn(name = "deal_id")
   private Deal deal;
 
@@ -58,13 +59,7 @@ public class Bid {
     if (!getDateAndTime().equals(bid.getDateAndTime())) {
       return false;
     }
-    if (!getOffer().equals(bid.getOffer())) {
-      return false;
-    }
-    if (!getUser().equals(bid.getUser())) {
-      return false;
-    }
-    return getDeal().equals(bid.getDeal());
+    return getOffer().equals(bid.getOffer());
   }
 
   @Override
@@ -72,8 +67,6 @@ public class Bid {
     int result = getId();
     result = 31 * result + getDateAndTime().hashCode();
     result = 31 * result + getOffer().hashCode();
-    result = 31 * result + getUser().hashCode();
-    result = 31 * result + getDeal().hashCode();
     return result;
   }
 

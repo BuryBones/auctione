@@ -1,6 +1,7 @@
 package main.java.com.epam.entities;
 
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,11 +27,11 @@ public class Item {
   @Column(name = "descript")
   private String descript;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id")
   private User user;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "item",cascade = CascadeType.ALL)
   private Set<Deal> deals;
 
   public Item() {}
@@ -65,21 +66,12 @@ public class Item {
     if (getId() != item.getId()) {
       return false;
     }
-    if (!getName().equals(item.getName())) {
-      return false;
-    }
-    if (!getDescript().equals(item.getDescript())) {
-      return false;
-    }
-    return getUser().equals(item.getUser());
+    return getName().equals(item.getName());
   }
 
   @Override
   public int hashCode() {
-    int result = getId();
-    result = 31 * result + getName().hashCode();
-    result = 31 * result + getDescript().hashCode();
-    return result;
+    return getId();
   }
 
   public int getId() {

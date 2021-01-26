@@ -3,6 +3,7 @@ package main.java.com.epam.entities;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,15 +35,15 @@ public class Deal {
   @Column(name = "status")
   private boolean status;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "user_id")
   private User user;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "item_id")
   private Item item;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "deal")
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "deal",cascade = CascadeType.ALL)
   private Set<Bid> bids;
 
   public Deal() {}
@@ -77,25 +78,10 @@ public class Deal {
     if (getId() != deal.getId()) {
       return false;
     }
-    if (getStatus() != deal.getStatus()) {
-      return false;
-    }
     if (!getInitPrice().equals(deal.getInitPrice())) {
       return false;
     }
-    if (!getOpenTime().equals(deal.getOpenTime())) {
-      return false;
-    }
-    if (!getCloseTime().equals(deal.getCloseTime())) {
-      return false;
-    }
-    if (!getUser().equals(deal.getUser())) {
-      return false;
-    }
-    if (!getItem().equals(deal.getItem())) {
-      return false;
-    }
-    return getBids() != null ? getBids().equals(deal.getBids()) : deal.getBids() == null;
+    return getOpenTime().equals(deal.getOpenTime());
   }
 
   @Override
@@ -103,10 +89,6 @@ public class Deal {
     int result = getId();
     result = 31 * result + getInitPrice().hashCode();
     result = 31 * result + getOpenTime().hashCode();
-    result = 31 * result + getCloseTime().hashCode();
-    result = 31 * result + (getStatus() ? 1 : 0);
-    result = 31 * result + getUser().hashCode();
-    result = 31 * result + getItem().hashCode();
     return result;
   }
 
