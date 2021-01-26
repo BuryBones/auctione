@@ -1,9 +1,10 @@
 package main.java.com.epam.dao;
 
+import java.util.Optional;
 import main.java.com.epam.entities.Role;
 
 public interface RoleDao extends CommonDao<Role> {
 
-  Role getRoleByName(String name);
+  Optional<Role> getRoleByName(String name);
 
 }

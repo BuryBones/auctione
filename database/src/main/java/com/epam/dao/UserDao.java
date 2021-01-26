@@ -1,9 +1,10 @@
 package main.java.com.epam.dao;
 
+import java.util.Optional;
 import main.java.com.epam.entities.User;
 
 public interface UserDao extends CommonDao<User> {
 
-  User getUserByLogin(String login);
+  Optional<User> getUserByLogin(String login);
 
 }

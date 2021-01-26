@@ -45,6 +45,8 @@ public class DealDaoImpl extends GenericDaoImpl<Deal> implements DealDao {
 
     Query<Deal> query = session.createQuery(criteriaQuery);
     List<Deal> result = query.getResultList();
+
+    session.close();
     return result;
   }
 

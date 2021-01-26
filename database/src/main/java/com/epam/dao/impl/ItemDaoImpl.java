@@ -1,6 +1,7 @@
 package main.java.com.epam.dao.impl;
 
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -16,7 +17,7 @@ public class ItemDaoImpl extends GenericDaoImpl<Item> implements ItemDao {
     super(Item.class);
   }
 
-  public Item getItemByName(String name) {
+  public Optional<Item> getItemByName(String name) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
     CriteriaQuery<Item> criteriaQuery = criteriaBuilder.createQuery(Item.class);
@@ -29,7 +30,7 @@ public class ItemDaoImpl extends GenericDaoImpl<Item> implements ItemDao {
     List<Item> result = query.getResultList();
 
     session.close();
-    return result.get(0);
+    return result.isEmpty() ? Optional.empty() : Optional.ofNullable(result.get(0));
   }
 
 }

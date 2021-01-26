@@ -1,6 +1,7 @@
 package main.java.com.epam.dao.impl;
 
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.criteria.CriteriaQuery;
 import main.java.com.epam.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -20,11 +21,11 @@ public class GenericDaoImpl<T> {
     type = clazz;
   }
 
-  public T findById(int id) {
+  public Optional<T> findById(int id) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     T result = session.get(type,id);
     session.close();
-    return result;
+    return Optional.ofNullable(result);
   }
 
   public List<T> findAll() {
