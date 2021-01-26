@@ -47,6 +47,16 @@ public class Deal {
 
   public Deal() {}
 
+  public void addBid(Bid bid) {
+    getBids().add(bid);
+    bid.setDeal(this);
+  }
+
+  public void removeBid(Bid bid) {
+    getBids().remove(bid);
+    bid.setDeal(null);
+  }
+
   @Override
   public String toString() {
     return String.format("Deal ID: %d, from %s till %s%n start price %s, Open: %b",

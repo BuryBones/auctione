@@ -25,6 +25,14 @@ public class Role {
 
   public Role() {}
 
+  public void addUser(User user) {
+    user.addRole(this);
+  }
+
+  public void removeUser(User user) {
+    user.removeRole(this);
+  }
+
   @Override
   public String toString() {
     return String.format("Role ID: %d, %s",getId(),getRoleName());

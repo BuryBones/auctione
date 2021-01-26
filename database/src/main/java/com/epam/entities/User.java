@@ -36,7 +36,7 @@ public class User {
   @Column(name = "password")
   private String password;
 
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
       name = "user_role",
       joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -55,15 +55,45 @@ public class User {
   public User() {
   }
 
-//  public void addOffice(Office office) {
-//    getOffices().add(office);
-//    office.setOrganization(this);
-//  }
-//
-//  public void removeOffice(Office office) {
-//    getOffices().remove(office);
-//    office.setOrganization(null);
-//  }
+  public void addRole(Role role) {
+    getUserRoles().add(role);
+    role.getUsers().add(this);
+  }
+
+  public void removeRole(Role role) {
+    getUserRoles().remove(role);
+    role.getUsers().remove(this);
+  }
+
+  public void addItem(Item item) {
+    getItems().add(item);
+    item.setUser(this);
+  }
+
+  public void removeItem(Item item) {
+    getItems().remove(item);
+    item.setUser(null);
+  }
+
+  public void addDeal(Deal deal) {
+    getDeals().add(deal);
+    deal.setUser(this);
+  }
+
+  public void removeDeal(Deal deal) {
+    getDeals().remove(deal);
+    deal.setUser(null);
+  }
+
+  public void addBid(Bid bid) {
+    getBids().add(bid);
+    bid.setUser(this);
+  }
+
+  public void removeBid(Bid bid) {
+    getBids().remove(bid);
+    bid.setUser(null);
+  }
 
   @Override
   public String toString() {

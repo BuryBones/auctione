@@ -1,6 +1,5 @@
 package main.java.com.epam.entities;
 
-import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +33,16 @@ public class Item {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
   private Set<Deal> deals;
 
-  public Item() {
+  public Item() {}
+
+  public void addDeal(Deal deal) {
+    getDeals().add(deal);
+    deal.setItem(this);
+  }
+
+  public void removeDeal(Deal deal) {
+    getDeals().remove(deal);
+    deal.setItem(null);
   }
 
   @Override

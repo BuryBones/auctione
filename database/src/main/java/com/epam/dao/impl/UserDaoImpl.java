@@ -32,6 +32,5 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
 
     session.close();
     return users.isEmpty() ? Optional.empty() : Optional.ofNullable(users.get(0));
-
   }
 }
