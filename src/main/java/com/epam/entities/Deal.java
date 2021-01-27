@@ -23,24 +23,24 @@ public class Deal {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  @Column(name = "init_price")
+  @Column(name = "init_price", nullable = false)
   private BigDecimal initPrice;
 
-  @Column(name = "open_time")
+  @Column(name = "open_time", nullable = false)
   private Timestamp openTime;
 
-  @Column(name = "close_time")
+  @Column(name = "close_time", nullable = false)
   private Timestamp closeTime;
 
-  @Column(name = "status")
+  @Column(name = "status", nullable = false)
   private boolean status;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
+  @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "item_id")
+  @JoinColumn(name = "item_id", nullable = false)
   private Item item;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "deal",cascade = CascadeType.ALL)

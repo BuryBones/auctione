@@ -21,18 +21,18 @@ public class Bid {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  @Column(name = "date_and_time")
+  @Column(name = "date_and_time", nullable = false)
   private Timestamp dateAndTime;
 
-  @Column(name = "offer")
+  @Column(name = "offer", nullable = false)
   private BigDecimal offer;
 
   @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-  @JoinColumn(name = "user_id")
+  @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
   @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-  @JoinColumn(name = "deal_id")
+  @JoinColumn(name = "deal_id", nullable = false)
   private Deal deal;
 
   public Bid() {}

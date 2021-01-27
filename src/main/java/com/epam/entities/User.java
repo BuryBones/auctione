@@ -24,23 +24,23 @@ public class User {
   private int id;
 
   @NaturalId
-  @Column(name = "login")
+  @Column(name = "login", unique = true, nullable = false)
   private String login;
 
-  @Column(name = "firstname")
+  @Column(name = "firstname", nullable = false)
   private String firstName;
 
-  @Column(name = "lastname")
+  @Column(name = "lastname", nullable = false)
   private String lastName;
 
-  @Column(name = "password")
+  @Column(name = "password", nullable = false)
   private String password;
 
   @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
   @JoinTable(
       name = "user_role",
-      joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-      inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+      joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false),
+      inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false))
   private Set<Role> userRoles;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)

@@ -21,14 +21,14 @@ public class Item {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  @Column(name = "name")
+  @Column(name = "name", nullable = false)
   private String name;
 
-  @Column(name = "descript")
+  @Column(name = "descript", nullable = false)
   private String descript;
 
   @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-  @JoinColumn(name = "user_id")
+  @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "item",cascade = CascadeType.ALL)
