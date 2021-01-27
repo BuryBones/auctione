@@ -35,15 +35,15 @@ public class Deal {
   @Column(name = "status")
   private boolean status;
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
   private User user;
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "item_id")
   private Item item;
 
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "deal",cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "deal",cascade = CascadeType.ALL)
   private Set<Bid> bids;
 
   public Deal() {}

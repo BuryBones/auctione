@@ -27,11 +27,11 @@ public class Item {
   @Column(name = "descript")
   private String descript;
 
-  @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id")
   private User user;
 
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "item",cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "item",cascade = CascadeType.ALL)
   private Set<Deal> deals;
 
   public Item() {}

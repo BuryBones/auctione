@@ -5,6 +5,6 @@ import com.epam.entities.Item;
 
 public interface ItemDao extends CommonDao<Item> {
 
-  Optional<Item> getItemByName(String name);
+  Optional<Item> findByName(String name);
 
 }

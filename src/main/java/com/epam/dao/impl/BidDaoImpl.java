@@ -18,7 +18,7 @@ public class BidDaoImpl extends GenericDaoImpl<Bid> implements BidDao {
   }
 
   @Override
-  public List<Bid> getBidsFromDate(Date dateFrom) {
+  public List<Bid> findFromDate(Date dateFrom) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
     CriteriaQuery<Bid> criteriaQuery = criteriaBuilder.createQuery(Bid.class);

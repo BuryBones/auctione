@@ -5,6 +5,6 @@ import com.epam.entities.Role;
 
 public interface RoleDao extends CommonDao<Role> {
 
-  Optional<Role> getRoleByName(String name);
+  Optional<Role> findByName(String name);
 
 }

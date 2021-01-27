@@ -5,6 +5,6 @@ import com.epam.entities.User;
 
 public interface UserDao extends CommonDao<User> {
 
-  Optional<User> getUserByLogin(String login);
+  Optional<User> findByLogin(String login);
 
 }

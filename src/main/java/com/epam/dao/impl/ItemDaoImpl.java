@@ -17,7 +17,7 @@ public class ItemDaoImpl extends GenericDaoImpl<Item> implements ItemDao {
     super(Item.class);
   }
 
-  public Optional<Item> getItemByName(String name) {
+  public Optional<Item> findByName(String name) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
     CriteriaQuery<Item> criteriaQuery = criteriaBuilder.createQuery(Item.class);

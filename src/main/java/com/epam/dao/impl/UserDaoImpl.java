@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import com.epam.HibernateUtil;
 import com.epam.dao.UserDao;
@@ -18,7 +19,7 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
   }
 
   @Override
-  public Optional<User> getUserByLogin(String login) {
+  public Optional<User> findByLogin(String login) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
     CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);

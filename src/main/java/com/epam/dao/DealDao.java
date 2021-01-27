@@ -6,7 +6,7 @@ import com.epam.entities.Deal;
 
 public interface DealDao extends CommonDao<Deal> {
 
-  List<Deal> getDealsByStatus(boolean status);
-  List<Deal> getDealsFromDate(Date from);
+  List<Deal> findByStatus(boolean status);
+  List<Deal> findFromDate(Date from);
 
 }

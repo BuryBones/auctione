@@ -18,7 +18,7 @@ public class RoleDaoImpl extends GenericDaoImpl<Role> implements RoleDao {
   }
 
   @Override
-  public Optional<Role> getRoleByName(String name) {
+  public Optional<Role> findByName(String name) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
     CriteriaQuery<Role> criteriaQuery = criteriaBuilder.createQuery(Role.class);

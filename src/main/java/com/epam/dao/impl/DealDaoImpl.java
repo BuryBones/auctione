@@ -18,7 +18,7 @@ public class DealDaoImpl extends GenericDaoImpl<Deal> implements DealDao {
   }
 
   @Override
-  public List<Deal> getDealsByStatus(boolean status) {
+  public List<Deal> findByStatus(boolean status) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
     CriteriaQuery<Deal> criteriaQuery = criteriaBuilder.createQuery(Deal.class);
@@ -34,7 +34,7 @@ public class DealDaoImpl extends GenericDaoImpl<Deal> implements DealDao {
   }
 
   @Override
-  public List<Deal> getDealsFromDate(Date dateFrom) {
+  public List<Deal> findFromDate(Date dateFrom) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
     CriteriaQuery<Deal> criteriaQuery = criteriaBuilder.createQuery(Deal.class);
