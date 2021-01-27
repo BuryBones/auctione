@@ -37,7 +37,7 @@ public class User {
   @Column(name = "password", nullable = false)
   private String password;
 
-  @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
       name = "user_role",
       joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false),
