@@ -2,6 +2,7 @@ package com.epam.entities;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,7 +45,7 @@ public class Deal {
   private Item item;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "deal",cascade = CascadeType.ALL)
-  private Set<Bid> bids;
+  private Set<Bid> bids = new HashSet<>();
 
   public Deal() {}
 

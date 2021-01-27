@@ -1,5 +1,6 @@
 package com.epam.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -41,16 +42,16 @@ public class User {
       name = "user_role",
       joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false),
       inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false))
-  private Set<Role> userRoles;
+  private Set<Role> userRoles = new HashSet<>();
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
-  private Set<Item> items;
+  private Set<Item> items = new HashSet<>();
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
-  private Set<Deal> deals;
+  private Set<Deal> deals = new HashSet<>();
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
-  private Set<Bid> bids;
+  private Set<Bid> bids = new HashSet<>();
 
   public User() {
   }

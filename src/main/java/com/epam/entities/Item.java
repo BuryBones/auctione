@@ -1,5 +1,6 @@
 package com.epam.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -32,7 +33,7 @@ public class Item {
   private User user;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "item",cascade = CascadeType.ALL)
-  private Set<Deal> deals;
+  private Set<Deal> deals  = new HashSet<>();
 
   public Item() {}
 

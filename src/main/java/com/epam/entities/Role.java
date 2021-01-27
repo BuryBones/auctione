@@ -1,5 +1,6 @@
 package com.epam.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,7 +23,7 @@ public class Role {
   private String roleName;
 
   @ManyToMany(mappedBy = "userRoles",cascade = CascadeType.ALL)
-  private Set<User> users;
+  private Set<User> users  = new HashSet<>();
 
   public Role() {}
 
