@@ -1,6 +1,5 @@
-package main.java.com.epam.entities;
+package com.epam.entities;
 
-import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

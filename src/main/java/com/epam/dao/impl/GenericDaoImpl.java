@@ -1,10 +1,10 @@
-package main.java.com.epam.dao.impl;
+package com.epam.dao.impl;
 
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.criteria.CriteriaQuery;
-import main.java.com.epam.HibernateUtil;
-import main.java.com.epam.dao.CommonDao;
+import com.epam.HibernateUtil;
+import com.epam.dao.CommonDao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

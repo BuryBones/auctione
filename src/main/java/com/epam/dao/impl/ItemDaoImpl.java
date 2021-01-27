@@ -1,13 +1,13 @@
-package main.java.com.epam.dao.impl;
+package com.epam.dao.impl;
 
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import main.java.com.epam.HibernateUtil;
-import main.java.com.epam.dao.ItemDao;
-import main.java.com.epam.entities.Item;
+import com.epam.HibernateUtil;
+import com.epam.dao.ItemDao;
+import com.epam.entities.Item;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 

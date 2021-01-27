@@ -1,4 +1,4 @@
-package main.java.com.epam.entities;
+package com.epam.entities;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

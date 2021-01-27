@@ -1,4 +1,4 @@
-package main.java.com.epam.dao;
+package com.epam.dao;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,7 +1,7 @@
-package main.java.com.epam.dao;
+package com.epam.dao;
 
 import java.util.Optional;
-import main.java.com.epam.entities.User;
+import com.epam.entities.User;
 
 public interface UserDao extends CommonDao<User> {
 

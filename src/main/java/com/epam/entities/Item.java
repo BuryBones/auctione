@@ -1,4 +1,4 @@
-package main.java.com.epam.entities;
+package com.epam.entities;
 
 import java.util.Set;
 import javax.persistence.CascadeType;

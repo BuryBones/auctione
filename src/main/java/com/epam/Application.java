@@ -1,13 +1,13 @@
-package main.java.com.epam;
+package com.epam;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
-import main.java.com.epam.dao.*;
-import main.java.com.epam.dao.impl.*;
-import main.java.com.epam.entities.*;
+import com.epam.dao.*;
+import com.epam.dao.impl.*;
+import com.epam.entities.*;
 
 public class Application {
 

@@ -1,10 +1,10 @@
-package main.java.com.epam;
+package com.epam;
 
-import main.java.com.epam.entities.Bid;
-import main.java.com.epam.entities.Deal;
-import main.java.com.epam.entities.Item;
-import main.java.com.epam.entities.Role;
-import main.java.com.epam.entities.User;
+import com.epam.entities.Bid;
+import com.epam.entities.Deal;
+import com.epam.entities.Item;
+import com.epam.entities.Role;
+import com.epam.entities.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;

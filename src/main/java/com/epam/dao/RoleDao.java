@@ -1,7 +1,7 @@
-package main.java.com.epam.dao;
+package com.epam.dao;
 
 import java.util.Optional;
-import main.java.com.epam.entities.Role;
+import com.epam.entities.Role;
 
 public interface RoleDao extends CommonDao<Role> {
 
