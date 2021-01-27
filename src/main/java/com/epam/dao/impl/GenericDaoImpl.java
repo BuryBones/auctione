@@ -1,13 +1,18 @@
 package com.epam.dao.impl;
 
+import com.epam.entities.Item;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import com.epam.HibernateUtil;
 import com.epam.dao.CommonDao;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 public class GenericDaoImpl<T> implements CommonDao<T> {
 
@@ -27,6 +32,28 @@ public class GenericDaoImpl<T> implements CommonDao<T> {
     T result = session.get(type,id);
     session.close();
     return Optional.ofNullable(result);
+  }
+
+  public Optional<T> findByIdWithFields(int id, String... fields) {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+    CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(type);
+
+    Root<T> root = criteriaQuery.from(type);
+    if (fields.length > 0) {
+      for (String field: fields) {
+        root.fetch(field, JoinType.LEFT);
+      }
+    }
+
+    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("id"), id));
+
+    Query<T> query = session.createQuery(criteriaQuery);
+    query.setMaxResults(1);
+    List<T> result = query.getResultList();
+
+    session.close();
+    return result.isEmpty() ? Optional.empty() : Optional.ofNullable(result.get(0));
   }
 
   public List<T> findAll() {
