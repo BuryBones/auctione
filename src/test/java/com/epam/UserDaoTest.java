@@ -40,7 +40,7 @@ public class UserDaoTest {
   public void saveUserTest() {
     // given
     User expected = new User();
-    expected.setLogin("test_login");
+    expected.setLogin("test_login1");
     expected.setPassword("test_password");
     expected.setFirstName("Test");
     expected.setLastName("Testing");
@@ -50,17 +50,22 @@ public class UserDaoTest {
 
     // when
     userDao.save(expected);
-    User actual = userDao.findByLogin("test_login").get();
+//    userDao.refresh(expected);
+    User actual = userDao.findByLogin("test_login1").get();
 
     // then
     assertEquals(expected,actual);
+
+    // cleanup
+    userDao.delete(expected);
+
   }
 
   @Test
   public void deleteUserTest() {
     // given
     User testUser = new User();
-    testUser.setLogin("test_login");
+    testUser.setLogin("test_login2");
     testUser.setPassword("test_password");
     testUser.setFirstName("Test");
     testUser.setLastName("Testing");
@@ -69,13 +74,13 @@ public class UserDaoTest {
     testUser.getUserRoles().add(role);
 
     userDao.save(testUser);
-    assertTrue(userDao.findByLogin("test_login").isPresent());
+    assertTrue(userDao.findByLogin("test_login2").isPresent());
 
     // when
     userDao.delete(testUser);
 
     // then
-    assertTrue(userDao.findByLogin("test_login").isEmpty());
+    assertTrue(userDao.findByLogin("test_login2").isEmpty());
   }
 
   @Test
