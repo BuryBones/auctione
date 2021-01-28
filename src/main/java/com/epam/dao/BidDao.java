@@ -6,6 +6,10 @@ import com.epam.entities.Bid;
 
 public interface BidDao extends CommonDao<Bid> {
 
+  default Class<Bid> getType() {
+    return Bid.class;
+  }
+
   List<Bid> findFromDate(Date from);
 
 }

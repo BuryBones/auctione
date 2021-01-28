@@ -11,11 +11,7 @@ import com.epam.entities.Bid;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-public class BidDaoImpl extends GenericDaoImpl<Bid> implements BidDao {
-
-  public BidDaoImpl() {
-    super(Bid.class);
-  }
+public class BidDaoImpl implements BidDao {
 
   @Override
   public List<Bid> findFromDate(Date dateFrom) {

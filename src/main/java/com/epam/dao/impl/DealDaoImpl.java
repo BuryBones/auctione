@@ -11,11 +11,7 @@ import com.epam.entities.Deal;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-public class DealDaoImpl extends GenericDaoImpl<Deal> implements DealDao {
-
-  public DealDaoImpl() {
-    super(Deal.class);
-  }
+public class DealDaoImpl implements DealDao {
 
   @Override
   public List<Deal> findByStatus(boolean status) {

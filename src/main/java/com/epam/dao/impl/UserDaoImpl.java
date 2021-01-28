@@ -11,11 +11,7 @@ import com.epam.entities.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
-
-  public UserDaoImpl() {
-    super(User.class);
-  }
+public class UserDaoImpl implements UserDao {
 
   @Override
   public Optional<User> findByLogin(String login) {

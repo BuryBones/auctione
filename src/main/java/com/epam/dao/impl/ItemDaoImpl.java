@@ -11,11 +11,7 @@ import com.epam.entities.Item;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-public class ItemDaoImpl extends GenericDaoImpl<Item> implements ItemDao {
-
-  public ItemDaoImpl() {
-    super(Item.class);
-  }
+public class ItemDaoImpl implements ItemDao {
 
   public Optional<Item> findByName(String name) {
     Session session = HibernateUtil.getSessionFactory().openSession();

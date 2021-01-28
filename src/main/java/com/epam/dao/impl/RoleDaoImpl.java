@@ -11,11 +11,7 @@ import com.epam.entities.Role;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-public class RoleDaoImpl extends GenericDaoImpl<Role> implements RoleDao {
-
-  public RoleDaoImpl() {
-    super(Role.class);
-  }
+public class RoleDaoImpl implements RoleDao {
 
   @Override
   public Optional<Role> findByName(String name) {
