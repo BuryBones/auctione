@@ -5,6 +5,8 @@ import com.epam.entities.Deal;
 import com.epam.entities.Item;
 import com.epam.entities.Role;
 import com.epam.entities.User;
+import com.epam.entities.User_;
+import javax.persistence.EntityManager;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
@@ -16,6 +18,10 @@ public class HibernateUtil {
 
   private static StandardServiceRegistry registry;
   private static SessionFactory sessionFactory;
+
+  public static void init() {
+    EntityManager em = getSessionFactory().createEntityManager();
+  }
 
   public static SessionFactory getSessionFactory() {
     if (sessionFactory == null) {
@@ -47,4 +53,5 @@ public class HibernateUtil {
       StandardServiceRegistryBuilder.destroy(registry);
     }
   }
+
 }
