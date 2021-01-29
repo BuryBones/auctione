@@ -2,22 +2,34 @@ package com.epam;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.epam.dao.ItemDao;
+import com.epam.dao.RoleDao;
 import com.epam.dao.UserDao;
+import com.epam.dao.impl.ItemDaoImpl;
 import com.epam.dao.impl.RoleDaoImpl;
 import com.epam.dao.impl.UserDaoImpl;
+import com.epam.entities.Item;
 import com.epam.entities.Role;
 import com.epam.entities.User;
+import com.epam.entities.User_;
+import java.util.List;
 import java.util.Optional;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class UserDaoTest {
 
   private static UserDao userDao;
+  private static ItemDao itemDao;
+  private static RoleDao roleDao;
 
   @BeforeAll
   public static void setup() {
+    HibernateUtil.init();
     userDao = new UserDaoImpl();
+    itemDao = new ItemDaoImpl();
+    roleDao = new RoleDaoImpl();
   }
 
   @Test
@@ -37,6 +49,16 @@ public class UserDaoTest {
   }
 
   @Test
+  public void findAllTest() {
+    // when
+    List<User> allUsers = userDao.findAll();
+
+    // then
+    assertEquals(allUsers.size(), 8);
+    allUsers.forEach(Assertions::assertNotNull);
+  }
+
+  @Test
   public void saveUserTest() {
     // given
     User expected = new User();
@@ -45,13 +67,22 @@ public class UserDaoTest {
     expected.setFirstName("Test");
     expected.setLastName("Testing");
 
-    Role role = new RoleDaoImpl().findById(1).get();
-    expected.getUserRoles().add(role);
+    Optional<Role> optionalRole = roleDao.findById(1);
+    if (optionalRole.isPresent()) {
+      expected.getUserRoles().add(optionalRole.get());
+    } else {
+      fail();
+    }
 
     // when
     userDao.save(expected);
-//    userDao.refresh(expected);
-    User actual = userDao.findByLogin("test_login1").get();
+    User actual = null;
+    Optional<User> optionalUser = userDao.findByLogin("test_login1");
+    if (optionalUser.isPresent()) {
+      actual = optionalUser.get();
+    } else {
+      fail();
+    }
 
     // then
     assertEquals(expected,actual);
@@ -59,6 +90,41 @@ public class UserDaoTest {
     // cleanup
     userDao.delete(expected);
 
+  }
+
+  @Test
+  public void updateUserTest() {
+    // given
+    User user = null;
+    Optional<User> optionalUser = userDao.findByIdWithAttributes(8, User_.items);
+    if (optionalUser.isPresent()) {
+      user = optionalUser.get();
+    } else {
+      fail();
+    }
+
+    Item item = new Item();
+    item.setUser(user);
+    item.setName("Test Item");
+    item.setDescript("Testing");
+
+    // when
+    user.addItem(item);
+    itemDao.save(item);
+    itemDao.refresh(item);
+    userDao.update(user);
+
+    // then
+    optionalUser = userDao.findByIdWithAttributes(8, User_.items);
+    if (optionalUser.isPresent()) {
+      user = optionalUser.get();
+    } else {
+      fail();
+    }
+    assertTrue(user.getItems().contains(item));
+
+    // cleanup
+    itemDao.delete(item);
   }
 
   @Test
@@ -70,8 +136,12 @@ public class UserDaoTest {
     testUser.setFirstName("Test");
     testUser.setLastName("Testing");
 
-    Role role = new RoleDaoImpl().findById(1).get();
-    testUser.getUserRoles().add(role);
+    Optional<Role> optionalRole = roleDao.findById(1);
+    if (optionalRole.isPresent()) {
+      testUser.getUserRoles().add(optionalRole.get());
+    } else {
+      fail();
+    }
 
     userDao.save(testUser);
     assertTrue(userDao.findByLogin("test_login2").isPresent());
@@ -84,12 +154,28 @@ public class UserDaoTest {
   }
 
   @Test
-  public void updateUserTest() {
+  public void findByIdWithAttributesUserTest() {
+    // when
+    Optional<User> optionalUser = userDao.findByIdWithAttributes(
+        7, User_.items, User_.deals, User_.userRoles);
 
+    // then
+    assertTrue(optionalUser.isPresent());
+    User user = optionalUser.get();
+    assertNotNull(user);
+    assertFalse(user.getUserRoles().isEmpty());
+    assertFalse(user.getDeals().isEmpty());
+    assertFalse(user.getItems().isEmpty());
   }
 
   @Test
-  public void findAllTest() {
+  public void findByLoginTest() {
+    // when
+    Optional<User> optionalUser = userDao.findByLogin("alex777");
 
+    // then
+    assertTrue(optionalUser.isPresent());
+    assertNotNull(optionalUser.get());
   }
+
 }

@@ -28,7 +28,7 @@ public class Item {
   @Column(name = "descript", nullable = false)
   private String descript;
 
-  @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
