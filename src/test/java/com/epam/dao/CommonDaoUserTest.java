@@ -1,4 +1,4 @@
-package com.epam;
+package com.epam.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -6,17 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.epam.dao.BidDao;
-import com.epam.dao.DealDao;
-import com.epam.dao.ItemDao;
-import com.epam.dao.RoleDao;
-import com.epam.dao.UserDao;
-import com.epam.dao.impl.BidDaoImpl;
-import com.epam.dao.impl.DealDaoImpl;
-import com.epam.dao.impl.ItemDaoImpl;
+import com.epam.HibernateUtil;
 import com.epam.dao.impl.RoleDaoImpl;
 import com.epam.dao.impl.UserDaoImpl;
-import com.epam.entities.Item;
 import com.epam.entities.Role;
 import com.epam.entities.User;
 import com.epam.entities.User_;
@@ -26,30 +18,24 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class CommonDaoTest {
+public class CommonDaoUserTest {
 
   private static UserDao userDao;
-  private static ItemDao itemDao;
   private static RoleDao roleDao;
-  private static DealDao dealDao;
-  private static BidDao bidDao;
 
   @BeforeAll
   private static void setup() {
     HibernateUtil.init();
     userDao = new UserDaoImpl();
-    itemDao = new ItemDaoImpl();
     roleDao = new RoleDaoImpl();
-    dealDao = new DealDaoImpl();
-    bidDao = new BidDaoImpl();
   }
 
   @Test
-  public void findByIdTest() {
+  public void findByIdUserTest() {
     // given
     User expected = new User();
     expected.setId(1);
-    expected.setLogin("ivan1990");
+    expected.setLogin("test1");
 
     // when
     Optional<User> optionalUser = userDao.findById(1);
@@ -61,7 +47,7 @@ public class CommonDaoTest {
   }
 
   @Test
-  public void findAllTest() {
+  public void findAllUserTest() {
     // when
     List<User> allUsers = userDao.findAll();
 
@@ -88,6 +74,7 @@ public class CommonDaoTest {
 
     // when
     userDao.save(expected);
+    userDao.refresh(expected);
     User actual = null;
     Optional<User> optionalUser = userDao.findByLogin("test_login1");
     if (optionalUser.isPresent()) {
@@ -101,49 +88,39 @@ public class CommonDaoTest {
 
     // cleanup
     userDao.delete(expected);
-
   }
 
   @Test
   public void updateUserTest() {
     // given
-    User user = null;
-    Optional<User> optionalUser = userDao.findByIdWithAttributes(8, User_.items);
+    Optional<User> optionalUser = userDao.findById(1);
+    User expected = null;
     if (optionalUser.isPresent()) {
-      user = optionalUser.get();
+      expected = optionalUser.get();
     } else {
       fail();
     }
-
-    Item item = new Item();
-    item.setUser(user);
-    item.setName("Test Item");
-    item.setDescript("Testing");
 
     // when
-    user.addItem(item);
-    itemDao.save(item);
-    itemDao.refresh(item);
-    userDao.update(user);
+    expected.setFirstName("CHANGED");
+    userDao.update(expected);
+    Optional<User> actual = userDao.findById(1);
 
     // then
-    optionalUser = userDao.findByIdWithAttributes(8, User_.items);
-    if (optionalUser.isPresent()) {
-      user = optionalUser.get();
-    } else {
-      fail();
-    }
-    assertTrue(user.getItems().contains(item));
+    assertTrue(actual.isPresent());
+    assertNotNull(actual.get());
+    assertEquals(expected,actual.get());
 
     // cleanup
-    itemDao.delete(item);
+    expected.setFirstName("TEST 1 FIRST");
+    userDao.update(expected);
   }
 
   @Test
   public void deleteUserTest() {
     // given
     User testUser = new User();
-    testUser.setLogin("test_login2");
+    testUser.setLogin("TO DELETE");
     testUser.setPassword("test_password");
     testUser.setFirstName("Test");
     testUser.setLastName("Testing");
@@ -156,20 +133,20 @@ public class CommonDaoTest {
     }
 
     userDao.save(testUser);
-    assertTrue(userDao.findByLogin("test_login2").isPresent());
+    assertTrue(userDao.findByLogin("TO DELETE").isPresent());
 
     // when
     userDao.delete(testUser);
 
     // then
-    assertTrue(userDao.findByLogin("test_login2").isEmpty());
+    assertTrue(userDao.findByLogin("TO DELETE").isEmpty());
   }
 
   @Test
   public void findByIdWithAttributesUserTest() {
     // when
     Optional<User> optionalUser = userDao.findByIdWithAttributes(
-        7, User_.items, User_.deals, User_.userRoles);
+        2, User_.items, User_.deals, User_.userRoles);
 
     // then
     assertTrue(optionalUser.isPresent());
@@ -179,5 +156,4 @@ public class CommonDaoTest {
     assertFalse(user.getDeals().isEmpty());
     assertFalse(user.getItems().isEmpty());
   }
-
 }

@@ -1,7 +1,8 @@
-package com.epam;
+package com.epam.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.epam.HibernateUtil;
 import com.epam.dao.DealDao;
 import com.epam.dao.impl.DealDaoImpl;
 import com.epam.entities.Deal;
@@ -23,9 +24,21 @@ public class DealDaoTest {
   }
 
   @Test
-  public void findByStatusTest() {
+  public void findByStatusOpenTest() {
     // when
+    List<Deal> openDeals = dealDao.findByStatus(true);
 
+    // then
+    openDeals.forEach(deal -> assertTrue(deal.getStatus()));
+  }
+
+  @Test
+  public void findByStatusClosedTest() {
+    // when
+    List<Deal> closedDeals = dealDao.findByStatus(false);
+
+    // then
+    closedDeals.forEach(deal -> assertFalse(deal.getStatus()));
   }
 
   @Test

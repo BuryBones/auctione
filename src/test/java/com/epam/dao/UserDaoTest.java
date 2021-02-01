@@ -1,7 +1,8 @@
-package com.epam;
+package com.epam.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.epam.HibernateUtil;
 import com.epam.dao.UserDao;
 import com.epam.dao.impl.UserDaoImpl;
 import com.epam.entities.User;
@@ -22,7 +23,7 @@ public class UserDaoTest {
   @Test
   public void findByLoginSuccessTest() {
     // when
-    Optional<User> optionalUser = userDao.findByLogin("alex777");
+    Optional<User> optionalUser = userDao.findByLogin("test1");
 
     // then
     assertTrue(optionalUser.isPresent());

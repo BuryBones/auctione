@@ -99,7 +99,8 @@ public class User {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    return String.format("User ID: %d, %s %s%n", getId(), getLastName(), getFirstName());
+    return String.format("User ID: %d, Login: %s, %s %s%n",
+        getId(), getLogin(), getLastName(), getFirstName());
   }
 
   @Override
