@@ -1,8 +1,9 @@
-CREATE DATABASE online_marketplace
-    WITH
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    CONNECTION LIMIT = -1;
+CREATE TABLE role (
+	id SERIAL,
+	role_name VARCHAR(45) NOT NULL,
+	PRIMARY KEY (id),
+	CONSTRAINT unique_role UNIQUE(role_name)
+);
 
 CREATE TABLE "user" (
 	id SERIAL,
@@ -14,18 +15,20 @@ CREATE TABLE "user" (
 	CONSTRAINT unique_login UNIQUE(login)
 );
 
+CREATE TABLE user_role (
+	user_id INT NOT NULL,
+	role_id INT NOT NULL DEFAULT 2,
+	FOREIGN KEY (user_id) REFERENCES "user"(id),
+	FOREIGN KEY (role_id) REFERENCES role(id)
+);
+
 CREATE TABLE item (
 	id SERIAL,
 	name VARCHAR(45) NOT NULL,
 	descript VARCHAR(300) NOT NULL DEFAULT ('No description'),
-	PRIMARY KEY (id)
-);
-
-CREATE TABLE user_item (
 	user_id INT NOT NULL,
-	item_id INT NOT NULL,
-	FOREIGN KEY (user_id) REFERENCES "user"(id),
-	FOREIGN KEY (item_id) REFERENCES item(id)
+	PRIMARY KEY (id),
+	FOREIGN KEY (user_id) REFERENCES "user"(id)
 );
 
 CREATE TABLE deal (
@@ -34,6 +37,7 @@ CREATE TABLE deal (
 	item_id INT NOT NULL,
 	init_price NUMERIC NOT NULL,
 	open_time TIMESTAMP NOT NULL DEFAULT(NOW()),
+	close_time TIMESTAMP NOT NULL DEFAULT(NOW() + INTERVAL '5 DAY'),
 	status BOOLEAN NOT NULL DEFAULT(TRUE),
 	PRIMARY KEY (id),
 	FOREIGN KEY (user_id) REFERENCES "user"(id),
