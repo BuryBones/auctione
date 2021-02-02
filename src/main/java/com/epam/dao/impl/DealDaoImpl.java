@@ -1,5 +1,6 @@
 package com.epam.dao.impl;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -30,7 +31,7 @@ public class DealDaoImpl implements DealDao {
   }
 
   @Override
-  public List<Deal> findFromDate(Date dateFrom) {
+  public List<Deal> findFromDate(LocalDateTime dateFrom) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
     CriteriaQuery<Deal> criteriaQuery = criteriaBuilder.createQuery(Deal.class);

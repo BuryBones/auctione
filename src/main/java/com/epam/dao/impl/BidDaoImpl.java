@@ -1,5 +1,6 @@
 package com.epam.dao.impl;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -14,7 +15,7 @@ import org.hibernate.query.Query;
 public class BidDaoImpl implements BidDao {
 
   @Override
-  public List<Bid> findFromDate(Date dateFrom) {
+  public List<Bid> findFromDate(LocalDateTime dateFrom) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
     CriteriaQuery<Bid> criteriaQuery = criteriaBuilder.createQuery(Bid.class);

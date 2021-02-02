@@ -6,6 +6,7 @@ import com.epam.HibernateUtil;
 import com.epam.dao.DealDao;
 import com.epam.dao.impl.DealDaoImpl;
 import com.epam.entities.Deal;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -44,15 +45,15 @@ public class DealDaoTest {
   @Test
   public void findFromDateTest() {
     // when
-    Date date = new Date(121,Calendar.JANUARY,2);
+    LocalDateTime date = LocalDateTime.of(2021,1,2,0,0);
     List<Deal> listOfExpected = dealDao.findFromDate(date);
     List<Deal> listOfAll = dealDao.findAll();
 
     // then
     assertTrue(listOfAll.stream()                             // check if there any deal before
-        .anyMatch(deal -> deal.getOpenTime().before(date))); // the date among all deals
+        .anyMatch(deal -> deal.getOpenTime().isBefore(date))); // the date among all deals
     listOfExpected.forEach(Assertions::assertNotNull);
-    listOfExpected.forEach(deal -> assertTrue(deal.getOpenTime().after(date)));
+    listOfExpected.forEach(deal -> assertTrue(deal.getOpenTime().isAfter(date)));
   }
 
 }

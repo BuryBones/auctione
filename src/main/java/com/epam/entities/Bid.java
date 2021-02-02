@@ -2,7 +2,7 @@ package com.epam.entities;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import javax.persistence.CascadeType;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,7 +22,7 @@ public class Bid {
   private int id;
 
   @Column(name = "date_and_time", nullable = false)
-  private Timestamp dateAndTime;
+  private LocalDateTime dateAndTime;
 
   @Column(name = "offer", nullable = false)
   private BigDecimal offer;
@@ -78,11 +78,11 @@ public class Bid {
     this.id = id;
   }
 
-  public Timestamp getDateAndTime() {
+  public LocalDateTime getDateAndTime() {
     return dateAndTime;
   }
 
-  public void setDateAndTime(Timestamp dateAndTime) {
+  public void setDateAndTime(LocalDateTime dateAndTime) {
     this.dateAndTime = dateAndTime;
   }
 

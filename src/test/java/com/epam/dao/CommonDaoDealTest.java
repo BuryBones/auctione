@@ -16,6 +16,7 @@ import com.epam.entities.Item;
 import com.epam.entities.User;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -44,7 +45,7 @@ public class CommonDaoDealTest {
     Deal expected = new Deal();
     expected.setId(5);
     expected.setInitPrice(new BigDecimal(20000));
-    expected.setOpenTime(new Timestamp(new Date(121, Calendar.JANUARY,1).getTime()));
+    expected.setOpenTime(LocalDateTime.of(2021,1,1,0,0));
 
     // when
     Optional<Deal> optionalDeal = dealDao.findById(5);
@@ -69,9 +70,9 @@ public class CommonDaoDealTest {
   public void saveDealTest() {
     // given
     Deal expected = new Deal();
-    expected.setOpenTime(new Timestamp(new Date().getTime()));
+    expected.setOpenTime(LocalDateTime.now());
     expected.setInitPrice(new BigDecimal(100000));
-    expected.setCloseTime(new Timestamp(new Date().getTime() + 60000));
+    expected.setCloseTime(LocalDateTime.now().plusSeconds(60));
     expected.setStatus(true);
 
     Optional<User> optionalUser = userDao.findById(1);
@@ -138,8 +139,8 @@ public class CommonDaoDealTest {
     // given
     Deal testDeal = new Deal();
     testDeal.setStatus(true);
-    testDeal.setOpenTime(new Timestamp(new Date().getTime()));
-    testDeal.setCloseTime(new Timestamp(new Date().getTime() + 60000));
+    testDeal.setOpenTime(LocalDateTime.now());
+    testDeal.setCloseTime(LocalDateTime.now().plusSeconds(60));
     testDeal.setInitPrice(new BigDecimal(100000));
 
     Optional<User> optionalUser = userDao.findById(1);

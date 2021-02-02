@@ -15,6 +15,7 @@ import com.epam.entities.Deal;
 import com.epam.entities.User;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +43,7 @@ public class CommonDaoBidTest {
     // given
     Bid expected = new Bid();
     expected.setId(5);
-    expected.setDateAndTime(new Timestamp(new Date(121, Calendar.JANUARY,2).getTime()));
+    expected.setDateAndTime(LocalDateTime.of(2021,1,2,0,0));
     expected.setOffer(new BigDecimal(21000));
 
     // when
@@ -69,7 +70,7 @@ public class CommonDaoBidTest {
     // given
     Bid expected = new Bid();
     expected.setOffer(new BigDecimal(10000));
-    expected.setDateAndTime(new Timestamp(new Date().getTime()));
+    expected.setDateAndTime(LocalDateTime.now());
 
     Optional<User> optionalUser = userDao.findById(1);
     if (optionalUser.isPresent()) {
@@ -134,7 +135,7 @@ public class CommonDaoBidTest {
   public void deleteBidTest() {
     // given
     Bid testBid = new Bid();
-    testBid.setDateAndTime(new Timestamp(new Date().getTime()));
+    testBid.setDateAndTime(LocalDateTime.now());
     testBid.setOffer(BigDecimal.valueOf(100000));
 
     Optional<User> optionalUser = userDao.findById(1);

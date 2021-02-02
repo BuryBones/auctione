@@ -2,6 +2,7 @@ package com.epam.entities;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -28,10 +29,10 @@ public class Deal {
   private BigDecimal initPrice;
 
   @Column(name = "open_time", nullable = false)
-  private Timestamp openTime;
+  private LocalDateTime openTime;
 
   @Column(name = "close_time", nullable = false)
-  private Timestamp closeTime;
+  private LocalDateTime closeTime;
 
   @Column(name = "status", nullable = false)
   private boolean status;
@@ -109,19 +110,19 @@ public class Deal {
     this.initPrice = initPrice;
   }
 
-  public Timestamp getOpenTime() {
+  public LocalDateTime getOpenTime() {
     return openTime;
   }
 
-  public void setOpenTime(Timestamp openTime) {
+  public void setOpenTime(LocalDateTime openTime) {
     this.openTime = openTime;
   }
 
-  public Timestamp getCloseTime() {
+  public LocalDateTime getCloseTime() {
     return closeTime;
   }
 
-  public void setCloseTime(Timestamp closeTime) {
+  public void setCloseTime(LocalDateTime closeTime) {
     this.closeTime = closeTime;
   }
 

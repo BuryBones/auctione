@@ -3,12 +3,9 @@ package com.epam.dao;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.epam.HibernateUtil;
-import com.epam.dao.BidDao;
 import com.epam.dao.impl.BidDaoImpl;
 import com.epam.entities.Bid;
-import com.epam.entities.Deal;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -27,15 +24,15 @@ public class BidDaoTest {
   @Test
   public void findFromDateTest() {
     // when
-    Date date = new Date(121, Calendar.JANUARY,3);
+    LocalDateTime date = LocalDateTime.of(2021,1,3,0,0);
     List<Bid> listOfExpected = bidDao.findFromDate(date);
     List<Bid> listOfAll = bidDao.findAll();
 
     // then
-    assertTrue(listOfAll.stream()                             // check if there any deal before
-        .anyMatch(deal -> deal.getDateAndTime().before(date))); // the date among all deals
+    assertTrue(listOfAll.stream()                                 // check if there any deal before
+        .anyMatch(deal -> deal.getDateAndTime().isBefore(date))); // the date among all deals
     listOfExpected.forEach(Assertions::assertNotNull);
-    listOfExpected.forEach(deal -> assertTrue(deal.getDateAndTime().after(date)));
+    listOfExpected.forEach(deal -> assertTrue(deal.getDateAndTime().isAfter(date)));
   }
 
 }
