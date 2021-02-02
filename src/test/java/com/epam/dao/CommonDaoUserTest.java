@@ -36,6 +36,8 @@ public class CommonDaoUserTest {
     User expected = new User();
     expected.setId(1);
     expected.setLogin("test1");
+    expected.setFirstName("TEST 1 FIRST");
+    expected.setLastName("TEST 1 LAST");
 
     // when
     Optional<User> optionalUser = userDao.findById(1);

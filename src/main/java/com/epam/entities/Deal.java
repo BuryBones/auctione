@@ -80,10 +80,16 @@ public class Deal {
     if (getId() != deal.getId()) {
       return false;
     }
+    if (getStatus() != deal.getStatus()) {
+      return false;
+    }
     if (!getInitPrice().equals(deal.getInitPrice())) {
       return false;
     }
-    return getOpenTime().equals(deal.getOpenTime());
+    if (!getOpenTime().equals(deal.getOpenTime())) {
+      return false;
+    }
+    return getCloseTime().equals(deal.getCloseTime());
   }
 
   @Override

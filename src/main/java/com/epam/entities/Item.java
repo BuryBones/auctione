@@ -67,7 +67,10 @@ public class Item {
     if (getId() != item.getId()) {
       return false;
     }
-    return getName().equals(item.getName());
+    if (!getName().equals(item.getName())) {
+      return false;
+    }
+    return getDescript().equals(item.getDescript());
   }
 
   @Override

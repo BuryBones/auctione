@@ -3,12 +3,9 @@ package com.epam.dao;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.epam.HibernateUtil;
-import com.epam.dao.DealDao;
 import com.epam.dao.impl.DealDaoImpl;
 import com.epam.entities.Deal;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

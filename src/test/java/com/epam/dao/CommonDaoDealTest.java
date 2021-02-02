@@ -46,6 +46,7 @@ public class CommonDaoDealTest {
     expected.setId(5);
     expected.setInitPrice(new BigDecimal(20000));
     expected.setOpenTime(LocalDateTime.of(2021,1,1,0,0));
+    expected.setCloseTime(LocalDateTime.of(2021,1,1,0,0).plusDays(5));
 
     // when
     Optional<Deal> optionalDeal = dealDao.findById(5);

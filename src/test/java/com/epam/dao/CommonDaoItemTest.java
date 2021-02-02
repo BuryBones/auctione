@@ -36,6 +36,7 @@ public class CommonDaoItemTest {
     Item expected = new Item();
     expected.setId(4);
     expected.setName("Test Item 4");
+    expected.setDescript("description");
 
     // when
     Optional<Item> optionalItem = itemDao.findById(4);

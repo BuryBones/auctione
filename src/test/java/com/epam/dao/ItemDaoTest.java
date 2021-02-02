@@ -3,7 +3,6 @@ package com.epam.dao;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.epam.HibernateUtil;
-import com.epam.dao.ItemDao;
 import com.epam.dao.impl.ItemDaoImpl;
 import com.epam.entities.Item;
 import java.util.Optional;

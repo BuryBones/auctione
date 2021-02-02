@@ -44,10 +44,10 @@ INSERT INTO deal (user_id,item_id,init_price) VALUES
 	(3,5,650)
 ;
 
-INSERT INTO deal (user_id,item_id,init_price,open_time,status) VALUES
-	(4,6,10000,(NOW() - INTERVAL '7 DAY'),false),
-	(4,7,20000,TO_DATE('20210101','YYYYMMDD'),false),
-	(6,8,3400,TO_DATE('20210128','YYYYMMDD'),true)
+INSERT INTO deal (user_id,item_id,init_price,open_time,close_time,status) VALUES
+	(4,6,10000,(NOW() - INTERVAL '7 DAY'),DEFAULT,false),
+	(5,4,20000,TO_DATE('20210101','YYYYMMDD'),TO_DATE('20210106','YYYYMMDD'),false),
+	(7,3,3400,TO_DATE('20210128','YYYYMMDD'),DEFAULT,true)
 ;
 
 INSERT INTO bid (user_id,deal_id,date_and_time,offer) VALUES

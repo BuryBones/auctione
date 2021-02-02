@@ -3,7 +3,6 @@ package com.epam.dao;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.epam.HibernateUtil;
-import com.epam.dao.RoleDao;
 import com.epam.dao.impl.RoleDaoImpl;
 import com.epam.entities.Role;
 import java.util.Optional;

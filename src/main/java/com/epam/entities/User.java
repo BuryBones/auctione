@@ -117,7 +117,13 @@ public class User {
     if (getId() != user.getId()) {
       return false;
     }
-    return getLogin().equals(user.getLogin());
+    if (!getLogin().equals(user.getLogin())) {
+      return false;
+    }
+    if (!getFirstName().equals(user.getFirstName())) {
+      return false;
+    }
+    return getLastName().equals(user.getLastName());
   }
 
   @Override
