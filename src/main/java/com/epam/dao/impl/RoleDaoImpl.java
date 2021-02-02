@@ -27,7 +27,7 @@ public class RoleDaoImpl implements RoleDao {
     List<Role> roles = query.getResultList();
 
     session.close();
-    return roles.isEmpty() ? Optional.empty() : Optional.ofNullable(roles.get(0));
+    return Optional.ofNullable(roles.get(0));
 
   }
 }

@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
     List<User> users = query.getResultList();
 
     session.close();
-    return users.isEmpty() ? Optional.empty() : Optional.ofNullable(users.get(0));
+    return Optional.ofNullable(users.get(0));
   }
 
 }

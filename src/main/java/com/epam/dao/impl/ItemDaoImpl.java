@@ -26,7 +26,7 @@ public class ItemDaoImpl implements ItemDao {
     List<Item> result = query.getResultList();
 
     session.close();
-    return result.isEmpty() ? Optional.empty() : Optional.ofNullable(result.get(0));
+    return Optional.ofNullable(result.get(0));
   }
 
 }

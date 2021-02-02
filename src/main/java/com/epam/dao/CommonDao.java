@@ -54,7 +54,7 @@ public interface CommonDao<T> {
     List<T> result = query.getResultList();
 
     session.close();
-    return result.isEmpty() ? Optional.empty() : Optional.ofNullable(result.get(0));
+    return Optional.ofNullable(result.get(0));
   }
 
   default List<T> findAll() {
