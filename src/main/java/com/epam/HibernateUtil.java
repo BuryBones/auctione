@@ -5,7 +5,6 @@ import com.epam.entities.Deal;
 import com.epam.entities.Item;
 import com.epam.entities.Role;
 import com.epam.entities.User;
-import com.epam.entities.User_;
 import javax.persistence.EntityManager;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
