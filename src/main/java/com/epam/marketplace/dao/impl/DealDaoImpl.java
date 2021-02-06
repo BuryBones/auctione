@@ -1,6 +1,6 @@
 package com.epam.marketplace.dao.impl;
 
-import com.epam.entities.Deal_;
+import com.epam.marketplace.entities.Deal_;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;

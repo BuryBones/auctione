@@ -1,6 +1,6 @@
 package com.epam.marketplace.dao.impl;
 
-import com.epam.entities.User_;
+import com.epam.marketplace.entities.User_;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.criteria.CriteriaBuilder;
