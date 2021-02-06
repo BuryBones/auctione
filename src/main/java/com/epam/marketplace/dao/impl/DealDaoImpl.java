@@ -1,5 +1,6 @@
 package com.epam.marketplace.dao.impl;
 
+import com.epam.entities.Deal_;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -20,7 +21,7 @@ public class DealDaoImpl implements DealDao {
     CriteriaQuery<Deal> criteriaQuery = criteriaBuilder.createQuery(Deal.class);
 
     Root<Deal> root = criteriaQuery.from(Deal.class);
-    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("status"),status));
+    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(Deal_.status),status));
 
     Query<Deal> query = session.createQuery(criteriaQuery);
     List<Deal> result = query.getResultList();
