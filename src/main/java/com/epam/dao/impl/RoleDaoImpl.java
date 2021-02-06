@@ -1,5 +1,6 @@
 package com.epam.dao.impl;
 
+import com.epam.entities.Role_;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -21,13 +22,12 @@ public class RoleDaoImpl implements RoleDao {
 
     Root<Role> root = criteriaQuery.from(Role.class);
     criteriaQuery.select(root)
-        .where(criteriaBuilder.equal(root.get("roleName"),name));
+        .where(criteriaBuilder.equal(root.get(Role_.roleName),name));
     Query<Role> query = session.createQuery(criteriaQuery);
     query.setMaxResults(1);
     List<Role> roles = query.getResultList();
 
     session.close();
-    return Optional.ofNullable(roles.get(0));
-
+    return roles.isEmpty() ? Optional.empty() : Optional.ofNullable(roles.get(0));
   }
 }

@@ -1,5 +1,6 @@
 package com.epam.dao.impl;
 
+import com.epam.entities.Bid_;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ public class BidDaoImpl implements BidDao {
 
     Root<Bid> root = criteriaQuery.from(Bid.class);
     criteriaQuery.select(root)
-        .where(criteriaBuilder.greaterThanOrEqualTo(root.get("dateAndTime"), dateFrom));
+        .where(criteriaBuilder.greaterThanOrEqualTo(root.get(Bid_.dateAndTime), dateFrom));
 
     Query<Bid> query = session.createQuery(criteriaQuery);
     List<Bid> result = query.getResultList();

@@ -1,5 +1,6 @@
 package com.epam.dao.impl;
 
+import com.epam.entities.User_;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -20,14 +21,14 @@ public class UserDaoImpl implements UserDao {
     CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
 
     Root<User> root = criteriaQuery.from(User.class);
-    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("login"),login));
+    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(User_.login),login));
 
     Query<User> query = session.createQuery(criteriaQuery);
     query.setMaxResults(1);
     List<User> users = query.getResultList();
 
     session.close();
-    return Optional.ofNullable(users.get(0));
+    return users.isEmpty() ? Optional.empty() : Optional.ofNullable(users.get(0));
   }
 
 }
