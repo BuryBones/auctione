@@ -30,7 +30,6 @@ public class ApplicationContextConfig {
 
     // Folder containing FreeMarker templates.
     config.setTemplateLoaderPath("/WEB-INF/views/");
-//    config.setTemplateLoaderPath("/resources/views/");
     return config;
   }
 
