@@ -1,31 +1,38 @@
 package com.epam.marketplace.config;
 
-import javax.servlet.Filter;
+import javax.servlet.FilterRegistration;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
+import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import org.springframework.web.servlet.DispatcherServlet;
 
-public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-
-  @Override
-  protected Class<?>[] getRootConfigClasses() {
-    return new Class[0];
-  }
+public class AppInitializer implements WebApplicationInitializer {
 
   @Override
-  protected Class<?>[] getServletConfigClasses() {
-    return new Class[]{WebConfig.class};
-  }
+  public void onStartup(ServletContext servletContext) throws ServletException {
+    AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
+    appContext.register(ApplicationContextConfig.class);
 
-  @Override
-  protected String[] getServletMappings() {
-    return new String[]{"/"};
-  }
+    // Dispatcher Servlet
+    ServletRegistration.Dynamic dispatcher = servletContext.addServlet("SpringDispatcher",
+        new DispatcherServlet(appContext));
+    dispatcher.setLoadOnStartup(1);
+    dispatcher.addMapping("/");
 
-  @Override
-  protected Filter[] getServletFilters() {
-    CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-    characterEncodingFilter.setEncoding("UTF-8");
-    characterEncodingFilter.setForceEncoding(true);
-    return new Filter[]{characterEncodingFilter};
+
+    dispatcher.setInitParameter("contextClass", appContext.getClass().getName());
+
+    servletContext.addListener(new ContextLoaderListener(appContext));
+
+    // UTF8 Character Filter.
+    FilterRegistration.Dynamic fr = servletContext.addFilter("encodingFilter", CharacterEncodingFilter.class);
+
+    fr.setInitParameter("encoding", "UTF-8");
+    fr.setInitParameter("forceEncoding", "true");
+    fr.addMappingForUrlPatterns(null, true, "/*");
   }
 }
