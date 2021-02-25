@@ -35,25 +35,27 @@
       <table class="custom-table" id="deals-table">
         <tr>
           <script type="text/javascript">
-                              <#include "js/tableSort.js">
-                          </script>
-          <th onclick="sortTable(0)">Seller</th>
-          <th onclick="sortTable(1)">Item</th>
+            <#include "js/sortString.js">
+            <#include "js/sortNumber.js">
+            <#include "js/sortDate.js">
+          </script>
+          <th onclick="sortTableString(0)">Seller</th>
+          <th onclick="sortTableString(1)">Item</th>
           <th>Info</th>
-          <th onclick="sortTable(3)">Start Date</th>
-          <th onclick="sortTable(4)">Start Price</th>
-          <th onclick="sortTable(5)">Last Bid</th>
-          <th onclick="sortTable(6)">Stop Date</th>
+          <th onclick="sortTableDate(3)">Start Date</th>
+          <th onclick="sortTableNumber(4)">Start Price</th>
+          <th onclick="sortTableNumber(5)">Last Bid</th>
+          <th onclick="sortTableDate(6)">Stop Date</th>
           <th>Time Left</th>
         </tr>
         <tr>
           <td>Dave Davidson</td>
           <td>Plazma-TV</td>
           <td>long long long long long long long long long long long long long long long description</td>
-          <td>15.02.2021 13:00</td>
+          <td><span class="t-date">2021-02-15</span><br><span class="t-time">13:00</span></td>
           <td>1000</td>
           <td>1100</td>
-          <td>28.02.2021 13:00</td>
+          <td><span class="t-date">2021-02-28</span><br><span class="t-time">13:00</span></td>
           <td>test</td>
           <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
         </tr>
@@ -61,10 +63,10 @@
           <td>Bob</td>
           <td>GTX 270</td>
           <td>No description</td>
-          <td>14.02.2021 13:00</td>
+          <td><span class="t-date">2021-02-14</span><br><span class="t-time">13:00</span></td>
           <td>100</td>
           <td>140</td>
-          <td>28.02.2021 13:59</td>
+          <td><span class="t-date">2021-02-28</span><br><span class="t-time">13:59</span></td>
           <td>test</td>
           <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
         </tr>
@@ -72,10 +74,10 @@
           <td>some seller</td>
           <td>some item</td>
           <td>No description</td>
-          <td>14.02.2021 14:00</td>
+          <td><span class="t-date">2020-02-14</span><br><span class="t-time">14:00</span></td>
           <td>205</td>
           <td>490</td>
-          <td>01.03.2021 15:49</td>
+          <td><span class="t-date">2020-03-01</span><br><span class="t-time">15:49</span></td>
           <td>2 days 3 hours 15 minutes 33 seconds</td>
           <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
         </tr>
@@ -83,10 +85,10 @@
           <td>some seller</td>
           <td>some item</td>
           <td>No description</td>
-          <td>16.02.2021 01:00</td>
+          <td><span class="t-date">2021-02-16</span><br><span class="t-time">01:00</span></td>
           <td>20</td>
           <td>37</td>
-          <td>26.02.2021 01:15</td>
+          <td><span class="t-date">2022-02-26</span><br><span class="t-time">01:15</span></td>
           <td>test</td>
           <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
         </tr>
@@ -94,10 +96,10 @@
           <td>some seller</td>
           <td>some item</td>
           <td>No description</td>
-          <td>17.02.2021 10:00</td>
+          <td><span class="t-date">2021-02-17</span><br><span class="t-time">10:00</span></td>
           <td>12000</td>
           <td>12100</td>
-          <td>27.02.2021 15:55</td>
+          <td><span class="t-date">2021-02-27</span><br><span class="t-time">15:55</span></td>
           <td>CLOSED</td>
           <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
         </tr>
@@ -105,10 +107,10 @@
           <td>some seller</td>
           <td>some item</td>
           <td>No description</td>
-          <td>14.02.2021 12:00</td>
+          <td><span class="t-date">2021-02-14</span><br><span class="t-time">12:00</span></td>
           <td>500</td>
           <td>505</td>
-          <td>24.02.2021 22:59</td>
+          <td><span class="t-date">2021-02-24</span><br><span class="t-time">22:59</span></td>
           <td>test</td>
           <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
         </tr>
@@ -116,10 +118,10 @@
           <td>some seller</td>
           <td>some item</td>
           <td>No description</td>
-          <td>11.02.2021 11:44</td>
+          <td><span class="t-date">2021-02-11</span><br><span class="t-time">11:44</span></td>
           <td>870</td>
           <td>880</td>
-          <td>25.02.2021 10:00</td>
+          <td><span class="t-date">2021-02-25</span><br><span class="t-time">10:00</span></td>
           <td>test</td>
           <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
         </tr>
@@ -127,10 +129,10 @@
           <td>some seller</td>
           <td>some item</td>
           <td>No description</td>
-          <td>12.02.2021 21:10</td>
+          <td><span class="t-date">2021-02-12</span><br><span class="t-time">21:10</span></td>
           <td>315</td>
           <td>340</td>
-          <td>28.02.2021 22:23</td>
+          <td><span class="t-date">2021-02-28</span><br><span class="t-time">22:23</span></td>
           <td>test</td>
           <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
         </tr>
@@ -138,10 +140,10 @@
           <td>some seller</td>
           <td>some item</td>
           <td>No description</td>
-          <td>11.02.2021 07:00</td>
+          <td><span class="t-date">2021-02-11</span><br><span class="t-time">07:00</span></td>
           <td>49</td>
           <td>59</td>
-          <td>03.03.2021 21:15</td>
+          <td><span class="t-date">2021-03-03</span><br><span class="t-time">21:15</span></td>
           <td>test</td>
           <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
         </tr>
@@ -149,10 +151,10 @@
           <td>some seller</td>
           <td>some item</td>
           <td>No description</td>
-          <td>18.02.2021 02:05</td>
+          <td><span class="t-date">2021-02-18</span><br><span class="t-time">02:05</span></td>
           <td>980</td>
           <td>990</td>
-          <td>02.03.2021 17:40</td>
+          <td><span class="t-date">2021-03-02</span><br><span class="t-time">17:40</span></td>
           <td>test</td>
           <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
         </tr>
@@ -160,10 +162,10 @@
           <td>some seller</td>
           <td>some item</td>
           <td>No description</td>
-          <td>19.02.2021 09:00</td>
+          <td><span class="t-date">2021-02-19</span><br><span class="t-time">09:00</span></td>
           <td>420</td>
           <td>421</td>
-          <td>01.03.2021 07:00</td>
+          <td><span class="t-date">2021-03-01</span><br><span class="t-time">07:00</span></td>
           <td>test</td>
           <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
         </tr>
@@ -171,10 +173,10 @@
           <td>some seller</td>
           <td>some item</td>
           <td>No description</td>
-          <td>18.02.2021 23:23</td>
+          <td><span class="t-date">2021-02-18</span><br><span class="t-time">23:23</span></td>
           <td>120</td>
           <td>200</td>
-          <td>08.03.2021 11:00</td>
+          <td><span class="t-date">2021-03-08</span><br><span class="t-time">11:00</span></td>
           <td>test</td>
           <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
         </tr>
