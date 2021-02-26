@@ -1,22 +1,21 @@
-var modal = document.getElementById("sell-modal");
-var buttons = document.getElementsByClassName("table-button");
-var closeBtn = document.getElementById("modal-close");
-// var item = document.getElementsByName();
+function sellItem() {
+    var modal = document.getElementById("sell-modal");
+    var closeBtn = document.getElementById("modal-close");
+    var rowId = event.target.parentNode.parentNode.id;
+    var data = document.getElementById(rowId).querySelectorAll(".row-data");
 
-var f = function() {
+    document.getElementById("item-name").textContent = "\"" + data[0].innerHTML + "\"";
+
+    document.getElementById("until-date").min =  new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+
     modal.style.display = "block";
-}
 
-for (var i = 0; i < buttons.length; i++) {
-    buttons[i].onclick = f;
-}
-
-closeBtn.onclick = function() {
-    modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-    if (event.target == modal) {
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    closeBtn.onclick = function() {
         modal.style.display = "none";
     }
 }

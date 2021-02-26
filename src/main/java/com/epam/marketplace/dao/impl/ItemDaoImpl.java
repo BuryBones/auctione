@@ -1,5 +1,7 @@
 package com.epam.marketplace.dao.impl;
 
+import com.epam.marketplace.entities.Deal;
+import com.epam.marketplace.entities.Deal_;
 import com.epam.marketplace.entities.Item_;
 import java.util.List;
 import java.util.Optional;
@@ -30,4 +32,19 @@ public class ItemDaoImpl implements ItemDao {
     return result.isEmpty() ? Optional.empty() : Optional.ofNullable(result.get(0));
   }
 
+  @Override
+  public List<Item> findByUserId(int userId) {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+    CriteriaQuery<Item> criteriaQuery = criteriaBuilder.createQuery(Item.class);
+
+    Root<Item> root = criteriaQuery.from(Item.class);
+    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(Item_.user),userId));
+
+    Query<Item> query = session.createQuery(criteriaQuery);
+    List<Item> result = query.getResultList();
+
+    session.close();
+    return result;
+  }
 }

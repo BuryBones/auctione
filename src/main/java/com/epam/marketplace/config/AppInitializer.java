@@ -7,7 +7,6 @@ import javax.servlet.ServletRegistration;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 
 public class AppInitializer implements WebApplicationInitializer {
@@ -23,16 +22,8 @@ public class AppInitializer implements WebApplicationInitializer {
     dispatcher.setLoadOnStartup(1);
     dispatcher.addMapping("/");
 
-
     dispatcher.setInitParameter("contextClass", appContext.getClass().getName());
 
     servletContext.addListener(new ContextLoaderListener(appContext));
-
-    // UTF8 Character Filter.
-    FilterRegistration.Dynamic fr = servletContext.addFilter("encodingFilter", CharacterEncodingFilter.class);
-
-    fr.setInitParameter("encoding", "UTF-8");
-    fr.setInitParameter("forceEncoding", "true");
-    fr.addMappingForUrlPatterns(null, true, "/*");
   }
 }

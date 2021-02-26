@@ -27,36 +27,13 @@
         <th>Item</th>
         <th>Info</th>
       </tr>
-      <tr>
-        <td>Какая-нибудь машина</td>
-        <td>Не бита не крашена в гонках не участвовала</td>
-        <td class="button-cell"><button class="table-button">Sell</button></td>
+    <#foreach item in items>
+      <tr id="${item?index}">
+        <td class="row-data">${item.name}</td>
+        <td class="row-data">${item.descript}</td>
+        <td class="button-cell"><button class="table-button" onclick="sellItem()">Sell</button></td>
       </tr>
-      <tr>
-        <td>some item with long long long long name</td>
-        <td>test</td>
-        <td class="button-cell"><button class="table-button">Sell</button></td>
-      </tr>
-      <tr>
-        <td>test</td>
-        <td>long long long long long long long long description test</td>
-        <td class="button-cell"><button class="table-button">Sell</button></td>
-      </tr>
-      <tr>
-        <td>test</td>
-        <td>test</td>
-        <td class="button-cell"><button class="table-button">Sell</button></td>
-      </tr>
-      <tr>
-        <td>test</td>
-        <td>test</td>
-        <td class="button-cell"><button class="table-button">Sell</button></td>
-      </tr>
-      <tr>
-        <td>test</td>
-        <td>test</td>
-        <td class="button-cell"><button class="table-button">Sell</button></td>
-      </tr>
+    </#foreach>
     </table>
   </div>
   <div class="center">
@@ -81,20 +58,22 @@
       <input type="number" placeholder="Enter initial price" id="init-price" min="1" required>
       <br>
       <br>
-      <label for="interval">Close time</label>
+      <label for="until">Close time</label>
       <br>
-      <input type="date" id="interval" required>
-      <input type="time" id="interval" required>
+      <span id="until">
+                    <input type="date" id="until-date" required>
+                    <input type="time" id="until-time" required>
+      </span>
       <br>
       <span class="modal-buttons">
-                        <input class="form-button" type="submit" value="Start auction">
-                        <button class="form-button" id="modal-close">Cancel</button>
-                    </span>
+        <input class="form-button" type="submit" value="Start auction">
+        <button class="form-button" id="modal-close">Cancel</button>
+      </span>
     </form>
   </div>
 </div>
-<script type="text/javascript">
+  <script type="text/javascript">
             <#include "js/itemSell.js">
-        </script>
+  </script>
 </body>
 </html>

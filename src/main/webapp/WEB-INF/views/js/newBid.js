@@ -1,22 +1,25 @@
-var modal = document.getElementById("bid-modal");
-var buttons = document.getElementsByClassName("table-button");
-var closeBtn = document.getElementById("modal-close");
-// var item = document.getElementsByName();
+function newBid() {
+    var modal = document.getElementById("bid-modal");
+    var closeBtn = document.getElementById("modal-close");
+    var rowId = event.target.parentNode.parentNode.id;
+    var data = document.getElementById(rowId).querySelectorAll(".row-data");
 
-var f = function() {
+    document.getElementById("lot-name").textContent = "\"" + data[1].innerHTML + "\"";
+    var lastBid = parseFloat(data[5].innerHTML);
+    if (lastBid == 0) {
+        lastBid = parseFloat(data[4].innerHTML);
+    }
+    document.getElementById("offer").value = lastBid + 1;
+    document.getElementById("offer").min = lastBid + 1;
+
     modal.style.display = "block";
-} 
 
-for (var i = 0; i < buttons.length; i++) {
-    buttons[i].onclick = f;
-}
-
-closeBtn.onclick = function() {
-    modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-    if (event.target == modal) {
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    closeBtn.onclick = function() {
         modal.style.display = "none";
     }
 }

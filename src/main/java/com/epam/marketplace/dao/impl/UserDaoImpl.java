@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import com.epam.marketplace.HibernateUtil;
 import com.epam.marketplace.dao.UserDao;
@@ -31,4 +32,19 @@ public class UserDaoImpl implements UserDao {
     return users.isEmpty() ? Optional.empty() : Optional.ofNullable(users.get(0));
   }
 
+  @Override
+  public List<User> findAllWithRoles() {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+    CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+
+    Root<User> root = criteriaQuery.from(User.class);
+    root.fetch(User_.userRoles, JoinType.LEFT);
+
+    Query<User> query = session.createQuery(criteriaQuery);
+    List<User> result = query.getResultList();
+
+    session.close();
+    return result;
+  }
 }

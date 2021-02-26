@@ -19,6 +19,22 @@
     </nav>
     <main>
       <p>Probably there we would have a list of users</p>
+      <div class="table-container">
+        <table class="custom-table">
+          <tr>
+            <th>Login</th>
+            <th>Full Name</th>
+            <th>Roles</th>
+          </tr>
+          <#list users as user>
+          <tr>
+            <td>${user.login}</td>
+            <td>${user.lastName} ${user.firstName}</td>
+            <td><#list user.userRoles as role>${role.roleName} </#list></td>
+          </tr>
+        </#list>
+        </table>
+      </div>
     </main>
   </body>
 </html>

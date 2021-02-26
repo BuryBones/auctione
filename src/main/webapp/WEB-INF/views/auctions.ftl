@@ -22,7 +22,7 @@
     <h2>Deals</h2>
     <div class="table-container">
       <div class="deals-radio">
-        <form>
+        <form action="auctions?show-deals">
           <b>Show deals:</b><br>
           <label for="open">Open</label>
           <input type="radio" id="open" name="show-deals" value="open" checked>
@@ -30,6 +30,7 @@
           <input type="radio" id="closed" name="show-deals" value="closed">
           <label for="all">All</label>
           <input type="radio" id="all" name="show-deals" value="all">
+          <input type="submit" value="Submit">
         </form>
       </div>
       <table class="custom-table" id="deals-table">
@@ -48,138 +49,28 @@
           <th onclick="sortTableDate(6)">Stop Date</th>
           <th>Time Left</th>
         </tr>
-        <tr>
-          <td>Dave Davidson</td>
-          <td>Plazma-TV</td>
-          <td>long long long long long long long long long long long long long long long description</td>
-          <td><span class="t-date">2021-02-15</span><br><span class="t-time">13:00</span></td>
-          <td>1000</td>
-          <td>1100</td>
-          <td><span class="t-date">2021-02-28</span><br><span class="t-time">13:00</span></td>
-          <td>test</td>
-          <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
+        <#foreach deal in deals>
+        <tr id="${deal?index}">
+          <script type="text/javascript"><#include "js/newBid.js"></script>
+          <td class="row-data">${deal.seller}</td>
+          <td class="row-data">${deal.item}</td>
+          <td class="row-data">${deal.info}</td>
+<!--          <td><span class="t-date">2021-02-15</span><br><span class="t-time">13:00</span></td>-->
+          <td class="row-data">${deal.startDate}</td>
+          <td class="row-data">${deal.startPrice}</td>
+          <td class="row-data">
+            <#if deal.lastBid??>
+              ${deal.lastBid}
+            <#else>
+              0
+            </#if>
+          </td>
+<!--          <td><span class="t-date">2021-02-28</span><br><span class="t-time">13:00</span></td>-->
+          <td class="row-data">${deal.stopDate}</td>
+          <td class="row-data">[countdown]</td>
+          <td class="button-cell"><button class="table-button"  onclick="newBid()">TAKE MY MONEY!</button></td>
         </tr>
-        <tr>
-          <td>Bob</td>
-          <td>GTX 270</td>
-          <td>No description</td>
-          <td><span class="t-date">2021-02-14</span><br><span class="t-time">13:00</span></td>
-          <td>100</td>
-          <td>140</td>
-          <td><span class="t-date">2021-02-28</span><br><span class="t-time">13:59</span></td>
-          <td>test</td>
-          <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
-        </tr>
-        <tr>
-          <td>some seller</td>
-          <td>some item</td>
-          <td>No description</td>
-          <td><span class="t-date">2020-02-14</span><br><span class="t-time">14:00</span></td>
-          <td>205</td>
-          <td>490</td>
-          <td><span class="t-date">2020-03-01</span><br><span class="t-time">15:49</span></td>
-          <td>2 days 3 hours 15 minutes 33 seconds</td>
-          <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
-        </tr>
-        <tr>
-          <td>some seller</td>
-          <td>some item</td>
-          <td>No description</td>
-          <td><span class="t-date">2021-02-16</span><br><span class="t-time">01:00</span></td>
-          <td>20</td>
-          <td>37</td>
-          <td><span class="t-date">2022-02-26</span><br><span class="t-time">01:15</span></td>
-          <td>test</td>
-          <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
-        </tr>
-        <tr>
-          <td>some seller</td>
-          <td>some item</td>
-          <td>No description</td>
-          <td><span class="t-date">2021-02-17</span><br><span class="t-time">10:00</span></td>
-          <td>12000</td>
-          <td>12100</td>
-          <td><span class="t-date">2021-02-27</span><br><span class="t-time">15:55</span></td>
-          <td>CLOSED</td>
-          <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
-        </tr>
-        <tr>
-          <td>some seller</td>
-          <td>some item</td>
-          <td>No description</td>
-          <td><span class="t-date">2021-02-14</span><br><span class="t-time">12:00</span></td>
-          <td>500</td>
-          <td>505</td>
-          <td><span class="t-date">2021-02-24</span><br><span class="t-time">22:59</span></td>
-          <td>test</td>
-          <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
-        </tr>
-        <tr>
-          <td>some seller</td>
-          <td>some item</td>
-          <td>No description</td>
-          <td><span class="t-date">2021-02-11</span><br><span class="t-time">11:44</span></td>
-          <td>870</td>
-          <td>880</td>
-          <td><span class="t-date">2021-02-25</span><br><span class="t-time">10:00</span></td>
-          <td>test</td>
-          <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
-        </tr>
-        <tr>
-          <td>some seller</td>
-          <td>some item</td>
-          <td>No description</td>
-          <td><span class="t-date">2021-02-12</span><br><span class="t-time">21:10</span></td>
-          <td>315</td>
-          <td>340</td>
-          <td><span class="t-date">2021-02-28</span><br><span class="t-time">22:23</span></td>
-          <td>test</td>
-          <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
-        </tr>
-        <tr>
-          <td>some seller</td>
-          <td>some item</td>
-          <td>No description</td>
-          <td><span class="t-date">2021-02-11</span><br><span class="t-time">07:00</span></td>
-          <td>49</td>
-          <td>59</td>
-          <td><span class="t-date">2021-03-03</span><br><span class="t-time">21:15</span></td>
-          <td>test</td>
-          <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
-        </tr>
-        <tr>
-          <td>some seller</td>
-          <td>some item</td>
-          <td>No description</td>
-          <td><span class="t-date">2021-02-18</span><br><span class="t-time">02:05</span></td>
-          <td>980</td>
-          <td>990</td>
-          <td><span class="t-date">2021-03-02</span><br><span class="t-time">17:40</span></td>
-          <td>test</td>
-          <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
-        </tr>
-        <tr>
-          <td>some seller</td>
-          <td>some item</td>
-          <td>No description</td>
-          <td><span class="t-date">2021-02-19</span><br><span class="t-time">09:00</span></td>
-          <td>420</td>
-          <td>421</td>
-          <td><span class="t-date">2021-03-01</span><br><span class="t-time">07:00</span></td>
-          <td>test</td>
-          <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
-        </tr>
-        <tr>
-          <td>some seller</td>
-          <td>some item</td>
-          <td>No description</td>
-          <td><span class="t-date">2021-02-18</span><br><span class="t-time">23:23</span></td>
-          <td>120</td>
-          <td>200</td>
-          <td><span class="t-date">2021-03-08</span><br><span class="t-time">11:00</span></td>
-          <td>test</td>
-          <td class="button-cell"><button class="table-button">TAKE MY MONEY!</button></td>
-        </tr>
+        </#foreach>
       </table>
     </div>
     <div class="center">
@@ -209,8 +100,5 @@
       </form>
     </div>
   </div>
-  <script type="text/javascript">
-              <#include "js/newBid.js">
-          </script>
   </body>
 </html>
