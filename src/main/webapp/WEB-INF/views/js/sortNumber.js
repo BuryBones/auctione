@@ -11,8 +11,8 @@ function sortTableNumber(n) {
         x = rows[i].getElementsByTagName("TD")[n];
         y = rows[i + 1].getElementsByTagName("TD")[n];
 
-        var xInnerNum = parseInt(x.innerHTML.replace(/\s/g, ""));
-        var yInnerNum = parseInt(y.innerHTML.replace(/\s/g, ""));
+        var xInnerNum = parseFloat(x.innerHTML);
+        var yInnerNum = parseFloat(y.innerHTML);
 
         if (dir == "asc") {
           if (xInnerNum > yInnerNum) {

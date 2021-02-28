@@ -19,6 +19,10 @@ function newBid() {
             modal.style.display = "none";
         }
     }
+    closeBtn.addEventListener("click",function(ev) {
+            ev.preventDefault();
+    });
+
     closeBtn.onclick = function() {
         modal.style.display = "none";
     }
