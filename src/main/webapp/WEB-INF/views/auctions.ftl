@@ -39,6 +39,7 @@
             <#include "js/sortString.js">
             <#include "js/sortNumber.js">
             <#include "js/sortDate.js">
+            <#include "js/libs/moment.min.js">
           </script>
           <th onclick="sortTableString(0)">Seller</th>
           <th onclick="sortTableString(1)">Item</th>

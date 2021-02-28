@@ -8,10 +8,10 @@ public class AuctionRow {
   private String seller;
   private String item;
   private String info;
-  private LocalDateTime startDate;
+  private String startDate;
   private BigDecimal startPrice;
   private BigDecimal lastBid = null;
-  private LocalDateTime stopDate;
+  private String stopDate;
 
   public String getSeller() {
     return seller;
@@ -37,11 +37,11 @@ public class AuctionRow {
     this.info = info;
   }
 
-  public LocalDateTime getStartDate() {
+  public String getStartDate() {
     return startDate;
   }
 
-  public void setStartDate(LocalDateTime startDate) {
+  public void setStartDate(String startDate) {
     this.startDate = startDate;
   }
 
@@ -61,11 +61,11 @@ public class AuctionRow {
     this.lastBid = lastBid;
   }
 
-  public LocalDateTime getStopDate() {
+  public String getStopDate() {
     return stopDate;
   }
 
-  public void setStopDate(LocalDateTime stopDate) {
+  public void setStopDate(String stopDate) {
     this.stopDate = stopDate;
   }
 }

@@ -7,6 +7,7 @@ import com.epam.marketplace.dao.impl.DealDaoImpl;
 import com.epam.marketplace.entities.Bid;
 import com.epam.marketplace.entities.Deal;
 import com.epam.marketplace.services.dto.AuctionRow;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,11 +33,11 @@ public class DefaultService {
       row.setSeller(d.getUser().getFirstName() + " " + d.getUser().getLastName());
       row.setItem(d.getItem().getName());
       row.setInfo(d.getItem().getDescript());
-      row.setStartDate(d.getOpenTime());
+      row.setStartDate(d.getOpenTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
       row.setStartPrice(d.getInitPrice());
       Optional<Bid> optionalBid = bidDao.findLastBidByDealId(d.getId());
       optionalBid.ifPresent(bid -> row.setLastBid(bid.getOffer()));
-      row.setStopDate(d.getCloseTime());
+      row.setStopDate(d.getCloseTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
       result.add(row);
     }
     return result;
