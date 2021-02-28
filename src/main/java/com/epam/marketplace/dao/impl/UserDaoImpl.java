@@ -1,5 +1,6 @@
 package com.epam.marketplace.dao.impl;
 
+import com.epam.marketplace.entities.Bid_;
 import com.epam.marketplace.entities.User_;
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +41,8 @@ public class UserDaoImpl implements UserDao {
 
     Root<User> root = criteriaQuery.from(User.class);
     root.fetch(User_.userRoles, JoinType.LEFT);
+    criteriaQuery.distinct(true);
+    criteriaQuery.orderBy(criteriaBuilder.asc(root.get(User_.id)));
 
     Query<User> query = session.createQuery(criteriaQuery);
     List<User> result = query.getResultList();
