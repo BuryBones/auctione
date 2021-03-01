@@ -38,6 +38,7 @@ public class DefaultService {
       Optional<Bid> optionalBid = bidDao.findLastBidByDealId(d.getId());
       optionalBid.ifPresent(bid -> row.setLastBid(bid.getOffer()));
       row.setStopDate(d.getCloseTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
+      row.setStatus(d.getStatus());
       result.add(row);
     }
     return result;

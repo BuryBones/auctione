@@ -36,15 +36,9 @@
           <input type="radio" class="show-radio" id="all" name="showDeals" value="all" >
         </form>
       </div>
-      <div id="table-itself">
-        <table class="custom-table" id="deals-table">
+      <table class="custom-table" id="deals-table">
+        <thead>
           <tr>
-            <script type="text/javascript">
-            <#include "js/libs/moment.js">
-            <#include "js/sortString.js">
-            <#include "js/sortNumber.js">
-            <#include "js/sortDate.js">
-          </script>
             <th onclick="sortTableString(0)">Seller</th>
             <th onclick="sortTableString(1)">Item</th>
             <th>Info</th>
@@ -54,7 +48,9 @@
             <th onclick="sortTableDate(6)">Stop Date</th>
             <th>Time Left</th>
           </tr>
-          <#foreach deal in deals>
+        </thead>
+        <tbody id="table-body">
+        <#foreach deal in deals>
           <tr id="${deal?index}">
             <script type="text/javascript"><#include "js/newBid.js"></script>
             <td class="row-data">${deal.seller}</td>
@@ -69,14 +65,22 @@
               0
             </#if>
             </td>
-            <td class="row-data">${deal.stopDate}</td>
-            <td class="row-data">[countdown]</td>
-            <td class="button-cell"><button class="table-button"  onclick="newBid()">TAKE MY MONEY!</button></td>
+            <td class="row-data"><span class="stopDate">${deal.stopDate}</span></td>
+            <td class="row-data"><span class="countdown"></span></td>
+            <#if deal.status>
+              <td class="button-cell"><button class="table-button"  onclick="newBid()">TAKE MY MONEY!</button></td>
+            </#if>
           </tr>
         </#foreach>
-        </table>
-      </div>
-    </div>
+        </tbody>
+      <script type="text/javascript">
+          <#include "js/libs/moment.js">
+          <#include "js/sortString.js">
+          <#include "js/sortNumber.js">
+          <#include "js/sortDate.js">
+          <#include "js/countdown.js">
+      </script>
+      </table>
     <div class="center">
       <div class="pagination">
         <a href="#">First</a>
@@ -88,6 +92,7 @@
         <a href="#">Last</a>
       </div>
     </div>
+  </div>
   </main>
   <!-- Modal -->
   <div id="bid-modal" class="modal">
