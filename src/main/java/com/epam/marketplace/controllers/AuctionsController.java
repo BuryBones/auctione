@@ -1,6 +1,6 @@
 package com.epam.marketplace.controllers;
 
-import com.epam.marketplace.services.DefaultService;
+import com.epam.marketplace.services.DealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AuctionsController {
 
   @Autowired
-  DefaultService defaultService;
+  DealService dealService;
 
   @RequestMapping(value = "/auctions", method = RequestMethod.GET)
   public String auctions(
@@ -21,7 +21,7 @@ public class AuctionsController {
       @RequestParam(name = "sortMode", defaultValue = "asc") String sortMode,
 //      @RequestParam(name = "page", defaultValue = "1") int page,
       Model model) {
-    model.addAttribute("deals",defaultService.getAuctions(status, sortBy, sortMode));
+    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode));
     return "auctions";
   }
 
@@ -32,7 +32,7 @@ public class AuctionsController {
       @RequestParam(name = "sortMode", defaultValue = "asc") String sortMode,
 //      @RequestParam(name = "page", defaultValue = "1") int page,
       Model model) {
-    model.addAttribute("deals",defaultService.getAuctions(status, sortBy, sortMode));
+    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode));
     return "auctions-table";
   }
 

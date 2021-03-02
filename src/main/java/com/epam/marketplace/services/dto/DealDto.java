@@ -1,17 +1,18 @@
 package com.epam.marketplace.services.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
-public class AuctionRow {
+public class DealDto {
 
   private Integer id;
   private String seller;
   private String item;
   private String info;
-  private String startDate;
+  private LocalDateTime startDate;
   private BigDecimal startPrice;
   private BigDecimal lastBid;
-  private String stopDate;
+  private LocalDateTime stopDate;
   private boolean status;
 
   public Integer getId() {
@@ -46,11 +47,11 @@ public class AuctionRow {
     this.info = info;
   }
 
-  public String getStartDate() {
+  public LocalDateTime getStartDate() {
     return startDate;
   }
 
-  public void setStartDate(String startDate) {
+  public void setStartDate(LocalDateTime startDate) {
     this.startDate = startDate;
   }
 
@@ -70,11 +71,11 @@ public class AuctionRow {
     this.lastBid = lastBid;
   }
 
-  public String getStopDate() {
+  public LocalDateTime getStopDate() {
     return stopDate;
   }
 
-  public void setStopDate(String stopDate) {
+  public void setStopDate(LocalDateTime stopDate) {
     this.stopDate = stopDate;
   }
 

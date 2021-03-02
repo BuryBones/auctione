@@ -58,7 +58,7 @@
             <td class="row-data">${deal.seller}</td>
             <td class="row-data">${deal.item}</td>
             <td class="row-data">${deal.info}</td>
-            <td class="row-data">${deal.startDate}</td>
+            <td class="row-data">${deal.startDate.format()}</td>
             <td class="row-data">${deal.startPrice?string["0.00"]}</td>
             <td class="row-data">
               <#if deal.lastBid??>
@@ -67,7 +67,7 @@
               0
             </#if>
             </td>
-            <td class="row-data"><span class="stopDate">${deal.stopDate}</span></td>
+            <td class="row-data"><span class="stopDate">${deal.stopDate.format()}</span></td>
             <td class="row-data"><span class="countdown"></span></td>
             <#if deal.status>
               <td class="button-cell"><button class="table-button"  onclick="newBid()">TAKE MY MONEY!</button></td>
