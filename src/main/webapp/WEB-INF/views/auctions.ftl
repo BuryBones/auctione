@@ -24,28 +24,30 @@
       <div class="deals-radio">
         <form onchange="refresh()">
           <script type="text/javascript">
-            <#include "js/libs/jquery-3.5.1.js">
             <#include "js/tableRefresh.js">
+            <#include "js/setSort.js">
           </script>
           <b>Show deals:</b><br>
           <label for="open">Open</label>
           <input type="radio" class="show-radio" id="open" name="showDeals" value="open" checked>
           <label for="closed">Closed</label>
-          <input type="radio" class="show-radio" id="closed" name="showDeals" value="closed" >
+          <input type="radio" class="show-radio" id="closed" name="showDeals" value="closed">
           <label for="all">All</label>
-          <input type="radio" class="show-radio" id="all" name="showDeals" value="all" >
+          <input type="radio" class="show-radio" id="all" name="showDeals" value="all">
+          <input type="hidden" id="sortBy" name="sortBy" value="id">
+          <input type="hidden" id="sortMode" name="sortMode" value="asc">
         </form>
       </div>
       <table class="custom-table" id="deals-table">
         <thead>
           <tr>
-            <th onclick="sortTableString(0)">Seller</th>
-            <th onclick="sortTableString(1)">Item</th>
+            <th onclick="setSortValue('seller');refresh()">Seller</th>
+            <th onclick="setSortValue('item');refresh()">Item</th>
             <th>Info</th>
-            <th onclick="sortTableDate(3)">Start Date</th>
-            <th onclick="sortTableNumber(4)">Start Price</th>
-            <th onclick="sortTableNumber(5)">Last Bid</th>
-            <th onclick="sortTableDate(6)">Stop Date</th>
+            <th onclick="setSortValue('startDate');refresh()">Start Date</th>
+            <th onclick="setSortValue('startPrice');refresh()">Start Price</th>
+            <th onclick="setSortValue('lastBid');refresh()">Last Bid</th>
+            <th onclick="setSortValue('stopDate');refresh()">Stop Date</th>
             <th>Time Left</th>
           </tr>
         </thead>
@@ -75,9 +77,6 @@
         </tbody>
       <script type="text/javascript">
           <#include "js/libs/moment.js">
-          <#include "js/sortString.js">
-          <#include "js/sortNumber.js">
-          <#include "js/sortDate.js">
           <#include "js/countdown.js">
       </script>
       </table>

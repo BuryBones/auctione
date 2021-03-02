@@ -4,14 +4,23 @@ import java.math.BigDecimal;
 
 public class AuctionRow {
 
+  private Integer id;
   private String seller;
   private String item;
   private String info;
   private String startDate;
   private BigDecimal startPrice;
-  private BigDecimal lastBid = null;
+  private BigDecimal lastBid;
   private String stopDate;
   private boolean status;
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
   public String getSeller() {
     return seller;

@@ -2,6 +2,8 @@ var ajaxInterval = setInterval(refresh, 5000);
 
 function refresh() {
   showDeals = "open";
+  sortBy = document.getElementById("sortBy").value;
+  sortMode = document.getElementById("sortMode").value;
   radios = document.getElementsByClassName("show-radio");
   for (btn in radios) {
     if (radios[btn].checked) {
@@ -15,6 +17,8 @@ function refresh() {
       document.getElementById("table-body").innerHTML = this.response;
     }
   };
-  xhttp.open("GET", "auctions.ajax?showDeals="+showDeals, true);
+  xhttp.open(
+    "GET",
+     "auctions.ajax?status=" + showDeals + "&sortBy=" + sortBy + "&sortMode=" + sortMode, true);
   xhttp.send();
 }
