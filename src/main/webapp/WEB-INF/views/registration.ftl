@@ -16,7 +16,10 @@
   </ul>
 </nav>
 <main>
-  <form class="input-form">
+  <script type="text/javascript">
+    <#include "js/registrationValidation.js">
+  </script>
+  <form class="input-form" onsubmit="return validateRegistration()">
     <ui>
       <li class="form-row">
         <label for="login">Login</label>
@@ -36,7 +39,7 @@
       </li>
       <li class="form-row">
         <label for="email">E-mail</label>
-        <input type="email" placeholder="Enter Your E-Mail" id="email" required maxlength="45"
+        <input type="email" placeholder="Enter Your E-Mail" id="email" required minlength="3" maxlength="45"
                pattern="(^[a-zA-Z0-9]+[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$)">
       </li>
       <li class="form-row">
@@ -59,5 +62,12 @@
   <p>Already have an account?</p>
   <a href="welcome">Login page</a>
 </main>
+<!-- Modal -->
+<div id="validation-modal" class="modal">
+  <div class="modal-content">
+    <p><b>Registration failed!</b><br><span id="reason"></span></p>
+    <button class="form-button" id="modal-close">Cancel</button>
+  </div>
+</div>
 </body>
 </html>

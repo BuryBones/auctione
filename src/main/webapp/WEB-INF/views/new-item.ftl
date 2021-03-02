@@ -20,7 +20,10 @@
 </nav>
 <main>
   <p>Fill the form to create new item.</p>
-  <form class="input-form">
+  <script type="text/javascript">
+    <#include "js/newItemValidation.js">
+  </script>
+  <form class="input-form" onsubmit="return validateNewItem()">
     <ui>
       <li class="form-row">
         <label for="name">Item Name</label>
@@ -36,5 +39,12 @@
     </ui>
   </form>
 </main>
+<!-- Modal -->
+<div id="validation-modal" class="modal">
+  <div class="modal-content">
+    <p><b>Failed to create new item!</b><br><span id="reason"></span></p>
+    <button class="form-button" id="modal-close">Cancel</button>
+  </div>
+</div>
 </body>
 </html>

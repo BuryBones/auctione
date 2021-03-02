@@ -18,7 +18,10 @@
 </nav>
 <main>
   <p>To participate in online-auctions you need to log in.</p>
-  <form class="input-form">
+  <script type="text/javascript">
+    <#include "js/welcomeValidation.js">
+  </script>
+  <form class="input-form" onsubmit="return validateWelcome()">
     <ui>
       <li class="form-row">
         <label for="login">Login</label>
@@ -42,5 +45,12 @@
   <p>Do not have an account?</p>
   <a href="registration">Create account</a>
 </main>
+<!-- Modal -->
+<div id="validation-modal" class="modal">
+  <div class="modal-content">
+    <p><b>Login failed!</b><br><span id="reason"></span></p>
+    <button class="form-button" id="modal-close">Cancel</button>
+  </div>
+</div>
 </body>
 </html>
