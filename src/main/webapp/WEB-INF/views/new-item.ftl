@@ -15,7 +15,7 @@
     <li><a href="items">Items<img src="img/shopping_cart-24px.svg" alt="" title="Items"></a></li>
     <li><a href="auctions">Deals<img src="img/gavel-24px.svg" alt="" title="Deals"></a></li>
     <li><a href="admin">Admin Page<img src="img/account_balance-24px.svg" alt="" title="Admin Page"></a></li>
-    <li class="logout"><span class="nav-username">Test Username</span><a href="?action=logout">Logout<img src="img/logout-24px.svg" alt="" title="Logout"></a></li>
+    <li class="logout"><span class="nav-username">Test Username</span><a href="welcome?action=logout">Logout<img src="img/logout-24px.svg" alt="" title="Logout"></a></li>
   </ul>
 </nav>
 <main>
@@ -27,7 +27,7 @@
     <ui>
       <li class="form-row">
         <label for="name">Item Name</label>
-        <input type="text" placeholder="Enter item name" id="name" required minlength="1" maxlength="45">
+        <input type="text" placeholder="Enter item name" id="name" required minlength="6" maxlength="45">
       </li>
       <li class="form-row">
         <label for="description">Description</label>

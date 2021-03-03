@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <style type="text/css">
-          <#include "css/styles.css">
-      </style>
+    <#include "css/styles.css">
+  </style>
   <title>AuctiOne - My Profile</title>
   <meta charset="UTF-8">
   <link rel="icon" href="img/Bag.png">
@@ -15,7 +15,7 @@
     <li><a href="welcome">Login page</a></li>
     <li><a href="auctions">Deals<img src="img/gavel-24px.svg" alt="" title="Deals"></a></li>
     <li><a href="admin">Admin Page<img src="img/account_balance-24px.svg" alt="" title="Admin Page"></a></li>
-    <li class="logout"><span class="nav-username">Test Username</span><a href="?action=logout">Logout<img src="img/logout-24px.svg" alt="" title="Logout"></a></li>
+    <li class="logout"><span class="nav-username">Test Username</span><a href="welcome?action=logout">Logout<img src="img/logout-24px.svg" alt="" title="Logout"></a></li>
   </ul>
 </nav>
 <main>
@@ -24,14 +24,16 @@
   <div class="table-container">
     <table class="custom-table">
       <tr>
+        <th>Item#</th>
         <th>Item</th>
         <th>Info</th>
       </tr>
     <#foreach item in items>
       <tr id="${item?index}">
+        <td class="row-data">${item.id}</td>
         <td class="row-data">${item.name}</td>
         <td class="row-data">${item.descript}</td>
-        <td class="button-cell"><button class="table-button" onclick="sellItem()">Sell</button></td>
+        <td class="button-cell"><button class="table-button" onclick="sellDialog();">Sell</button></td>
       </tr>
     </#foreach>
     </table>
@@ -52,7 +54,10 @@
 <div id="sell-modal" class="modal">
   <div class="modal-content">
     <p>Create new auction for <span id="item-name"></span>.</p>
-    <form class="modal-input-form">
+    <br>
+    <p id="modal-message"></p>
+    <form class="modal-input-form" onsubmit="return validateSellRequest() && sendSellRequest();">
+      <input type="hidden" id="itemId" value="-1">
       <label for="init-price">Start price</label>
       <br>
       <input type="number" placeholder="Enter initial price" id="init-price" min="1" required>
@@ -61,8 +66,8 @@
       <label for="until">Close time</label>
       <br>
       <span id="until">
-                    <input type="date" id="until-date" required>
-                    <input type="time" id="until-time" required>
+        <input type="date" id="until-date" required>
+        <input type="time" id="until-time" required>
       </span>
       <br>
       <span class="modal-buttons">
@@ -73,7 +78,9 @@
   </div>
 </div>
   <script type="text/javascript">
-            <#include "js/itemSell.js">
+    <#include "js/sellItem.js">
+    <#include "js/sendSellItemRequest.js">
+    <#include "js/libs/moment.js">
   </script>
 </body>
 </html>

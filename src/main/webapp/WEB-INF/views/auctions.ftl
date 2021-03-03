@@ -15,7 +15,7 @@
       <li><a href="welcome">Login page</a></li>
       <li><a href="items">Items<img src="img/shopping_cart-24px.svg" alt="" title="Items"></a></li>
       <li><a href="admin">Admin Page<img src="img/account_balance-24px.svg" alt="" title="Admin Page"></a></li>
-      <li class="logout"><span class="nav-username">Test Username</span><a href="?action=logout">Logout<img src="img/logout-24px.svg" alt="" title="Logout"></a></li>
+      <li class="logout"><span class="nav-username">Test Username</span><a href="welcome?action=logout">Logout<img src="img/logout-24px.svg" alt="" title="Logout"></a></li>
     </ul>
   </nav>
   <main>
@@ -24,8 +24,8 @@
       <div class="deals-radio">
         <form onchange="refresh()">
           <script type="text/javascript">
-            <#include "js/tableRefresh.js">
-            <#include "js/setSort.js">
+            <#include "js/refreshAuctions.js">
+            <#include "js/setOrder.js">
           </script>
           <b>Show deals:</b><br>
           <label for="open">Open</label>
@@ -54,7 +54,7 @@
         <tbody id="table-body">
         <#foreach deal in deals>
           <tr id="${deal?index}">
-            <script type="text/javascript"><#include "js/newBid.js"></script>
+            <script type="text/javascript"><#include "js/makeBid.js"></script>
             <td class="row-data">${deal.seller}</td>
             <td class="row-data">${deal.item}</td>
             <td class="row-data">${deal.info}</td>
@@ -70,7 +70,7 @@
             <td class="row-data"><span class="stopDate">${deal.stopDate?datetime?string("yyyy-MM-dd HH:mm:ss")}</span></td>
             <td class="row-data"><span class="countdown"></span></td>
             <#if deal.status>
-              <td class="button-cell"><button class="table-button"  onclick="newBid()">MAKE A BID</button></td>
+              <td class="button-cell"><button class="table-button"  onclick="bidDialog();">MAKE A BID</button></td>
             </#if>
           </tr>
         </#foreach>
@@ -102,9 +102,9 @@
         <input type="number" placeholder="Enter your price" id="offer" min="1" required>
         <br>
         <span class="modal-buttons">
-                          <input class="form-button" type="submit" value="Make a bid">
-                          <button class="form-button" id="modal-close">Cancel</button>
-                      </span>
+          <input class="form-button" type="submit" value="Make a bid">
+          <button class="form-button" id="modal-close">Cancel</button>
+        </span>
       </form>
     </div>
   </div>

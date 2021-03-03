@@ -1,6 +1,6 @@
 <#foreach deal in deals>
 <tr id="${deal?index}">
-  <script type="text/javascript"><#include "js/newBid.js"></script>
+  <script type="text/javascript"><#include "js/makeBid.js"></script>
   <td class="row-data">${deal.seller}</td>
   <td class="row-data">${deal.item}</td>
   <td class="row-data">${deal.info}</td>
@@ -16,7 +16,7 @@
   <td class="row-data"><span class="stopDate">${deal.stopDate?string("yyyy-MM-dd HH:mm:ss")}</span></td>
   <td class="row-data"><span class="countdown"></span></td>
   <#if deal.status>
-    <td class="button-cell"><button class="table-button"  onclick="newBid()">MAKE A BID</button></td>
+    <td class="button-cell"><button class="table-button"  onclick="bidDialog()">MAKE A BID</button></td>
   </#if>
 </tr>
 </#foreach>
