@@ -1,52 +1,36 @@
 package com.epam.marketplace.services;
 
-import com.epam.marketplace.dao.BidDao;
 import com.epam.marketplace.dao.DealDao;
-import com.epam.marketplace.dao.impl.BidDaoImpl;
 import com.epam.marketplace.dao.impl.DealDaoImpl;
-import com.epam.marketplace.entities.Bid;
 import com.epam.marketplace.entities.Deal;
 import com.epam.marketplace.services.dto.DealDto;
-import java.math.BigDecimal;
+import com.epam.marketplace.services.mappers.DealMapper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
-@Service("defaultService")
+@Service("dealService")
 public class DealService {
 
+  // TODO: make an autowired beans?
+  DealDao dealDao = new DealDaoImpl();
+  DealMapper dealMapper = new DealMapper();
+
   public List<DealDto> getAuctions(String status, String sortBy, String sortMode) {
-    DealDao dealDao = new DealDaoImpl();
-    BidDao bidDao = new BidDaoImpl();
-    // TODO: transfer directly to the mapper?
+
     List<Deal> deals = switch (status) {
-      case "open" -> dealDao.findAllFullByStatus(true);
-      case "closed" -> dealDao.findAllFullByStatus(false);
-      case "all" -> dealDao.findAllFull();
+      case "open" -> dealDao.findAllFullWithLastBidByStatus(true);
+      case "closed" -> dealDao.findAllFullWithLastBidByStatus(false);
+      case "all" -> dealDao.findAllFullWithLastBid();
       default -> Collections.emptyList();
     };
+
     ArrayList<DealDto> result = new ArrayList<>();
     for (Deal d: deals) {
-      DealDto row = new DealDto();
-      row.setId(d.getId());
-      row.setSeller(d.getUser().getFirstName() + " " + d.getUser().getLastName());
-      row.setItem(d.getItem().getName());
-      row.setInfo(d.getItem().getDescript());
-      row.setStartDate(d.getOpenTime());
-      row.setStartPrice(d.getInitPrice());
-      Optional<Bid> optionalBid = bidDao.findLastBidByDealId(d.getId());
-      if (optionalBid.isPresent()) {
-        row.setLastBid(optionalBid.get().getOffer());
-      } else {
-        row.setLastBid(new BigDecimal("0"));
-      }
-      row.setStopDate(d.getCloseTime());
-      row.setStatus(d.getStatus());
-      result.add(row);
+      result.add(dealMapper.getDtoFromEntity(d));
     }
     return sort(result, sortBy, sortMode);
   }

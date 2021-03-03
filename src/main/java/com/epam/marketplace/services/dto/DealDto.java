@@ -2,6 +2,7 @@ package com.epam.marketplace.services.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class DealDto {
 
@@ -9,10 +10,10 @@ public class DealDto {
   private String seller;
   private String item;
   private String info;
-  private LocalDateTime startDate;
+  private Date startDate;
   private BigDecimal startPrice;
   private BigDecimal lastBid;
-  private LocalDateTime stopDate;
+  private Date stopDate;
   private boolean status;
 
   public Integer getId() {
@@ -47,11 +48,11 @@ public class DealDto {
     this.info = info;
   }
 
-  public LocalDateTime getStartDate() {
+  public Date getStartDate() {
     return startDate;
   }
 
-  public void setStartDate(LocalDateTime startDate) {
+  public void setStartDate(Date startDate) {
     this.startDate = startDate;
   }
 
@@ -71,11 +72,11 @@ public class DealDto {
     this.lastBid = lastBid;
   }
 
-  public LocalDateTime getStopDate() {
+  public Date getStopDate() {
     return stopDate;
   }
 
-  public void setStopDate(LocalDateTime stopDate) {
+  public void setStopDate(Date stopDate) {
     this.stopDate = stopDate;
   }
 

@@ -14,5 +14,7 @@ public interface DealDao extends CommonDao<Deal> {
   List<Deal> findFromDate(LocalDateTime from);
   List<Deal> findAllFull();
   List<Deal> findAllFullByStatus(boolean status);
+  List<Deal> findAllFullWithLastBid();
+  List<Deal> findAllFullWithLastBidByStatus(boolean status);
 
 }

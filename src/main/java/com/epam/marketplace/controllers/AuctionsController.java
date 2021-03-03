@@ -17,7 +17,7 @@ public class AuctionsController {
   @RequestMapping(value = "/auctions", method = RequestMethod.GET)
   public String auctions(
       @RequestParam(name = "status", defaultValue = "open") String status,
-      @RequestParam(name = "sortBy", defaultValue = "id") String sortBy,
+      @RequestParam(name = "sortBy", defaultValue = "stopDate") String sortBy,
       @RequestParam(name = "sortMode", defaultValue = "asc") String sortMode,
 //      @RequestParam(name = "page", defaultValue = "1") int page,
       Model model) {
@@ -28,7 +28,7 @@ public class AuctionsController {
   @RequestMapping(value = "/auctions.ajax", method = RequestMethod.GET)
   public String auctionsAjax(
       @RequestParam(name = "status", defaultValue = "open") String status,
-      @RequestParam(name = "sortBy", defaultValue = "id") String sortBy,
+      @RequestParam(name = "sortBy", defaultValue = "stopDate") String sortBy,
       @RequestParam(name = "sortMode", defaultValue = "asc") String sortMode,
 //      @RequestParam(name = "page", defaultValue = "1") int page,
       Model model) {

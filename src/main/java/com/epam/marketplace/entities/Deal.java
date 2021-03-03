@@ -44,7 +44,7 @@ public class Deal {
   @JoinColumn(name = "item_id", nullable = false)
   private Item item;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "deal",cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "deal",cascade = CascadeType.ALL)
   private Set<Bid> bids = new HashSet<>();
 
   public Deal() {}

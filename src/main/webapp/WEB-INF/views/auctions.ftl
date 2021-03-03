@@ -34,7 +34,7 @@
           <input type="radio" class="show-radio" id="closed" name="showDeals" value="closed">
           <label for="all">All</label>
           <input type="radio" class="show-radio" id="all" name="showDeals" value="all">
-          <input type="hidden" id="sortBy" name="sortBy" value="id">
+          <input type="hidden" id="sortBy" name="sortBy" value="stopDate">
           <input type="hidden" id="sortMode" name="sortMode" value="asc">
         </form>
       </div>
@@ -58,7 +58,7 @@
             <td class="row-data">${deal.seller}</td>
             <td class="row-data">${deal.item}</td>
             <td class="row-data">${deal.info}</td>
-            <td class="row-data">${deal.startDate.format()}</td>
+            <td class="row-data">${deal.startDate?datetime?string("yyyy-MM-dd HH:mm:ss")}</td>
             <td class="row-data">${deal.startPrice?string["0.00"]}</td>
             <td class="row-data">
               <#if deal.lastBid??>
@@ -67,10 +67,10 @@
               0
             </#if>
             </td>
-            <td class="row-data"><span class="stopDate">${deal.stopDate.format()}</span></td>
+            <td class="row-data"><span class="stopDate">${deal.stopDate?datetime?string("yyyy-MM-dd HH:mm:ss")}</span></td>
             <td class="row-data"><span class="countdown"></span></td>
             <#if deal.status>
-              <td class="button-cell"><button class="table-button"  onclick="newBid()">TAKE MY MONEY!</button></td>
+              <td class="button-cell"><button class="table-button"  onclick="newBid()">MAKE A BID</button></td>
             </#if>
           </tr>
         </#foreach>
