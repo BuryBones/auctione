@@ -5,7 +5,9 @@ import com.epam.marketplace.services.dto.UserDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
+import org.springframework.stereotype.Component;
 
+@Component("userMapper")
 public class UserMapper {
 
   private final MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();

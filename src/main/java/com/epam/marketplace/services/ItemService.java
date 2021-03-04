@@ -12,11 +12,10 @@ import org.springframework.stereotype.Service;
 @Service("itemService")
 public class ItemService {
 
-  // TODO: make autowired beans?
-//  ItemDao itemDao = new ItemDaoImpl();
   @Autowired
-  ItemDao itemDao;
-  ItemMapper itemMapper = new ItemMapper();
+  private ItemDao itemDao;
+  @Autowired
+  private ItemMapper itemMapper;
 
   public List<ItemDto> getItemsByUserId(int userId) {
     List<Item> items = itemDao.findByUserId(userId);

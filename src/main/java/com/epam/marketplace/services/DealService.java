@@ -1,7 +1,6 @@
 package com.epam.marketplace.services;
 
 import com.epam.marketplace.dao.DealDao;
-import com.epam.marketplace.dao.impl.DealDaoImpl;
 import com.epam.marketplace.entities.Deal;
 import com.epam.marketplace.services.dto.DealDto;
 import com.epam.marketplace.services.mappers.DealMapper;
@@ -10,14 +9,16 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("dealService")
 public class DealService {
 
-  // TODO: make an autowired beans?
-  DealDao dealDao = new DealDaoImpl();
-  DealMapper dealMapper = new DealMapper();
+  @Autowired
+  private DealDao dealDao;
+  @Autowired
+  private DealMapper dealMapper;
 
   public List<DealDto> getAuctions(String status, String sortBy, String sortMode) {
 

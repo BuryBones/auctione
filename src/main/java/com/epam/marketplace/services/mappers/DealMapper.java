@@ -5,7 +5,9 @@ import com.epam.marketplace.services.dto.DealDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
+import org.springframework.stereotype.Component;
 
+@Component("dealMapper")
 public class DealMapper {
 
   private final MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();

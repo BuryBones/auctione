@@ -13,8 +13,9 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
   @Autowired
-  UserDao userDao;
-  UserMapper userMapper = new UserMapper();
+  private UserDao userDao;
+  @Autowired
+  private UserMapper userMapper;
 
   public List<UserDto> getUsers() {
     List<User> users = userDao.findAllWithRoles();
