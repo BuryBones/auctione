@@ -4,10 +4,11 @@ function bidDialog() {
     var rowId = event.target.parentNode.parentNode.id;
     var data = document.getElementById(rowId).querySelectorAll(".row-data");
 
-    document.getElementById("lot-name").textContent = "\"" + data[1].innerHTML + "\"";
-    var lastBid = parseFloat(data[5].innerHTML);
+    document.getElementById("dealId").value = data[0].innerHTML;
+    document.getElementById("lot-name").textContent = "\"" + data[2].innerHTML + "\"";
+    var lastBid = parseFloat(data[6].innerHTML);
     if (lastBid == 0) {
-        lastBid = parseFloat(data[4].innerHTML);
+        lastBid = parseFloat(data[5].innerHTML);
     }
     document.getElementById("offer").value = lastBid + 1;
     document.getElementById("offer").min = lastBid + 1;

@@ -28,7 +28,7 @@ public class DealService {
       default -> Collections.emptyList();
     };
 
-    ArrayList<DealDto> result = new ArrayList<>();
+    ArrayList<DealDto> result = new ArrayList<>(deals.size());
     for (Deal d: deals) {
       result.add(dealMapper.getDtoFromEntity(d));
     }
@@ -38,6 +38,17 @@ public class DealService {
   private List<DealDto> sort(ArrayList<DealDto> list, String sortBy, String sortMode) {
     boolean naturalOrder = sortMode.equals("asc");
     return CompareBy.valueOf(sortBy).sort(list,naturalOrder);
+  }
+
+  public boolean createAuction(DealDto newborn) {
+    Deal newDeal = dealMapper.getEntityFromDto(newborn);
+    try {
+      dealDao.save(newDeal);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return false;
+    }
+    return true;
   }
 
   enum CompareBy {

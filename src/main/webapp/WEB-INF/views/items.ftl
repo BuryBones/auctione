@@ -32,7 +32,13 @@
       <tr id="${item?index}">
         <td class="row-data">${item.id}</td>
         <td class="row-data">${item.name}</td>
-        <td class="row-data">${item.descript}</td>
+        <td class="row-data">
+          <#if item.descript??>
+          ${item.descript}
+          <#else>
+          No Description
+        </#if>
+        </td>
         <td class="button-cell"><button class="table-button" onclick="sellDialog();">Sell</button></td>
       </tr>
     </#foreach>

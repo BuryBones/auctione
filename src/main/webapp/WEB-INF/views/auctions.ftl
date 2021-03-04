@@ -41,6 +41,7 @@
       <table class="custom-table" id="deals-table">
         <thead>
           <tr>
+            <th onclick="setSortValue('id');refresh()">Deal#</th>
             <th onclick="setSortValue('seller');refresh()">Seller</th>
             <th onclick="setSortValue('item');refresh()">Item</th>
             <th>Info</th>
@@ -55,6 +56,7 @@
         <#foreach deal in deals>
           <tr id="${deal?index}">
             <script type="text/javascript"><#include "js/makeBid.js"></script>
+            <td class="row-data">${deal.id}</td>
             <td class="row-data">${deal.seller}</td>
             <td class="row-data">${deal.item}</td>
             <td class="row-data">${deal.info}</td>
@@ -97,7 +99,8 @@
   <div id="bid-modal" class="modal">
     <div class="modal-content">
       <p>Make a bid for <span id="lot-name"></span>.</p>
-      <form class="modal-input-form">
+      <form class="modal-input-form" onsubmit="sendBid();refresh()">
+        <input type="hidden" id="dealId">
         <label for="offer">Give your price</label>
         <input type="number" placeholder="Enter your price" id="offer" min="1" required>
         <br>
@@ -107,6 +110,9 @@
         </span>
       </form>
     </div>
+    <script type="text/javascript">
+      <#include "js/sendBidRequest.js">
+    </script>
   </div>
   </body>
 </html>

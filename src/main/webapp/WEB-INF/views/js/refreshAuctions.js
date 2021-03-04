@@ -1,7 +1,7 @@
 var ajaxInterval = setInterval(refresh, 5000);
 
 function refresh() {
-  showDeals = "open";
+//  showDeals = "open";
   sortBy = document.getElementById("sortBy").value;
   sortMode = document.getElementById("sortMode").value;
   radios = document.getElementsByClassName("show-radio");

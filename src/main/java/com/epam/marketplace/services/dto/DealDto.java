@@ -1,20 +1,52 @@
 package com.epam.marketplace.services.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DealDto {
 
   private Integer id;
   private String seller;
+  private Integer sellerId;
   private String item;
+  private Integer itemId;
   private String info;
   private Date startDate;
   private BigDecimal startPrice;
   private BigDecimal lastBid;
   private Date stopDate;
   private boolean status;
+
+  public DealDto() {
+  }
+
+  public DealDto(Integer userId, Integer itemId, String initPrice, String stopDate, String stopTime)
+      throws ParseException {
+    this.sellerId = userId;
+    this.itemId = itemId;
+    this.startPrice = new BigDecimal(initPrice);
+    this.startDate = new Date();
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    this.stopDate = formatter.parse(stopDate + " " + stopTime);
+  }
+
+  public Integer getSellerId() {
+    return sellerId;
+  }
+
+  public void setSellerId(Integer sellerId) {
+    this.sellerId = sellerId;
+  }
+
+  public Integer getItemId() {
+    return itemId;
+  }
+
+  public void setItemId(Integer itemId) {
+    this.itemId = itemId;
+  }
 
   public Integer getId() {
     return id;

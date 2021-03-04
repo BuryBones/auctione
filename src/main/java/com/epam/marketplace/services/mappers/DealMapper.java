@@ -12,20 +12,18 @@ public class DealMapper {
   private final DealCustomMapper customMapper = new DealCustomMapper();
 
   public DealDto getDtoFromEntity(Deal deal) {
-
     mapperFactory.classMap(Deal.class, DealDto.class)
-        .customize(customMapper)
-        .register();
+      .customize(customMapper)
+      .register();
     MapperFacade mapper = mapperFactory.getMapperFacade();
-    DealDto result = mapper.map(deal,DealDto.class);
-    return result;
+    return mapper.map(deal,DealDto.class);
   }
 
   public Deal getEntityFromDto(DealDto dealDto) {
-    mapperFactory.classMap(DealDto.class, Deal.class);
+    mapperFactory.classMap(Deal.class, DealDto.class)
+      .customize(customMapper)
+      .register();
     MapperFacade mapper = mapperFactory.getMapperFacade();
-
-    return null;
+    return mapper.map(dealDto, Deal.class);
   }
-
 }

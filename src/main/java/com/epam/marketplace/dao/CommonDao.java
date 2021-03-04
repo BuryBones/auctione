@@ -74,6 +74,7 @@ public interface CommonDao<T> {
       session.save(object);
       transaction.commit();
     } catch (RuntimeException e) {
+      e.printStackTrace();
       try {
         if (transaction != null) {
           transaction.rollback();

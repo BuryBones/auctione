@@ -1,11 +1,8 @@
-function sendSellRequest() {
+function createItem() {
 
   // gather data
-  var itemId = document.getElementById("itemId").value;
-
-  var initPrice = document.getElementById("init-price").value;
-  var stopDate = document.getElementById("until-date").value;
-  var stopTime = document.getElementById("until-time").value;
+  var name = document.getElementById("name").value;
+  var description = document.getElementById("description").value;
 
   // magic number
   var userId = 7;
@@ -21,12 +18,10 @@ function sendSellRequest() {
   };
   xhttp.open(
     "POST",
-    "items.sell?" +
+    "new-item.new?" +
     "userId=" + userId +
-    "&itemId=" + itemId +
-    "&initPrice=" + initPrice +
-    "&stopDate=" + stopDate +
-    "&stopTime=" + stopTime,
+    "&name=" + name +
+    "&description=" + description,
     true);
   xhttp.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
   xhttp.send();

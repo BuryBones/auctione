@@ -3,8 +3,14 @@ package com.epam.marketplace.controllers;
 import com.epam.marketplace.dao.ItemDao;
 import com.epam.marketplace.dao.impl.ItemDaoImpl;
 import com.epam.marketplace.entities.Item;
+import com.epam.marketplace.services.DealService;
+import com.epam.marketplace.services.ItemService;
+import com.epam.marketplace.services.dto.DealDto;
+import com.epam.marketplace.services.dto.ItemDto;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +20,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ItemsController {
 
+  @Autowired
+  ItemService itemService;
+
+  @Autowired
+  DealService dealService;
+
   @RequestMapping(value = "/items", method = RequestMethod.GET)
   public String items(Model model) {
-    // TODO: make a service already!
-    ItemDao itemDao = new ItemDaoImpl();
-    List<Item> items = itemDao.findByUserId(7);
+
+    int userId = 7; // Magic number
+
+    List<ItemDto> items = itemService.getItemsByUserId(7);
     model.addAttribute("items",items);
     return "items";
   }
@@ -38,6 +51,15 @@ public class ItemsController {
         "Got the following: User: %d; Item: %d; InitPrice: %s; StopDate: %s; StopTime: %s",
         userId,itemId,initPriceStr,stopDateStr,stopTimeStr);
     System.out.println(response);
+
+    try {
+      // TODO: make dome kind of fabric
+      DealDto newDeal = new DealDto(userId, itemId, initPriceStr, stopDateStr, stopTimeStr);
+      dealService.createAuction(newDeal);
+    } catch (ParseException e) {
+      System.out.println("----------PARSE EXCEPTION!!!----------");
+    }
+//    return "auctions";
     return response;
   }
 }

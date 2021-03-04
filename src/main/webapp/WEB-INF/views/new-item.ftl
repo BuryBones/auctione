@@ -22,8 +22,9 @@
   <p>Fill the form to create new item.</p>
   <script type="text/javascript">
     <#include "js/newItemValidation.js">
+    <#include "js/newItemRequest.js">
   </script>
-  <form class="input-form" onsubmit="return validateNewItem()">
+  <form class="input-form" onsubmit="return validateNewItem() && createItem();">
     <ui>
       <li class="form-row">
         <label for="name">Item Name</label>
