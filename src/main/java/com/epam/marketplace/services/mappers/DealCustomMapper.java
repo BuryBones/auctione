@@ -1,9 +1,5 @@
 package com.epam.marketplace.services.mappers;
 
-import com.epam.marketplace.dao.ItemDao;
-import com.epam.marketplace.dao.UserDao;
-import com.epam.marketplace.dao.impl.ItemDaoImpl;
-import com.epam.marketplace.dao.impl.UserDaoImpl;
 import com.epam.marketplace.entities.Bid;
 import com.epam.marketplace.entities.Deal;
 import com.epam.marketplace.entities.Item;
@@ -14,17 +10,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.Optional;
 import java.util.Set;
 import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MappingContext;
 
 // TODO: make an inner class of DealMapper?
 public class DealCustomMapper extends CustomMapper<Deal, DealDto> {
-
-  // TODO: should not be here, probably??
-  ItemDao itemDao = new ItemDaoImpl();
-  UserDao userDao = new UserDaoImpl();
 
   @Override
   public void mapAtoB(Deal src, DealDto dest, MappingContext context) {
@@ -49,18 +40,14 @@ public class DealCustomMapper extends CustomMapper<Deal, DealDto> {
     dest.setInitPrice(src.getStartPrice());
     dest.setOpenTime(src.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
     dest.setCloseTime(src.getStopDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-    dest.setStatus(true);
-    Optional<User> optionalUser = userDao.findById(src.getSellerId());
-    if (optionalUser.isPresent()) {
-      dest.setUser(optionalUser.get());
-    } else {
-      System.out.println("Cannot find USER in mapper!");
-    }
-    Optional<Item> optionalItem = itemDao.findById(src.getItemId());
-    if (optionalItem.isPresent()) {
-      dest.setItem(optionalItem.get());
-    } else {
-      System.out.println("Cannot find ITEM in mapper!");
-    }
+    dest.setStatus(src.getStatus());
+
+    User user = new User();
+    user.setId(src.getSellerId());
+    dest.setUser(user);
+
+    Item item = new Item();
+    item.setId(src.getItemId());
+    dest.setItem(item);
   }
 }

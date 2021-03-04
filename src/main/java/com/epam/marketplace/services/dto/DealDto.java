@@ -17,7 +17,7 @@ public class DealDto {
   private BigDecimal startPrice;
   private BigDecimal lastBid;
   private Date stopDate;
-  private boolean status;
+  private boolean status = true;
 
   public DealDto() {
   }
