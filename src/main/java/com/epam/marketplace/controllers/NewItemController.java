@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class NewItemController {
@@ -21,16 +23,11 @@ public class NewItemController {
 
   @RequestMapping(value = "/new-item.new", method = RequestMethod.POST)
   public String createNewItem(
-      @RequestParam(name = "userId", required = true) int userId,
-      @RequestParam(name = "name", required = true) String name,
-      @RequestParam(name = "description", required = false) String description
+      @RequestParam(name = "userId") int userId,
+      @RequestParam(name = "name") String name,
+      @RequestParam(name = "description", required = false, defaultValue = "") String description
   ) {
-
-    String response = String.format(
-        "Got the following: User: %d; Name: %s; Description: %s",
-        userId,name,description);
-    System.out.println(response);
-
+    // TODO: remove creating an object out of controller!
     ItemDto newItem = new ItemDto(name,description,userId);
     itemService.createItem(newItem);
     return "items";

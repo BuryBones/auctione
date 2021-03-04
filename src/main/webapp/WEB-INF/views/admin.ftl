@@ -18,7 +18,7 @@
       </ul>
     </nav>
     <main>
-      <p>Probably there we would have a list of users</p>
+      <p>List of users and their roles.</p>
       <div class="table-container">
         <table class="custom-table">
           <tr>

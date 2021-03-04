@@ -49,12 +49,7 @@ public class AuctionsController {
       @RequestParam(name = "offer") String offer,
       Model model
   ) {
-
-    String response = String.format(
-        "-------------Got the following: User: %d; Deal: %d; Offer: %s",
-        userId,dealId,offer);
-    System.out.println(response);
-
+    // TODO: remove creating an object out of controller!
     BidDto newBid = new BidDto(userId, dealId, offer);
     bidService.createBid(newBid);
 
