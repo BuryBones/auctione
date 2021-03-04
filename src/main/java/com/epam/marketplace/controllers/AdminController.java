@@ -1,9 +1,7 @@
 package com.epam.marketplace.controllers;
 
-import com.epam.marketplace.dao.UserDao;
-import com.epam.marketplace.dao.impl.UserDaoImpl;
-import com.epam.marketplace.entities.User;
-import java.util.List;
+import com.epam.marketplace.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class AdminController {
 
+  @Autowired
+  UserService userService;
+
   @RequestMapping(value = "/admin", method = RequestMethod.GET)
   public String admin(Model model) {
-    UserDao userDao = new UserDaoImpl();
-    List<User> users = userDao.findAllWithRoles();
-    model.addAttribute("users",users);
+    model.addAttribute("users", userService.getUsers());
     return "admin";
   }
 }

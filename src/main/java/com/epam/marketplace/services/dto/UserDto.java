@@ -5,7 +5,8 @@ import java.util.List;
 public class UserDto {
 
   private Integer id;
-  private String login;
+  private String login = "";
+  private String password = "";
   private String firstName;
   private String lastName;
   private List<String> roles;
@@ -27,6 +28,14 @@ public class UserDto {
 
   public void setLogin(String login) {
     this.login = login;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   public String getFirstName() {

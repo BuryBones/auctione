@@ -37,7 +37,6 @@ public class DealCustomMapper extends CustomMapper<Deal, DealDto> {
     if (bidSet.isEmpty()) {
       dest.setLastBid(new BigDecimal("0"));
     } else {
-//      dest.setLastBid(bidSet.stream().findFirst().get().getOffer());
       dest.setLastBid(bidSet.stream().map(Bid::getOffer).max(Comparator.naturalOrder()).get());
     }
     dest.setStartPrice(src.getInitPrice());

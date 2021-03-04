@@ -1,6 +1,5 @@
 package com.epam.marketplace.dao.impl;
 
-import com.epam.marketplace.entities.Bid_;
 import com.epam.marketplace.entities.User_;
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +12,9 @@ import com.epam.marketplace.dao.UserDao;
 import com.epam.marketplace.entities.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Component;
 
+@Component("userDao")
 public class UserDaoImpl implements UserDao {
 
   @Override

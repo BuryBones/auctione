@@ -1,7 +1,5 @@
 package com.epam.marketplace.dao.impl;
 
-import com.epam.marketplace.entities.Deal;
-import com.epam.marketplace.entities.Deal_;
 import com.epam.marketplace.entities.Item_;
 import java.util.List;
 import java.util.Optional;

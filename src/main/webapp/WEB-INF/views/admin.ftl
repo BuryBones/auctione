@@ -30,7 +30,7 @@
           <tr>
             <td>${user.login}</td>
             <td>${user.lastName} ${user.firstName}</td>
-            <td><#list user.userRoles as role>${role.roleName} </#list></td>
+            <td><#list user.roles as role>${role} </#list></td>
           </tr>
         </#list>
         </table>
