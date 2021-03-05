@@ -5,17 +5,10 @@ public class ItemDto {
   private Integer id;
   private String name;
   private String descript;
-  // TODO: needless?
   private Integer userId;
   private Integer dealId;
 
   public ItemDto() {
-  }
-
-  public ItemDto(String name, String descript, Integer userId) {
-    this.name = name;
-    this.descript = descript;
-    this.userId = userId;
   }
 
   public Integer getId() {

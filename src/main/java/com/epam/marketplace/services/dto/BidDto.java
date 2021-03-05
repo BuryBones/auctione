@@ -14,13 +14,6 @@ public class BidDto {
   public BidDto(){
   }
 
-  public BidDto(Integer userId, Integer dealId, String offer) {
-    this.userId = userId;
-    this.dealId = dealId;
-    this.offer = new BigDecimal(offer);
-    this.dateAndTime = new Date();
-  }
-
   public Integer getId() {
     return id;
   }

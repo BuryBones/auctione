@@ -1,20 +1,21 @@
 package com.epam.marketplace.controllers;
 
+import com.epam.marketplace.services.DtoAssembler;
 import com.epam.marketplace.services.ItemService;
-import com.epam.marketplace.services.dto.ItemDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class NewItemController {
 
   @Autowired
   private ItemService itemService;
+
+  @Autowired
+  private DtoAssembler dtoAssembler;
 
   @RequestMapping(value = "/new-item", method = RequestMethod.GET)
   public String newItem() {
@@ -27,9 +28,7 @@ public class NewItemController {
       @RequestParam(name = "name") String name,
       @RequestParam(name = "description", required = false, defaultValue = "") String description
   ) {
-    // TODO: remove creating an object out of controller!
-    ItemDto newItem = new ItemDto(name,description,userId);
-    itemService.createItem(newItem);
-    return "items";
+    itemService.createItem(dtoAssembler.newItem(userId,name,description));
+    return "redirect:/items";
   }
 }

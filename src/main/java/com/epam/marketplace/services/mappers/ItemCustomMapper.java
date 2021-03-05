@@ -23,7 +23,7 @@ public class ItemCustomMapper extends CustomMapper<Item, ItemDto> {
     dest.setUser(user);
 
     dest.setName(src.getName());
-    if (src.getDescript().isEmpty()) {
+    if (src.getDescript() == null || src.getDescript().isEmpty()) {
       dest.setDescript("No Description");
     } else {
       dest.setDescript(src.getDescript());

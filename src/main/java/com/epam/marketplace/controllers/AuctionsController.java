@@ -2,6 +2,7 @@ package com.epam.marketplace.controllers;
 
 import com.epam.marketplace.services.BidService;
 import com.epam.marketplace.services.DealService;
+import com.epam.marketplace.services.DtoAssembler;
 import com.epam.marketplace.services.dto.BidDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ public class AuctionsController {
 
   @Autowired
   private BidService bidService;
+
+  @Autowired
+  private DtoAssembler dtoAssembler;
 
   @RequestMapping(value = "/auctions", method = RequestMethod.GET)
   public String auctions(
@@ -49,9 +53,7 @@ public class AuctionsController {
       @RequestParam(name = "offer") String offer,
       Model model
   ) {
-    // TODO: remove creating an object out of controller!
-    BidDto newBid = new BidDto(userId, dealId, offer);
-    bidService.createBid(newBid);
+    bidService.createBid(dtoAssembler.newBid(userId, dealId, offer));
 
     model.addAttribute("deals",dealService.getAuctions(status, sortBy, sortMode));
 

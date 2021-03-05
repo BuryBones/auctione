@@ -1,5 +1,6 @@
 package com.epam.marketplace.services.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDto {
@@ -9,7 +10,7 @@ public class UserDto {
   private String password = "";
   private String firstName;
   private String lastName;
-  private List<String> roles;
+  private List<String> roles = new ArrayList<>();
 
   public UserDto() {
   }
@@ -58,7 +59,7 @@ public class UserDto {
     return roles;
   }
 
-  public void setRoles(List<String> roles) {
-    this.roles = roles;
+  public void addRole(String role) {
+    this.roles.add(role);
   }
 }

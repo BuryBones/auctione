@@ -22,16 +22,6 @@ public class DealDto {
   public DealDto() {
   }
 
-  public DealDto(Integer userId, Integer itemId, String initPrice, String stopDate, String stopTime)
-      throws ParseException {
-    this.sellerId = userId;
-    this.itemId = itemId;
-    this.startPrice = new BigDecimal(initPrice);
-    this.startDate = new Date();
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    this.stopDate = formatter.parse(stopDate + " " + stopTime);
-  }
-
   public Integer getSellerId() {
     return sellerId;
   }

@@ -1,6 +1,7 @@
 package com.epam.marketplace.controllers;
 
 import com.epam.marketplace.services.DealService;
+import com.epam.marketplace.services.DtoAssembler;
 import com.epam.marketplace.services.ItemService;
 import com.epam.marketplace.services.dto.DealDto;
 import com.epam.marketplace.services.dto.ItemDto;
@@ -22,6 +23,9 @@ public class ItemsController {
   @Autowired
   private DealService dealService;
 
+  @Autowired
+  private DtoAssembler dtoAssembler;
+
   @RequestMapping(value = "/items", method = RequestMethod.GET)
   public String items(Model model) {
 
@@ -40,13 +44,12 @@ public class ItemsController {
       @RequestParam(name = "stopDate") String stopDateStr,
       @RequestParam(name = "stopTime") String stopTimeStr,
       Model model) {
-    // TODO: remove creating an object out of controller!
     try {
-      DealDto newDeal = new DealDto(userId, itemId, initPriceStr, stopDateStr, stopTimeStr);
-      dealService.createAuction(newDeal);
+      dealService.createAuction(dtoAssembler.newDeal(userId,itemId,initPriceStr,stopDateStr,stopTimeStr));
     } catch (ParseException e) {
-      System.out.println("----------PARSE EXCEPTION!----------");
+      System.out.println("---PARSE EXCEPTION!---");
+      e.printStackTrace();
     }
-    return "auctions";
+    return "redirect:/auctions";
   }
 }
