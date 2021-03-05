@@ -12,7 +12,6 @@
   <nav>
     <ul class="nav-menu">
       <li class="nav-current">Auctions</li>
-      <li><a href="welcome">Login page</a></li>
       <li><a href="items">Items<img src="img/shopping_cart-24px.svg" alt="" title="Items"></a></li>
       <li><a href="admin">Admin Page<img src="img/account_balance-24px.svg" alt="" title="Admin Page"></a></li>
       <li class="logout"><span class="nav-username">Test Username</span><a href="welcome?action=logout">Logout<img src="img/logout-24px.svg" alt="" title="Logout"></a></li>
