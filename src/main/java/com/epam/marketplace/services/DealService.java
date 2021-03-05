@@ -2,8 +2,8 @@ package com.epam.marketplace.services;
 
 import com.epam.marketplace.dao.DealDao;
 import com.epam.marketplace.entities.Deal;
-import com.epam.marketplace.services.dto.DealDto;
-import com.epam.marketplace.services.mappers.DealMapper;
+import com.epam.marketplace.dto.DealDto;
+import com.epam.marketplace.dto.mappers.DealMapper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

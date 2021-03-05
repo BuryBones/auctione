@@ -1,10 +1,9 @@
 package com.epam.marketplace.controllers;
 
+import com.epam.marketplace.dto.ItemDto;
 import com.epam.marketplace.services.DealService;
 import com.epam.marketplace.services.DtoAssembler;
 import com.epam.marketplace.services.ItemService;
-import com.epam.marketplace.services.dto.DealDto;
-import com.epam.marketplace.services.dto.ItemDto;
 import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

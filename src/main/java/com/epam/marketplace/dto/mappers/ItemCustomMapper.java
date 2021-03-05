@@ -1,8 +1,8 @@
-package com.epam.marketplace.services.mappers;
+package com.epam.marketplace.dto.mappers;
 
 import com.epam.marketplace.entities.Item;
 import com.epam.marketplace.entities.User;
-import com.epam.marketplace.services.dto.ItemDto;
+import com.epam.marketplace.dto.ItemDto;
 import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MappingContext;
 

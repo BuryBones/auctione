@@ -1,9 +1,9 @@
 package com.epam.marketplace.services;
 
-import com.epam.marketplace.services.dto.BidDto;
-import com.epam.marketplace.services.dto.DealDto;
-import com.epam.marketplace.services.dto.ItemDto;
-import com.epam.marketplace.services.dto.UserDto;
+import com.epam.marketplace.dto.BidDto;
+import com.epam.marketplace.dto.DealDto;
+import com.epam.marketplace.dto.ItemDto;
+import com.epam.marketplace.dto.UserDto;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

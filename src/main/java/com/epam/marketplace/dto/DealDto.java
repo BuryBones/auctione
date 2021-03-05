@@ -1,8 +1,6 @@
-package com.epam.marketplace.services.dto;
+package com.epam.marketplace.dto;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DealDto {

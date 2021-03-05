@@ -1,7 +1,7 @@
-package com.epam.marketplace.services.mappers;
+package com.epam.marketplace.dto.mappers;
 
 import com.epam.marketplace.entities.Deal;
-import com.epam.marketplace.services.dto.DealDto;
+import com.epam.marketplace.dto.DealDto;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;

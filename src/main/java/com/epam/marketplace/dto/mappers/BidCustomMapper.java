@@ -1,9 +1,9 @@
-package com.epam.marketplace.services.mappers;
+package com.epam.marketplace.dto.mappers;
 
 import com.epam.marketplace.entities.Bid;
 import com.epam.marketplace.entities.Deal;
 import com.epam.marketplace.entities.User;
-import com.epam.marketplace.services.dto.BidDto;
+import com.epam.marketplace.dto.BidDto;
 import java.time.ZoneId;
 import java.util.Date;
 import ma.glasnost.orika.CustomMapper;

@@ -1,4 +1,4 @@
-package com.epam.marketplace.services.dto;
+package com.epam.marketplace.dto;
 
 import java.util.ArrayList;
 import java.util.List;

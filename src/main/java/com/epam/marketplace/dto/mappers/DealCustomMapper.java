@@ -1,10 +1,10 @@
-package com.epam.marketplace.services.mappers;
+package com.epam.marketplace.dto.mappers;
 
 import com.epam.marketplace.entities.Bid;
 import com.epam.marketplace.entities.Deal;
 import com.epam.marketplace.entities.Item;
 import com.epam.marketplace.entities.User;
-import com.epam.marketplace.services.dto.DealDto;
+import com.epam.marketplace.dto.DealDto;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -14,7 +14,6 @@ import java.util.Set;
 import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MappingContext;
 
-// TODO: make an inner class of DealMapper?
 public class DealCustomMapper extends CustomMapper<Deal, DealDto> {
 
   @Override

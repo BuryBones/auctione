@@ -2,8 +2,8 @@ package com.epam.marketplace.services;
 
 import com.epam.marketplace.dao.BidDao;
 import com.epam.marketplace.entities.Bid;
-import com.epam.marketplace.services.dto.BidDto;
-import com.epam.marketplace.services.mappers.BidMapper;
+import com.epam.marketplace.dto.BidDto;
+import com.epam.marketplace.dto.mappers.BidMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

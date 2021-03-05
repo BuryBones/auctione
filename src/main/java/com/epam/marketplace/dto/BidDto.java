@@ -1,14 +1,17 @@
-package com.epam.marketplace.services.dto;
+package com.epam.marketplace.dto;
 
-public class ItemDto {
+import java.math.BigDecimal;
+import java.util.Date;
+
+public class BidDto {
 
   private Integer id;
-  private String name;
-  private String descript;
+  private Date dateAndTime;
+  private BigDecimal offer;
   private Integer userId;
   private Integer dealId;
 
-  public ItemDto() {
+  public BidDto(){
   }
 
   public Integer getId() {
@@ -19,20 +22,20 @@ public class ItemDto {
     this.id = id;
   }
 
-  public String getName() {
-    return name;
+  public Date getDateAndTime() {
+    return dateAndTime;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setDateAndTime(Date dateAndTime) {
+    this.dateAndTime = dateAndTime;
   }
 
-  public String getDescript() {
-    return descript;
+  public BigDecimal getOffer() {
+    return offer;
   }
 
-  public void setDescript(String descript) {
-    this.descript = descript;
+  public void setOffer(BigDecimal offer) {
+    this.offer = offer;
   }
 
   public Integer getUserId() {

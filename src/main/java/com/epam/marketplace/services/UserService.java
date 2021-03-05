@@ -2,8 +2,8 @@ package com.epam.marketplace.services;
 
 import com.epam.marketplace.dao.UserDao;
 import com.epam.marketplace.entities.User;
-import com.epam.marketplace.services.dto.UserDto;
-import com.epam.marketplace.services.mappers.UserMapper;
+import com.epam.marketplace.dto.UserDto;
+import com.epam.marketplace.dto.mappers.UserMapper;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
