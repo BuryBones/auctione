@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class NewItemController {
 
   @Autowired
-  ItemService itemService;
+  private ItemService itemService;
 
   @RequestMapping(value = "/new-item", method = RequestMethod.GET)
   public String newItem() {

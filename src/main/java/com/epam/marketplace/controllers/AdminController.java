@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AdminController {
 
   @Autowired
-  UserService userService;
+  private UserService userService;
 
   @RequestMapping(value = "/admin", method = RequestMethod.GET)
   public String admin(Model model) {

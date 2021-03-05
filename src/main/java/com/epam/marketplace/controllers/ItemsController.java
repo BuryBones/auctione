@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ItemsController {
 
   @Autowired
-  ItemService itemService;
+  private ItemService itemService;
 
   @Autowired
-  DealService dealService;
+  private DealService dealService;
 
   @RequestMapping(value = "/items", method = RequestMethod.GET)
   public String items(Model model) {

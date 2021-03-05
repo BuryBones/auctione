@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AuctionsController {
 
   @Autowired
-  DealService dealService;
+  private DealService dealService;
 
   @Autowired
-  BidService bidService;
+  private BidService bidService;
 
   @RequestMapping(value = "/auctions", method = RequestMethod.GET)
   public String auctions(
