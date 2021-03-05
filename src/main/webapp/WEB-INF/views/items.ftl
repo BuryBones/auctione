@@ -75,6 +75,10 @@
         <input type="time" id="until-time" required>
       </span>
       <br>
+      <span>
+        The minimal time gap between opening and closing of an auction is 1 hour.
+      </span>
+      <br>
       <span class="modal-buttons">
         <input class="form-button" type="submit" value="Start auction">
         <button class="form-button" id="modal-close">Cancel</button>

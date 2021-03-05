@@ -98,7 +98,7 @@
   <div id="bid-modal" class="modal">
     <div class="modal-content">
       <p>Make a bid for <span id="lot-name"></span>.</p>
-      <form class="modal-input-form" onsubmit="sendBid();refresh()">
+      <form class="modal-input-form" onsubmit="sendBid();">
         <input type="hidden" id="dealId">
         <label for="offer">Give your price</label>
         <input type="number" placeholder="Enter your price" id="offer" min="1" required>
