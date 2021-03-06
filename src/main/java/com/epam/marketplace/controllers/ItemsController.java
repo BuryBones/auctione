@@ -2,7 +2,7 @@ package com.epam.marketplace.controllers;
 
 import com.epam.marketplace.dto.ItemDto;
 import com.epam.marketplace.services.DealService;
-import com.epam.marketplace.services.DtoAssembler;
+import com.epam.marketplace.dto.DtoAssembler;
 import com.epam.marketplace.services.ItemService;
 import java.text.ParseException;
 import java.util.List;

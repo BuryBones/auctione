@@ -1,6 +1,6 @@
 package com.epam.marketplace.controllers;
 
-import com.epam.marketplace.services.DtoAssembler;
+import com.epam.marketplace.dto.DtoAssembler;
 import com.epam.marketplace.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

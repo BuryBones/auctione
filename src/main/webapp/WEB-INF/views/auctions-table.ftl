@@ -1,6 +1,6 @@
 <#foreach deal in deals>
 <tr id="${deal?index}">
-  <script type="text/javascript"><#include "js/makeBid.js"></script>
+  <script charset="UTF-8" type="text/javascript"><#include "js/makeBid.js"></script>
   <td class="row-data">${deal.id}</td>
   <td class="row-data">${deal.seller}</td>
   <td class="row-data">${deal.item}</td>

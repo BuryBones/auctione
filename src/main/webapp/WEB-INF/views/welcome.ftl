@@ -18,7 +18,7 @@
 </nav>
 <main>
   <p>To participate in online-auctions you need to log in.</p>
-  <script type="text/javascript">
+  <script charset="UTF-8" type="text/javascript">
     <#include "js/welcomeValidation.js">
   </script>
   <form class="input-form" onsubmit="return validateWelcome()">

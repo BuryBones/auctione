@@ -16,7 +16,7 @@
   </ul>
 </nav>
 <main>
-  <script type="text/javascript">
+  <script charset="UTF-8" type="text/javascript">
     <#include "js/registrationValidation.js">
   </script>
   <form class="input-form" onsubmit="return validateRegistration()">

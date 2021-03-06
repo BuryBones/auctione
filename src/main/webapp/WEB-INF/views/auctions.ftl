@@ -22,7 +22,7 @@
     <div class="table-container">
       <div class="deals-radio">
         <form onchange="refresh()">
-          <script type="text/javascript">
+          <script charset="UTF-8" type="text/javascript">
             <#include "js/refreshAuctions.js">
             <#include "js/setOrder.js">
           </script>
@@ -54,7 +54,7 @@
         <tbody id="table-body">
         <#foreach deal in deals>
           <tr id="${deal?index}">
-            <script type="text/javascript"><#include "js/makeBid.js"></script>
+            <script charset="UTF-8" type="text/javascript"><#include "js/makeBid.js"></script>
             <td class="row-data">${deal.id}</td>
             <td class="row-data">${deal.seller}</td>
             <td class="row-data">${deal.item}</td>
@@ -76,7 +76,7 @@
           </tr>
         </#foreach>
         </tbody>
-      <script type="text/javascript">
+      <script charset="UTF-8" type="text/javascript">
           <#include "js/libs/moment.js">
           <#include "js/countdown.js">
       </script>
@@ -109,7 +109,7 @@
         </span>
       </form>
     </div>
-    <script type="text/javascript">
+    <script charset="UTF-8" type="text/javascript">
       <#include "js/sendBidRequest.js">
     </script>
   </div>

@@ -4,7 +4,7 @@
   <style type="text/css">
     <#include "css/styles.css">
   </style>
-  <title>AuctiOne - My Profile</title>
+  <title>AuctiOne - Items</title>
   <meta charset="UTF-8">
   <link rel="icon" href="img/Bag.png">
 </head>
@@ -86,7 +86,7 @@
     </form>
   </div>
 </div>
-  <script type="text/javascript">
+  <script charset="UTF-8" type="text/javascript">
     <#include "js/sellItem.js">
     <#include "js/sendSellItemRequest.js">
     <#include "js/libs/moment.js">

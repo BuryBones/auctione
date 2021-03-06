@@ -1,9 +1,5 @@
-package com.epam.marketplace.services;
+package com.epam.marketplace.dto;
 
-import com.epam.marketplace.dto.BidDto;
-import com.epam.marketplace.dto.DealDto;
-import com.epam.marketplace.dto.ItemDto;
-import com.epam.marketplace.dto.UserDto;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +25,7 @@ public class DtoAssembler {
     ItemDto result = new ItemDto();
     result.setUserId(userId);
     result.setName(name);
-
+    result.setDescript(description);
     return result;
   }
 

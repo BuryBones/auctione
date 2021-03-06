@@ -20,7 +20,7 @@
 </nav>
 <main>
   <p>Fill the form to create new item.</p>
-  <script type="text/javascript">
+  <script charset="UTF-8" type="text/javascript">
     <#include "js/newItemValidation.js">
     <#include "js/newItemRequest.js">
   </script>

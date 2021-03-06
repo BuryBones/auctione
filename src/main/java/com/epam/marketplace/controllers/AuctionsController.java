@@ -2,7 +2,7 @@ package com.epam.marketplace.controllers;
 
 import com.epam.marketplace.services.BidService;
 import com.epam.marketplace.services.DealService;
-import com.epam.marketplace.services.DtoAssembler;
+import com.epam.marketplace.dto.DtoAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
