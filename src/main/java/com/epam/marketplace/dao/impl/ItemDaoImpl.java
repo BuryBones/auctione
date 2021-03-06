@@ -11,9 +11,11 @@ import com.epam.marketplace.dao.ItemDao;
 import com.epam.marketplace.entities.Item;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component("itemDao")
+@Scope("prototype")
 public class ItemDaoImpl implements ItemDao {
 
   public Optional<Item> findByName(String name) {

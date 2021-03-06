@@ -17,9 +17,11 @@ import javax.persistence.criteria.SetJoin;
 import javax.persistence.criteria.Subquery;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component("dealDao")
+@Scope("prototype")
 public class DealDaoImpl implements DealDao {
 
   @Override

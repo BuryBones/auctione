@@ -12,9 +12,11 @@ import com.epam.marketplace.dao.UserDao;
 import com.epam.marketplace.entities.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component("userDao")
+@Scope("prototype")
 public class UserDaoImpl implements UserDao {
 
   @Override
