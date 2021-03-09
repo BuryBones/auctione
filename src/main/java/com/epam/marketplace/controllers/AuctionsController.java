@@ -27,8 +27,14 @@ public class AuctionsController {
       @RequestParam(name = "status", defaultValue = "open") String status,
       @RequestParam(name = "sortBy", defaultValue = "stopDate") String sortBy,
       @RequestParam(name = "sortMode", defaultValue = "asc") String sortMode,
+      @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
       Model model) {
-    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode));
+    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage));
+    long amount = dealService.getAmount(status);
+    System.out.println(amount);
+    int page = 1;
+    model.addAttribute("totalPages", amount);
+    model.addAttribute("currentPage", page);
     return "auctions";
   }
 
@@ -37,8 +43,10 @@ public class AuctionsController {
       @RequestParam(name = "status", defaultValue = "open") String status,
       @RequestParam(name = "sortBy", defaultValue = "stopDate") String sortBy,
       @RequestParam(name = "sortMode", defaultValue = "asc") String sortMode,
+      @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
       Model model) {
-    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode));
+    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage));
+
     return "auctions-table";
   }
 
@@ -54,7 +62,8 @@ public class AuctionsController {
   ) {
     bidService.createBid(dtoAssembler.newBid(userId, dealId, offer));
 
-    model.addAttribute("deals",dealService.getAuctions(status, sortBy, sortMode));
+    // TODO: current page hardcoded
+    model.addAttribute("deals",dealService.getAuctions(status, sortBy, sortMode, 1));
 
     return "auctions";
   }

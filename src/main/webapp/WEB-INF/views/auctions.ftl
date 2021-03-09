@@ -76,23 +76,34 @@
           </tr>
         </#foreach>
         </tbody>
-      <script charset="UTF-8" type="text/javascript">
-          <#include "js/libs/moment.js">
-          <#include "js/countdown.js">
-      </script>
+        <script charset="UTF-8" type="text/javascript">
+            <#include "js/libs/moment.js">
+            <#include "js/countdown.js">
+        </script>
       </table>
-    <div class="center">
-      <div class="pagination">
-        <a href="#">First</a>
-        <a href="#">&laquo;</a>
-        <a class="active" href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">&raquo;</a>
-        <a href="#">Last</a>
+      <div class="center">
+        <div class="pagination">
+          <script charset="UTF-8" type="text/javascript">
+            <#include "js/pagination.js">
+          </script>
+          <form>
+            <input type="hidden" id="currentPage" value=${currentPage}>
+          </form>
+          <a href="#">First</a>
+          <a href="#">&laquo;</a>
+          <#assign i=totalPages>
+          <#list 1..i as pages>
+            <#if pages?counter == currentPage>
+              <button class="active" onclick="setCurrentPage(pages?counter)">${pages?counter}</button>
+            <#else>
+              <button onclick="setCurrentPage(${pages?counter})">${pages?counter}</button>
+            </#if>
+          </#list>
+          <a href="#">&raquo;</a>
+          <a href="#">Last</a>
+        </div>
       </div>
     </div>
-  </div>
   </main>
   <!-- Modal -->
   <div id="bid-modal" class="modal">

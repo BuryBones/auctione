@@ -95,7 +95,7 @@ public class DealDaoImpl implements DealDao {
   }
 
   @Override
-  public List<Deal> findAllFullWithLastBid() {
+  public List<Deal> findAllFullWithLastBid(int pageSize, int currentPage) {
 
     Session session = HibernateUtil.getSessionFactory().openSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -113,6 +113,8 @@ public class DealDaoImpl implements DealDao {
     sub.where(cb.equal(root.get(Deal_.id), subBids.get(Bid_.deal)));
 
     Query<Deal> query = session.createQuery(cq);
+    query.setFirstResult((currentPage - 1) * pageSize);
+    query.setMaxResults(pageSize);
     List<Deal> result = query.getResultList();
 
     session.close();
@@ -120,7 +122,7 @@ public class DealDaoImpl implements DealDao {
   }
 
   @Override
-  public List<Deal> findAllFullWithLastBidByStatus(boolean status) {
+  public List<Deal> findAllFullWithLastBidByStatus(boolean status, int pageSize, int currentPage) {
 
     Session session = HibernateUtil.getSessionFactory().openSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -143,10 +145,48 @@ public class DealDaoImpl implements DealDao {
     sub.where(cb.equal(root.get(Deal_.id), subBids.get(Bid_.deal)));
 
     Query<Deal> query = session.createQuery(cq);
+    query.setFirstResult((currentPage - 1) * pageSize);
+    query.setMaxResults(pageSize);
     List<Deal> result = query.getResultList();
 
     session.close();
     return result;
   }
 
+  @Override
+  public Long findAmount() {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    CriteriaBuilder cb = session.getCriteriaBuilder();
+    CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+
+    Root<Deal> root = cq.from(Deal.class);
+    cq.select(cb.count(root));
+
+    Query<Long> query = session.createQuery(cq);
+    Long result = query.getSingleResult();
+
+    session.close();
+    return result;
+  }
+
+  @Override
+  public Long findAmountByStatus(boolean status) {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    CriteriaBuilder cb = session.getCriteriaBuilder();
+    CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+
+    Root<Deal> root = cq.from(Deal.class);
+    if (status) {
+      cq.where(cb.greaterThan(root.get(Deal_.closeTime),LocalDateTime.now()));
+    } else {
+      cq.where(cb.lessThan(root.get(Deal_.closeTime),LocalDateTime.now()));
+    }
+    cq.select(cb.count(root));
+
+    Query<Long> query = session.createQuery(cq);
+    Long result = query.getSingleResult();
+
+    session.close();
+    return result;
+  }
 }

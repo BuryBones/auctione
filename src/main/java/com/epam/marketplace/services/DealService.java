@@ -20,12 +20,24 @@ public class DealService {
   @Autowired
   private DealMapper dealMapper;
 
-  public List<DealDto> getAuctions(String status, String sortBy, String sortMode) {
+  public Long getAmount(String status) {
+    return switch (status) {
+      case "open" -> dealDao.findAmountByStatus(true);
+      case "closed" -> dealDao.findAmountByStatus(false);
+      case "all" -> dealDao.findAmount();
+      default -> dealDao.findAmount();
+    };
+  }
+
+  public List<DealDto> getAuctions(String status, String sortBy, String sortMode, int currentPage) {
+    // TODO: magic
+    int pageSize = 5;
+    Long totalAmount = getAmount(status);
 
     List<Deal> deals = switch (status) {
-      case "open" -> dealDao.findAllFullWithLastBidByStatus(true);
-      case "closed" -> dealDao.findAllFullWithLastBidByStatus(false);
-      case "all" -> dealDao.findAllFullWithLastBid();
+      case "open" -> dealDao.findAllFullWithLastBidByStatus(true, pageSize, currentPage);
+      case "closed" -> dealDao.findAllFullWithLastBidByStatus(false, pageSize, currentPage);
+      case "all" -> dealDao.findAllFullWithLastBid(pageSize, currentPage);
       default -> Collections.emptyList();
     };
 

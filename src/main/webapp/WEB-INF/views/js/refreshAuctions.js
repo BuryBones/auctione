@@ -10,6 +10,8 @@ function refresh() {
       showDeals = radios[btn].value;
     }
   }
+  console.log(document.getElementById("currentPage") == null);
+//  currentPage = document.getElementById("currentPage").value;
 
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -19,6 +21,6 @@ function refresh() {
   };
   xhttp.open(
     "GET",
-     "auctions.ajax?status=" + showDeals + "&sortBy=" + sortBy + "&sortMode=" + sortMode, true);
+     "auctions.ajax?status=" + showDeals + "&sortBy=" + sortBy + "&sortMode=" + sortMode + "&currentPage=" + 1, true);
   xhttp.send();
 }
