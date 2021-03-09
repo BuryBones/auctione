@@ -6,6 +6,7 @@ import com.epam.marketplace.dto.UserDto;
 import com.epam.marketplace.dto.mappers.UserMapper;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,10 @@ public class UserService {
       return false;
     }
     return true;
+  }
+
+  public boolean checkIfUserExistsByLogin(String login) {
+    return userDao.findByLogin(login).isPresent();
   }
 
 }

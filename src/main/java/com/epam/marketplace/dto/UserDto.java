@@ -1,7 +1,7 @@
 package com.epam.marketplace.dto;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class UserDto {
 
@@ -10,7 +10,8 @@ public class UserDto {
   private String password = "";
   private String firstName;
   private String lastName;
-  private List<String> roles = new ArrayList<>();
+  private String email;
+  private Set<String> roles = new HashSet<>();
 
   public UserDto() {
   }
@@ -55,7 +56,15 @@ public class UserDto {
     this.lastName = lastName;
   }
 
-  public List<String> getRoles() {
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public Set<String> getRoles() {
     return roles;
   }
 

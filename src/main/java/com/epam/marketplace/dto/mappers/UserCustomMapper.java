@@ -14,6 +14,7 @@ public class UserCustomMapper extends CustomMapper<User, UserDto> {
     dest.setLogin(src.getLogin());
     dest.setFirstName(src.getFirstName());
     dest.setLastName(src.getLastName());
+//    dest.setEmail(src.getEmail());
     src.getUserRoles()
         .stream().map(Role::getRoleName)
         .forEach(dest::addRole);
@@ -25,5 +26,11 @@ public class UserCustomMapper extends CustomMapper<User, UserDto> {
     dest.setFirstName(src.getFirstName());
     dest.setLastName(src.getLastName());
     dest.setPassword(src.getPassword());
+//    dest.setEmail(src.getEmail());
+    src.getRoles().forEach(roleName -> {
+      Role role = new Role();
+      role.setRoleName(roleName);
+      dest.addRole(role);
+    });
   }
 }

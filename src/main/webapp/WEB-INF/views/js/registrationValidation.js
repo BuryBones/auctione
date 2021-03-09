@@ -56,7 +56,7 @@ function checkEmail() {
 
 function checkPassword() {
     var password = document.getElementById("password");
-    var pattern = "(^[a-zA-Z0-9!#$*+=_^.,-]+$)";
+    var pattern = "(^[a-zA-Z0-9!#$*+_^.,-]+$)";
 
     if (password.value.length < 3 || password.value.length > 45 || !password.value.match(pattern)) {
         showModal("Invalid password format!");

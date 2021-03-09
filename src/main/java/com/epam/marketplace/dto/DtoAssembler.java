@@ -11,13 +11,14 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class DtoAssembler {
 
-  public UserDto newUser(String login, String password, String firstName, String lastName) {
+  public UserDto newUser(String login, String password, String email, String firstName, String lastName) {
     UserDto result = new UserDto();
     result.setLogin(login);
     result.setPassword(password);
+    result.setEmail(email);
     result.setFirstName(firstName);
     result.setLastName(lastName);
-    result.addRole("REGULAR_USER");
+    result.addRole("2");
     return result;
   }
 
