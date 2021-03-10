@@ -4,6 +4,7 @@ import com.epam.marketplace.dto.DtoAssembler;
 import com.epam.marketplace.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +19,8 @@ public class NewItemController {
   private DtoAssembler dtoAssembler;
 
   @RequestMapping(value = "/new-item", method = RequestMethod.GET)
-  public String newItem() {
+  public String newItem(Model model) {
+    model.addAttribute("title", " - New Item");
     return "new-item";
   }
 

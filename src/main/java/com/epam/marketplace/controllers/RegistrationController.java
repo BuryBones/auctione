@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +21,8 @@ public class RegistrationController {
   private DtoAssembler dtoAssembler;
 
   @RequestMapping(value = "/registration", method = RequestMethod.GET)
-  public String registration() {
+  public String registration(Model model) {
+    model.addAttribute("title", " - Registration");
     return "registration";
   }
 

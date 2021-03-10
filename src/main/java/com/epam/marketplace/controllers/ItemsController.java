@@ -27,6 +27,7 @@ public class ItemsController {
 
   @RequestMapping(value = "/items", method = RequestMethod.GET)
   public String items(Model model) {
+    model.addAttribute("title", " - Items");
 
     int userId = 7; // Magic number
 
@@ -46,7 +47,7 @@ public class ItemsController {
     try {
       dealService.createAuction(dtoAssembler.newDeal(userId,itemId,initPriceStr,stopDateStr,stopTimeStr));
     } catch (ParseException e) {
-      System.out.println("---PARSE EXCEPTION!---");
+      // TODO: do smth with exception handling
       e.printStackTrace();
     }
     return "redirect:/auctions";

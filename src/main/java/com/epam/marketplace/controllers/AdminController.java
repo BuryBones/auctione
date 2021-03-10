@@ -15,6 +15,7 @@ public class AdminController {
 
   @RequestMapping(value = "/admin", method = RequestMethod.GET)
   public String admin(Model model) {
+    model.addAttribute("title", " - Admin Page");
     model.addAttribute("users", userService.getUsers());
     return "admin";
   }

@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <style type="text/css">
-            <#include "css/styles.css">
-        </style>
-    <title>AuctiOne - Deals</title>
-    <meta charset="UTF-8">
-    <link rel="icon" href="img/Bag.png">
-  </head>
-  <body>
+<#import "common-macro.ftl" as common>
+<@common.header title="${title}">
   <nav>
     <ul class="nav-menu">
       <li class="nav-current">Auctions</li>
@@ -127,5 +118,4 @@
       <#include "js/sendBidRequest.js">
     </script>
   </div>
-  </body>
-</html>
+</@common.header>

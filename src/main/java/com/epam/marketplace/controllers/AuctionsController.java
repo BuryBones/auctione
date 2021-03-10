@@ -30,6 +30,7 @@ public class AuctionsController {
       @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
       @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
       Model model) {
+    model.addAttribute("title", " - Deals");
     model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
     long amount = dealService.getAmount(status);
     model.addAttribute("totalPages", Math.ceil((float)(amount/pageSize)));
