@@ -14,8 +14,8 @@ public interface DealDao extends CommonDao<Deal> {
   List<Deal> findFromDate(LocalDateTime from);
   List<Deal> findAllFull();
   List<Deal> findAllFullByStatus(boolean status);
-  List<Deal> findAllFullWithLastBid(int pageSize, int currentPage);
-  List<Deal> findAllFullWithLastBidByStatus(boolean status, int pageSize, int currentPage);
+  List<Deal> findAllFullWithLastBid(int pageSize, int currentPage, String sortBy, boolean order);
+  List<Deal> findAllFullWithLastBidByStatus(boolean status, int pageSize, int currentPage, String sortBy, boolean order);
   Long findAmount();
   Long findAmountByStatus(boolean status);
 

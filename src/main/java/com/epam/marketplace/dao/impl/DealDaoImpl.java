@@ -5,9 +5,13 @@ import com.epam.marketplace.entities.Bid_;
 import com.epam.marketplace.entities.Deal_;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.function.Function;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import com.epam.marketplace.HibernateUtil;
@@ -23,6 +27,17 @@ import org.springframework.stereotype.Component;
 @Component("dealDao")
 @Scope("prototype")
 public class DealDaoImpl implements DealDao {
+
+  private static HashMap<String, Function<Root,Expression>> compareBy = new HashMap<>();
+  static {
+    compareBy.put("id",         (root) -> root.get(Deal_.id));
+    compareBy.put("seller",     (root) -> root.get(Deal_.user));
+    compareBy.put("item",       (root) -> root.get(Deal_.item));
+    compareBy.put("startDate",  (root) -> root.get(Deal_.openTime));
+    compareBy.put("startPrice", (root) -> root.get(Deal_.initPrice));
+    compareBy.put("lastBid",    (root) -> root.get(Bid_.offer));
+    compareBy.put("stopDate",   (root) -> root.get(Deal_.closeTime));
+  }
 
   @Override
   public List<Deal> findByStatus(boolean status) {
@@ -95,7 +110,7 @@ public class DealDaoImpl implements DealDao {
   }
 
   @Override
-  public List<Deal> findAllFullWithLastBid(int pageSize, int currentPage) {
+  public List<Deal> findAllFullWithLastBid(int pageSize, int currentPage, String sortBy, boolean order) {
 
     Session session = HibernateUtil.getSessionFactory().openSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -104,7 +119,6 @@ public class DealDaoImpl implements DealDao {
     Root<Deal> root = cq.from(Deal.class);
     root.fetch(Deal_.user, JoinType.LEFT);
     root.fetch(Deal_.item, JoinType.LEFT);
-    cq.orderBy(cb.asc(root.get(Deal_.id)));
 
     Subquery<BigDecimal> sub = cq.subquery(BigDecimal.class);
     Root subRoot = sub.from(Bid.class);
@@ -112,17 +126,31 @@ public class DealDaoImpl implements DealDao {
     sub.select(cb.max(subRoot.get(Bid_.offer)));
     sub.where(cb.equal(root.get(Deal_.id), subBids.get(Bid_.deal)));
 
-    Query<Deal> query = session.createQuery(cq);
-    query.setFirstResult((currentPage - 1) * pageSize);
-    query.setMaxResults(pageSize);
-    List<Deal> result = query.getResultList();
+    if (order) {
+      cq.orderBy(cb.asc(compareBy.get(sortBy).apply(root)));
+    } else {
+      cq.orderBy(cb.desc(compareBy.get(sortBy).apply(root)));
+    }
+
+    List<Deal> result = new ArrayList<>();
+    try {
+      Query<Deal> query = session.createQuery(cq);
+      query.setFirstResult((currentPage - 1) * pageSize);
+      query.setMaxResults(pageSize);
+      result = query.getResultList();
+//      List<Deal> result = query.getResultList();
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      session.close();
+    }
 
     session.close();
     return result;
   }
 
   @Override
-  public List<Deal> findAllFullWithLastBidByStatus(boolean status, int pageSize, int currentPage) {
+  public List<Deal> findAllFullWithLastBidByStatus(boolean status, int pageSize, int currentPage, String sortBy, boolean order) {
 
     Session session = HibernateUtil.getSessionFactory().openSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -144,12 +172,25 @@ public class DealDaoImpl implements DealDao {
     sub.select(cb.max(subRoot.get(Bid_.offer)));
     sub.where(cb.equal(root.get(Deal_.id), subBids.get(Bid_.deal)));
 
-    Query<Deal> query = session.createQuery(cq);
-    query.setFirstResult((currentPage - 1) * pageSize);
-    query.setMaxResults(pageSize);
-    List<Deal> result = query.getResultList();
+    if (order) {
+        cq.orderBy(cb.asc(compareBy.get(sortBy).apply(root)));
+    } else {
+        cq.orderBy(cb.desc(compareBy.get(sortBy).apply(root)));
+    }
 
-    session.close();
+    List<Deal> result = new ArrayList<>();
+    try {
+      Query<Deal> query = session.createQuery(cq);
+      query.setFirstResult((currentPage - 1) * pageSize);
+      query.setMaxResults(pageSize);
+      result = query.getResultList();
+//      List<Deal> result = query.getResultList();
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      session.close();
+    }
+
     return result;
   }
 

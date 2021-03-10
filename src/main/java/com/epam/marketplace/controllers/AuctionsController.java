@@ -28,13 +28,12 @@ public class AuctionsController {
       @RequestParam(name = "sortBy", defaultValue = "stopDate") String sortBy,
       @RequestParam(name = "sortMode", defaultValue = "asc") String sortMode,
       @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
+      @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
       Model model) {
-    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage));
+    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
     long amount = dealService.getAmount(status);
-    System.out.println(amount);
-    int page = 1;
-    model.addAttribute("totalPages", amount);
-    model.addAttribute("currentPage", page);
+    model.addAttribute("totalPages", Math.ceil((float)(amount/pageSize)));
+    model.addAttribute("currentPage", currentPage);
     return "auctions";
   }
 
@@ -44,9 +43,12 @@ public class AuctionsController {
       @RequestParam(name = "sortBy", defaultValue = "stopDate") String sortBy,
       @RequestParam(name = "sortMode", defaultValue = "asc") String sortMode,
       @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
+      @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
       Model model) {
-    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage));
-
+    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
+    long amount = dealService.getAmount(status);
+    model.addAttribute("totalPages", Math.ceil((float)(amount/pageSize)));
+    model.addAttribute("currentPage", currentPage);
     return "auctions-table";
   }
 
@@ -58,13 +60,12 @@ public class AuctionsController {
       @RequestParam(name = "userId") int userId,
       @RequestParam(name = "dealId") int dealId,
       @RequestParam(name = "offer") String offer,
+      @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
+      @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
       Model model
   ) {
     bidService.createBid(dtoAssembler.newBid(userId, dealId, offer));
-
-    // TODO: current page hardcoded
-    model.addAttribute("deals",dealService.getAuctions(status, sortBy, sortMode, 1));
-
+    model.addAttribute("deals",dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
     return "auctions";
   }
 

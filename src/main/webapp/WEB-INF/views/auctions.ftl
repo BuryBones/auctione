@@ -88,19 +88,22 @@
           </script>
           <form>
             <input type="hidden" id="currentPage" value=${currentPage}>
+            <input type="hidden" id="pageSize" value="5">
           </form>
-          <a href="#">First</a>
-          <a href="#">&laquo;</a>
+          <#if currentPage != 1>
+            <button class="pagination-button" onclick="setCurrentPage(1);refresh();">&laquo;</button>
+          </#if>
           <#assign i=totalPages>
           <#list 1..i as pages>
             <#if pages?counter == currentPage>
-              <button class="active" onclick="setCurrentPage(pages?counter)">${pages?counter}</button>
+              <button class="pagination-button-active" onclick="setCurrentPage(${pages?counter});refresh();">${pages?counter}</button>
             <#else>
-              <button onclick="setCurrentPage(${pages?counter})">${pages?counter}</button>
+              <button class="pagination-button" onclick="setCurrentPage(${pages?counter});refresh();">${pages?counter}</button>
             </#if>
           </#list>
-          <a href="#">&raquo;</a>
-          <a href="#">Last</a>
+          <#if currentPage != totalPages>
+            <button class="pagination-button" onclick="setCurrentPage(${totalPages});refresh();">&raquo;</button>
+          </#if>
         </div>
       </div>
     </div>

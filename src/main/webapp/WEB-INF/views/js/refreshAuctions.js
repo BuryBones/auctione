@@ -1,7 +1,6 @@
 var ajaxInterval = setInterval(refresh, 5000);
 
 function refresh() {
-//  showDeals = "open";
   sortBy = document.getElementById("sortBy").value;
   sortMode = document.getElementById("sortMode").value;
   radios = document.getElementsByClassName("show-radio");
@@ -10,8 +9,8 @@ function refresh() {
       showDeals = radios[btn].value;
     }
   }
-  console.log(document.getElementById("currentPage") == null);
-//  currentPage = document.getElementById("currentPage").value;
+  currentPage = document.getElementById("currentPage").value;
+  pageSize = document.getElementById("pageSize").value;
 
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -21,6 +20,11 @@ function refresh() {
   };
   xhttp.open(
     "GET",
-     "auctions.ajax?status=" + showDeals + "&sortBy=" + sortBy + "&sortMode=" + sortMode + "&currentPage=" + 1, true);
+     "auctions.ajax?status=" + showDeals +
+     "&sortBy=" + sortBy +
+     "&sortMode=" + sortMode +
+     "&currentPage=" + currentPage +
+     "&pageSize=" + pageSize,
+      true);
   xhttp.send();
 }

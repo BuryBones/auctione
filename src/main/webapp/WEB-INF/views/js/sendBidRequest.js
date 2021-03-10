@@ -9,11 +9,12 @@ function sendBid() {
       showDeals = radios[btn].value;
     }
   }
-
-  // gather data
+  // pagination data
+  var currentPage = document.getElementById("currentPage").value;
+  var pageSize = document.getElementById("pageSize").value;
+  // business data
   var dealId = document.getElementById("dealId").value;
   var offer = document.getElementById("offer").value;
-
   // hardcoded user id for test
   var userId = 7;
 
@@ -35,7 +36,9 @@ function sendBid() {
     "&sortMode=" + sortMode +
     "&userId=" + userId +
     "&dealId=" + dealId +
-    "&offer=" + offer,
+    "&offer=" + offer +
+    "&currentPage=" + currentPage +
+    "&pageSize=" + pageSize,
     true);
   xhttp.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
   xhttp.send();

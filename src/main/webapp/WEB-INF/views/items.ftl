@@ -43,17 +43,6 @@
     </#foreach>
     </table>
   </div>
-  <div class="center">
-    <div class="pagination">
-      <a href="#">First</a>
-      <a href="#">&laquo;</a>
-      <a class="active" href="#">1</a>
-      <a href="#">2</a>
-      <a href="#">3</a>
-      <a href="#">&raquo;</a>
-      <a href="#">Last</a>
-    </div>
-  </div>
 </main>
 <!-- Modal -->
 <div id="sell-modal" class="modal">
