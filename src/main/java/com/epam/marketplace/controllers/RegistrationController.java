@@ -24,9 +24,11 @@ public class RegistrationController {
     return "registration";
   }
 
+  // TODO: Model and view
   @RequestMapping(value = "/registration", method = RequestMethod.POST, consumes = "text/plain")
   public String submit(
       @RequestBody String postPayLoad
+//      @RequestBody UserDto user
   ) {
     System.out.println("Got the following:\r\n" + postPayLoad);
     Map<String, String> params = new HashMap<>();

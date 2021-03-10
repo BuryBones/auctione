@@ -28,6 +28,10 @@ public class User {
   @Column(name = "login", unique = true, nullable = false)
   private String login;
 
+  @NaturalId
+  @Column(name = "email", unique = true, nullable = false)
+  private String email;
+
   @Column(name = "firstname", nullable = false)
   private String firstName;
 
@@ -99,8 +103,8 @@ public class User {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    return String.format("User ID: %d, Login: %s, %s %s%n",
-        getId(), getLogin(), getLastName(), getFirstName());
+    return String.format("User ID: %d, Login: %s, Email: %s, %s %s%n",
+        getId(), getLogin(), getEmail(), getLastName(), getFirstName());
   }
 
   @Override
@@ -147,6 +151,14 @@ public class User {
 
   public void setLogin(String login) {
     this.login = login;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public String getFirstName() {

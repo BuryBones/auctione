@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "role")
@@ -18,7 +19,8 @@ public class Role {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  @Column(name = "role_name", nullable = false)
+  @NaturalId
+  @Column(name = "role_name", unique = true, nullable = false)
   private String roleName;
 
   @ManyToMany(mappedBy = "userRoles")

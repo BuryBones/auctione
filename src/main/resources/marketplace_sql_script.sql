@@ -8,11 +8,13 @@ CREATE TABLE role (
 CREATE TABLE "user" (
 	id SERIAL,
 	login VARCHAR(45) NOT NULL,
+	email VARCHAR(45) NOT NULL,
 	firstname VARCHAR(45) NOT NULL,
 	lastname VARCHAR(45) NOT NULL,
 	password VARCHAR(45) NOT NULL,
 	PRIMARY KEY (id),
-	CONSTRAINT unique_login UNIQUE(login)
+	CONSTRAINT unique_login UNIQUE(login),
+	CONSTRAINT unique_email UNIQUE(email)
 );
 
 CREATE TABLE user_role (
