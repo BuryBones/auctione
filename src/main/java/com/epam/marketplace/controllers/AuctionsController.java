@@ -33,7 +33,8 @@ public class AuctionsController {
     model.addAttribute("title", " - Deals");
     model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
     long amount = dealService.getAmount(status);
-    model.addAttribute("totalPages", Math.ceil((float)(amount/pageSize)));
+    int totalPages = (int) Math.ceil((float) amount / pageSize);
+    model.addAttribute("totalPages", totalPages);
     model.addAttribute("currentPage", currentPage);
     return "auctions";
   }
@@ -48,7 +49,8 @@ public class AuctionsController {
       Model model) {
     model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
     long amount = dealService.getAmount(status);
-    model.addAttribute("totalPages", Math.ceil((float)(amount/pageSize)));
+    int totalPages = (int) Math.ceil((float) amount / pageSize);
+    model.addAttribute("totalPages", totalPages);
     model.addAttribute("currentPage", currentPage);
     return "auctions-table";
   }
