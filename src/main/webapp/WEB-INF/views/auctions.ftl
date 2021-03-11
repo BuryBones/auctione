@@ -12,20 +12,20 @@
     <h2>Deals</h2>
     <div class="table-container">
       <div class="deals-radio">
-        <form onchange="refresh()">
+        <form onchange="go(${currentPage});">
           <script charset="UTF-8" type="text/javascript">
             <#include "js/refreshAuctions.js">
             <#include "js/setOrder.js">
           </script>
           <b>Show deals:</b><br>
           <label for="open">Open</label>
-          <input type="radio" class="show-radio" id="open" name="showDeals" value="open" checked>
+          <input type="radio" class="show-radio" id="open" name="showDeals" value="open" <#if status == 'open'>checked</#if>>
           <label for="closed">Closed</label>
-          <input type="radio" class="show-radio" id="closed" name="showDeals" value="closed">
+          <input type="radio" class="show-radio" id="closed" name="showDeals" value="closed" <#if status == 'closed'>checked</#if>>
           <label for="all">All</label>
-          <input type="radio" class="show-radio" id="all" name="showDeals" value="all">
-          <input type="hidden" id="sortBy" name="sortBy" value="stopDate">
-          <input type="hidden" id="sortMode" name="sortMode" value="asc">
+          <input type="radio" class="show-radio" id="all" name="showDeals" value="all" <#if status == 'all'>checked</#if>>
+          <input type="hidden" id="sortBy" name="sortBy" value="${sortBy}">
+          <input type="hidden" id="sortMode" name="sortMode" value="${sortMode}">
         </form>
       </div>
       <table class="custom-table" id="deals-table">
@@ -82,18 +82,18 @@
             <input type="hidden" id="pageSize" value="5">
           </form>
           <#if currentPage != 1>
-            <button class="pagination-button" onclick="setCurrentPage(1);refresh();">&laquo;</button>
+            <button class="pagination-button" onclick="go(1);">&laquo;</button>
           </#if>
           <#assign i=totalPages>
           <#list 1..i as pages>
             <#if pages?counter == currentPage>
-              <button class="pagination-button-active" onclick="setCurrentPage(${pages?counter});refresh();">${pages?counter}</button>
+              <button class="pagination-button-active" onclick="go(${pages?counter});">${pages?counter}</button>
             <#else>
-              <button class="pagination-button" onclick="setCurrentPage(${pages?counter});refresh();">${pages?counter}</button>
+              <button class="pagination-button" onclick="go(${pages?counter});">${pages?counter}</button>
             </#if>
           </#list>
           <#if currentPage != totalPages>
-            <button class="pagination-button" onclick="setCurrentPage(${totalPages});refresh();">&raquo;</button>
+            <button class="pagination-button" onclick="go(${totalPages});">&raquo;</button>
           </#if>
         </div>
       </div>

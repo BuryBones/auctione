@@ -34,6 +34,9 @@ public class AuctionsController {
     model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
     long amount = dealService.getAmount(status);
     int totalPages = (int) Math.ceil((float) amount / pageSize);
+    model.addAttribute("status", status);
+    model.addAttribute("sortBy", sortBy);
+    model.addAttribute("sortMode", sortMode);
     model.addAttribute("totalPages", totalPages);
     model.addAttribute("currentPage", currentPage);
     return "auctions";
@@ -68,7 +71,15 @@ public class AuctionsController {
       Model model
   ) {
     bidService.createBid(dtoAssembler.newBid(userId, dealId, offer));
-    model.addAttribute("deals",dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
+    model.addAttribute("title", " - Deals");
+    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
+    long amount = dealService.getAmount(status);
+    int totalPages = (int) Math.ceil((float) amount / pageSize);
+    model.addAttribute("status", status);
+    model.addAttribute("sortBy", sortBy);
+    model.addAttribute("sortMode", sortMode);
+    model.addAttribute("totalPages", totalPages);
+    model.addAttribute("currentPage", currentPage);
     return "auctions";
   }
 

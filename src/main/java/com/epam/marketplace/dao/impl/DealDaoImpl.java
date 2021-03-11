@@ -28,14 +28,14 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class DealDaoImpl implements DealDao {
 
-  private static HashMap<String, Function<Root,Expression>> compareBy = new HashMap<>();
-  static {
+  private HashMap<String, Function<Root,Expression>> compareBy = new HashMap<>();
+  {
     compareBy.put("id",         (root) -> root.get(Deal_.id));
-    compareBy.put("seller",     (root) -> root.get(Deal_.user));
-    compareBy.put("item",       (root) -> root.get(Deal_.item));
+    compareBy.put("seller",     (root) -> root.get(Deal_.user));  // sorts by user ID
+    compareBy.put("item",       (root) -> root.get(Deal_.item));  // sorts by item ID
     compareBy.put("startDate",  (root) -> root.get(Deal_.openTime));
     compareBy.put("startPrice", (root) -> root.get(Deal_.initPrice));
-    compareBy.put("lastBid",    (root) -> root.get(Bid_.offer));
+    compareBy.put("lastBid",    (root) -> root.get(Bid_.offer));  // doesn't work
     compareBy.put("stopDate",   (root) -> root.get(Deal_.closeTime));
   }
 
@@ -138,7 +138,6 @@ public class DealDaoImpl implements DealDao {
       query.setFirstResult((currentPage - 1) * pageSize);
       query.setMaxResults(pageSize);
       result = query.getResultList();
-//      List<Deal> result = query.getResultList();
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -173,9 +172,9 @@ public class DealDaoImpl implements DealDao {
     sub.where(cb.equal(root.get(Deal_.id), subBids.get(Bid_.deal)));
 
     if (order) {
-        cq.orderBy(cb.asc(compareBy.get(sortBy).apply(root)));
+      cq.orderBy(cb.asc(compareBy.get(sortBy).apply(root)));
     } else {
-        cq.orderBy(cb.desc(compareBy.get(sortBy).apply(root)));
+      cq.orderBy(cb.desc(compareBy.get(sortBy).apply(root)));
     }
 
     List<Deal> result = new ArrayList<>();
@@ -184,7 +183,6 @@ public class DealDaoImpl implements DealDao {
       query.setFirstResult((currentPage - 1) * pageSize);
       query.setMaxResults(pageSize);
       result = query.getResultList();
-//      List<Deal> result = query.getResultList();
     } catch (Exception e) {
       e.printStackTrace();
     } finally {

@@ -187,7 +187,7 @@ td {
 }
 .pagination-button {
     color: black;
-    background-color: whitesmoke;
+    background-color: #bdbdbd;
     float: left;
     padding: .3rem .7rem;
     margin-left: .1rem;
