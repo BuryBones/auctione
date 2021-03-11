@@ -67,6 +67,9 @@ main {
     margin-right: 1.5rem;
 }
 /* Inputs */
+.error-response {
+    color: red;
+}
 .input-form {
     border: black solid 1px;
     background-color: gray;

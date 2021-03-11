@@ -9,6 +9,7 @@ import com.epam.marketplace.dto.mappers.UserMapper;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,16 @@ public class UserService {
       return false;
     }
     return true;
+  }
+
+  public boolean checkCredentials(String login, String password) {
+    Optional<User> optionalUser = userDao.findByLogin(login);
+    if (optionalUser.isPresent()) {
+      User user = optionalUser.get();
+      return user.getLogin().equals(login) && user.getPassword().equals(password);
+    } else {
+      return false;
+    }
   }
 
   public boolean checkIfUserExistsByLogin(String login) {

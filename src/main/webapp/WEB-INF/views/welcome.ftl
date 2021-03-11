@@ -12,17 +12,20 @@
     <script charset="UTF-8" type="text/javascript">
       <#include "js/welcomeValidation.js">
     </script>
-    <form class="input-form" onsubmit="return validateWelcome()">
+    <form class="input-form" id="login-form" onsubmit="return validateWelcome();" method="post">
+      <#if response??>
+        <p class="error-response">${response}</p>
+      </#if>
       <ui>
         <li class="form-row">
           <label for="login">Login</label>
-          <input type="text" placeholder="Enter login" id="login" required
+          <input type="text" placeholder="Enter login" id="login" name="login" required
                  minlength="6" maxlength="45"
                  pattern="(^[a-zA-Z0-9]+[a-zA-Z0-9\._-]+$)">
         </li>
         <li class="form-row">
           <label for="password">Password</label>
-          <input type="password" placeholder="Enter password" id="password" required
+          <input type="password" placeholder="Enter password" id="password" name="password" required
                  minlength="8" maxlength="45"
                  pattern="(^[a-zA-Z0-9!#$*+=_^.,-]+$)">
         </li>
