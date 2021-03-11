@@ -68,7 +68,14 @@ main {
 }
 /* Inputs */
 .error-response {
-    color: red;
+    background-color: #a1a1a1;
+    padding: .3rem;
+    color: orange;
+}
+.success-response {
+    background-color: #a1a1a1;
+    padding: .3rem;
+    color: green;
 }
 .input-form {
     border: black solid 1px;

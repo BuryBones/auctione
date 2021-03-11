@@ -2,14 +2,12 @@ package com.epam.marketplace.controllers;
 
 import com.epam.marketplace.dto.DtoAssembler;
 import com.epam.marketplace.services.UserService;
-import java.util.HashMap;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class RegistrationController {
@@ -26,31 +24,29 @@ public class RegistrationController {
     return "registration";
   }
 
-  // TODO: Model and view
-  @RequestMapping(value = "/registration", method = RequestMethod.POST, consumes = "text/plain")
+  @RequestMapping(value = "/registration", method = RequestMethod.POST)
   public String submit(
-      @RequestBody String postPayLoad
-//      @RequestBody UserDto user
+      @RequestParam(name = "login") String login,
+      @RequestParam(name = "firstname") String firstname,
+      @RequestParam(name = "lastname") String lastname,
+      @RequestParam(name = "email") String email,
+      @RequestParam(name = "password") String password,
+      Model model
   ) {
-    System.out.println("Got the following:\r\n" + postPayLoad);
-    Map<String, String> params = new HashMap<>();
-    String[] entry = postPayLoad.split("&");
-    for (String s: entry) {
-      String[] pair = s.split("=");
-      params.put(pair[0].trim(),pair[1].trim());
-    }
-    // VALIDATE
-    if (userService.checkIfUserExistsByLogin(params.get("login"))) {
-      return "registration";
+    model.addAttribute("title", " - Registration");
+    String response = "";
+    boolean result = false;
+    // VALIDATION
+    if (userService.checkIfUserExistsByLogin(login)) {
+      // user already exists!
+      response = "Login '" + login + "' is occupied!";
     } else {
-      userService.createUser(dtoAssembler.newUser(
-          params.get("login"),
-          params.get("password"),
-          params.get("email"),
-          params.get("firstName"),
-          params.get("lastName")
-      ));
-      return "redirect:/welcome";
+      userService.createUser(dtoAssembler.newUser(login, password, email, firstname, lastname));
+      response = "Successfully registered new user!";
+      result = true;
     }
+    model.addAttribute("response", response);
+    model.addAttribute("result", result);
+    return "registration";
   }
 }

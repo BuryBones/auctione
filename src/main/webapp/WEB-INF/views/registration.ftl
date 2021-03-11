@@ -11,7 +11,14 @@
       <#include "js/registrationValidation.js">
       <#include "js/sendRegistrationRequest.js">
     </script>
-    <form class="input-form" onsubmit="return validateRegistration() && sendRegistrationRequest();">
+    <form class="input-form" onsubmit="return validateRegistration();" method="post">
+      <#if response??>
+        <p
+          <#if result>class="success-response"
+          <#else>class="error-response"
+          </#if>
+          >${response}</p>
+      </#if>
       <ui>
         <li class="form-row">
           <label for="login">Login</label>
@@ -21,12 +28,12 @@
         </li>
         <li class="form-row">
           <label for="firstName">First name</label>
-          <input type="text" name="firstName" placeholder="Enter Your first name" id="firstName" required minlength="1" maxlength="45"
+          <input type="text" name="firstname" placeholder="Enter Your first name" id="firstName" required minlength="1" maxlength="45"
                  pattern="(^[a-zA-Z]+[- ]*[a-zA-Z]+$)">
         </li>
         <li class="form-row">
           <label for="lastName">Last name</label>
-          <input type="text" name="lastName" placeholder="Enter Your last name" id="lastName" required minlength="1" maxlength="45"
+          <input type="text" name="lastname" placeholder="Enter Your last name" id="lastName" required minlength="1" maxlength="45"
                  pattern="(^[a-zA-Z]+[- ]*[a-zA-Z]+$)">
         </li>
         <li class="form-row">
