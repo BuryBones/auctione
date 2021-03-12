@@ -59,28 +59,12 @@ public class AuctionsController {
   }
 
   @RequestMapping(value = "/auctions.bid", method = RequestMethod.POST)
-  public String makeBid(
-      @RequestParam(name = "status", defaultValue = "open") String status,
-      @RequestParam(name = "sortBy", defaultValue = "stopDate") String sortBy,
-      @RequestParam(name = "sortMode", defaultValue = "asc") String sortMode,
+  public void makeBid(
       @RequestParam(name = "userId") int userId,
       @RequestParam(name = "dealId") int dealId,
-      @RequestParam(name = "offer") String offer,
-      @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
-      @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
-      Model model
+      @RequestParam(name = "offer") String offer
   ) {
     bidService.createBid(dtoAssembler.newBid(userId, dealId, offer));
-    model.addAttribute("title", " - Deals");
-    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
-    long amount = dealService.getAmount(status);
-    int totalPages = (int) Math.ceil((float) amount / pageSize);
-    model.addAttribute("status", status);
-    model.addAttribute("sortBy", sortBy);
-    model.addAttribute("sortMode", sortMode);
-    model.addAttribute("totalPages", totalPages);
-    model.addAttribute("currentPage", currentPage);
-    return "auctions";
   }
 
 }
