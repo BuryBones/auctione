@@ -134,7 +134,7 @@
       <form class="modal-input-form" onsubmit="sendBid();">
         <input type="hidden" id="dealId">
         <label for="offer">Give your price</label>
-        <input type="number" placeholder="Enter your price" id="offer" min="1" required>
+        <input type="number" name="offer" step="5" placeholder="Enter your price" id="offer" min="1" required>
         <br>
         <span class="modal-buttons">
           <input class="form-button" type="submit" value="Make a bid">

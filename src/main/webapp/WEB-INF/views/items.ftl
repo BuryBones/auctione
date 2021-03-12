@@ -45,7 +45,7 @@
         <input type="hidden" id="itemId" value="-1">
         <label for="init-price">Start price</label>
         <br>
-        <input type="number" placeholder="Enter initial price" id="init-price" min="1" required>
+        <input type="number" step="0.01" placeholder="Enter initial price" id="init-price" min="1" required>
         <br>
         <br>
         <label for="until">Close time</label>

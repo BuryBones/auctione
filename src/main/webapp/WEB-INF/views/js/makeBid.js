@@ -10,8 +10,8 @@ function bidDialog() {
     if (lastBid == 0) {
         lastBid = parseFloat(data[5].innerHTML);
     }
-    document.getElementById("offer").value = lastBid + 1;
-    document.getElementById("offer").min = lastBid + 1;
+    document.getElementById("offer").value = lastBid + 5;
+    document.getElementById("offer").min = lastBid + 5;
 
     modal.style.display = "block";
 
