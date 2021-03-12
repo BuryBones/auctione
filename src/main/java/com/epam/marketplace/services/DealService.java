@@ -19,25 +19,12 @@ public class DealService {
   private DealMapper dealMapper;
 
   public Long getAmount(String status) {
-    return switch (status) {
-      case "open" -> dealDao.findAmountByStatus(true);
-      case "closed" -> dealDao.findAmountByStatus(false);
-      case "all" -> dealDao.findAmount();
-      default -> dealDao.findAmount();
-    };
+    return dealDao.findAmountByStatus(status);
   }
 
   public List<DealDto> getAuctions(String status, String sortBy, String sortMode, int currentPage, int pageSize) {
     boolean naturalOrder = sortMode.equals("asc");
-    List<Deal> deals = switch (status) {
-      case "open" ->
-          dealDao.findAllFullWithLastBidByStatus(true, pageSize, currentPage, sortBy, naturalOrder);
-      case "closed" ->
-          dealDao.findAllFullWithLastBidByStatus(false, pageSize, currentPage, sortBy, naturalOrder);
-      case "all" ->
-          dealDao.findAllFullWithLastBid(pageSize, currentPage, sortBy, naturalOrder);
-      default -> Collections.emptyList();
-    };
+    List<Deal> deals = dealDao.findAllFullWithLastBidByStatus(status, pageSize, currentPage, sortBy, naturalOrder);
 
     ArrayList<DealDto> result = new ArrayList<>(deals.size());
     for (Deal d: deals) {
