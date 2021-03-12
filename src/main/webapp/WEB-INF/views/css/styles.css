@@ -164,6 +164,9 @@ th {
     padding-top: .3rem;
     padding-bottom: .3rem;
 }
+.sort-arrow {
+  display: none;
+}
 td {
     text-align: center;
     padding-left: 0.5rem;

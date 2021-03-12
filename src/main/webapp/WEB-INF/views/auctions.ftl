@@ -31,14 +31,42 @@
       <table class="custom-table" id="deals-table">
         <thead>
           <tr>
-            <th onclick="setSortValue('id');refresh()">Deal#</th>
-            <th onclick="setSortValue('seller');refresh()">Seller</th>
-            <th onclick="setSortValue('item');refresh()">Item</th>
+            <th onclick="setSortValue('id',this);refresh()">
+              Deal#<br>
+              <img class="sort-arrow" id="up_arrow_0" src="img/arrow_up-24px.svg">
+              <img class="sort-arrow" id="down_arrow_0" src="img/arrow_down-24px.svg">
+            </th>
+            <th onclick="setSortValue('seller',this);refresh()">
+              Seller<br>
+              <img class="sort-arrow" id="up_arrow_1" src="img/arrow_up-24px.svg">
+              <img class="sort-arrow" id="down_arrow_1" src="img/arrow_down-24px.svg">
+            </th>
+            <th onclick="setSortValue('item',this);refresh()">
+              Item<br>
+              <img class="sort-arrow" id="up_arrow_2" src="img/arrow_up-24px.svg">
+              <img class="sort-arrow" id="down_arrow_2" src="img/arrow_down-24px.svg">
+            </th>
             <th>Info</th>
-            <th onclick="setSortValue('startDate');refresh()">Start Date</th>
-            <th onclick="setSortValue('startPrice');refresh()">Start Price</th>
-            <th onclick="setSortValue('lastBid');refresh()">Last Bid</th>
-            <th onclick="setSortValue('stopDate');refresh()">Stop Date</th>
+            <th onclick="setSortValue('startDate',this);refresh()">
+              Start Date<br>
+              <img class="sort-arrow" id="up_arrow_4" src="img/arrow_up-24px.svg">
+              <img class="sort-arrow" id="down_arrow_4" src="img/arrow_down-24px.svg">
+            </th>
+            <th onclick="setSortValue('startPrice',this);refresh()">
+              Start Price<br>
+              <img class="sort-arrow" id="up_arrow_5" src="img/arrow_up-24px.svg">
+              <img class="sort-arrow" id="down_arrow_5" src="img/arrow_down-24px.svg">
+            </th>
+            <th onclick="setSortValue('lastBid',this);refresh()">
+              Last Bid<br>
+              <img class="sort-arrow" id="up_arrow_6" src="img/arrow_up-24px.svg">
+              <img class="sort-arrow" id="down_arrow_6" src="img/arrow_down-24px.svg">
+            </th>
+            <th onclick="setSortValue('stopDate',this);refresh()">
+              Stop Date<br>
+              <img class="sort-arrow" id="up_arrow_7" src="img/arrow_up-24px.svg">
+              <img class="sort-arrow" id="down_arrow_7" src="img/arrow_down-24px.svg">
+            </th>
             <th>Time Left</th>
           </tr>
         </thead>
