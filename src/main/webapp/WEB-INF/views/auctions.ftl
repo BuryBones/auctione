@@ -131,13 +131,13 @@
   <div id="bid-modal" class="modal">
     <div class="modal-content">
       <p>Make a bid for <span id="lot-name"></span>.</p>
-      <form class="modal-input-form" onsubmit="sendBid();">
+      <form class="modal-input-form" onsubmit="sendBid(); return false;">
         <input type="hidden" id="dealId">
         <label for="offer">Give your price</label>
         <input type="number" name="offer" step="5" placeholder="Enter your price" id="offer" min="1" required>
         <br>
         <span class="modal-buttons">
-          <input class="form-button" type="submit" value="Make a bid">
+          <input class="form-button" id="modal-submit" type="submit" value="Make a bid">
           <button class="form-button" id="modal-close">Cancel</button>
         </span>
       </form>

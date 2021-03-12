@@ -1,6 +1,7 @@
 function bidDialog() {
     var modal = document.getElementById("bid-modal");
     var closeBtn = document.getElementById("modal-close");
+    var submitBtn = document.getElementById("modal-submit");
     var rowId = event.target.parentNode.parentNode.id;
     var data = document.getElementById(rowId).querySelectorAll(".row-data");
 
@@ -27,4 +28,8 @@ function bidDialog() {
     closeBtn.onclick = function() {
         modal.style.display = "none";
     }
+
+    submitBtn.addEventListener("click", function() {
+        modal.style.display = "none";
+    });
 }
