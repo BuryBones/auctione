@@ -16,19 +16,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ItemsController {
 
-  @Autowired
-  private ItemService itemService;
+  private final ItemService itemService;
+  private final DealService dealService;
+  private final DtoAssembler dtoAssembler;
 
   @Autowired
-  private DealService dealService;
-
-  @Autowired
-  private DtoAssembler dtoAssembler;
+  public ItemsController(ItemService itemService, DealService dealService, DtoAssembler dtoAssembler) {
+    this.itemService = itemService;
+    this.dealService = dealService;
+    this.dtoAssembler = dtoAssembler;
+  }
 
   @RequestMapping(value = "/items", method = RequestMethod.GET)
   public String items(Model model) {
     model.addAttribute("title", " - Items");
 
+    // TODO: remove after security implementation
     int userId = 7; // Magic number
 
     List<ItemDto> items = itemService.getItemsByUserId(7);

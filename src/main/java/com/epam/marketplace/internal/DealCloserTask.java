@@ -18,12 +18,16 @@ import org.springframework.stereotype.Component;
 @Component("dealCloserTask")
 public class DealCloserTask extends TimerTask {
 
-  @Autowired
-  private DealDao dealDao;
+  private final DealDao dealDao;
+  private final ItemDao itemDao;
 
   @Autowired
-  private ItemDao itemDao;
+  public DealCloserTask(DealDao dealDao, ItemDao itemDao) {
+    this.dealDao = dealDao;
+    this.itemDao = itemDao;
+  }
 
+  // TODO: write javadoc, change methods name in dealDao, change 'status' column in DB
   @Override
   public void run() {
     List<Deal> openDeals = dealDao.findAllFullByStatus(true);   // find deals with unresolved status

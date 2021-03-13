@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class RegistrationController {
 
-  @Autowired
-  private UserService userService;
+  private final UserService userService;
+  private final DtoAssembler dtoAssembler;
 
   @Autowired
-  private DtoAssembler dtoAssembler;
+  public RegistrationController(UserService userService, DtoAssembler dtoAssembler) {
+    this.userService = userService;
+    this.dtoAssembler = dtoAssembler;
+  }
 
   @RequestMapping(value = "/registration", method = RequestMethod.GET)
   public String registration(Model model) {

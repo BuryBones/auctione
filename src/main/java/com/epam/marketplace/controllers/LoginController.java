@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 
+  private final UserService userService;
+
   @Autowired
-  private UserService userService;
+  public LoginController(UserService userService) {
+    this.userService = userService;
+  }
 
   @RequestMapping(value = {"/","/welcome"}, method = RequestMethod.GET)
   public String welcome(Model model) {

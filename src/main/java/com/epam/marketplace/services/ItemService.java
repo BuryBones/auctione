@@ -12,10 +12,14 @@ import org.springframework.stereotype.Service;
 @Service("itemService")
 public class ItemService {
 
+  private final ItemDao itemDao;
+  private final ItemMapper itemMapper;
+
   @Autowired
-  private ItemDao itemDao;
-  @Autowired
-  private ItemMapper itemMapper;
+  public ItemService(ItemDao itemDao, ItemMapper itemMapper) {
+    this.itemDao = itemDao;
+    this.itemMapper = itemMapper;
+  }
 
   public List<ItemDto> getItemsByUserId(int userId) {
     List<Item> items = itemDao.findByUserId(userId);

@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class NewItemController {
 
-  @Autowired
-  private ItemService itemService;
+  private final ItemService itemService;
+  private final DtoAssembler dtoAssembler;
 
   @Autowired
-  private DtoAssembler dtoAssembler;
+  public NewItemController(ItemService itemService, DtoAssembler dtoAssembler) {
+    this.itemService = itemService;
+    this.dtoAssembler = dtoAssembler;
+  }
 
   @RequestMapping(value = "/new-item", method = RequestMethod.GET)
   public String newItem(Model model) {

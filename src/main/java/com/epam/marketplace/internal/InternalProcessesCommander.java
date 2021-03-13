@@ -9,8 +9,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class InternalProcessesCommander implements ApplicationListener<ContextRefreshedEvent> {
 
+  private final DealCloserTask dealCloserTask;
+
   @Autowired
-  private DealCloserTask dealCloserTask;
+  public InternalProcessesCommander(DealCloserTask dealCloserTask) {
+    this.dealCloserTask = dealCloserTask;
+  }
   private final Timer dealCloserTimer = new Timer(true);
 
   @Override

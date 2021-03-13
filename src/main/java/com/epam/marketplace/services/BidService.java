@@ -10,10 +10,14 @@ import org.springframework.stereotype.Service;
 @Service("bidService")
 public class BidService {
 
+  private final BidDao bidDao;
+  private final BidMapper bidMapper;
+
   @Autowired
-  private BidDao bidDao;
-  @Autowired
-  private BidMapper bidMapper;
+  public BidService(BidDao bidDao, BidMapper bidMapper) {
+    this.bidDao = bidDao;
+    this.bidMapper = bidMapper;
+  }
 
   public boolean createBid(BidDto newBorn) {
     Bid newBid = bidMapper.getEntityFromDto(newBorn);

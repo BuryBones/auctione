@@ -13,10 +13,14 @@ import org.springframework.stereotype.Service;
 @Service("dealService")
 public class DealService {
 
+  private final DealDao dealDao;
+  private final DealMapper dealMapper;
+
   @Autowired
-  private DealDao dealDao;
-  @Autowired
-  private DealMapper dealMapper;
+  public DealService (DealDao dealDao, DealMapper dealMapper) {
+    this.dealDao = dealDao;
+    this.dealMapper = dealMapper;
+  }
 
   public Long getAmount(String status) {
     return dealDao.findAmountByStatus(status);

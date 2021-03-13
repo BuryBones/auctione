@@ -13,14 +13,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AuctionsController {
 
-  @Autowired
-  private DealService dealService;
+  private final DealService dealService;
+  private final BidService bidService;
+  private final DtoAssembler dtoAssembler;
 
   @Autowired
-  private BidService bidService;
-
-  @Autowired
-  private DtoAssembler dtoAssembler;
+  public AuctionsController(DealService dealService, BidService bidService, DtoAssembler dtoAssembler) {
+    this.dealService = dealService;
+    this.bidService = bidService;
+    this.dtoAssembler = dtoAssembler;
+  }
 
   @RequestMapping(value = "/auctions", method = RequestMethod.GET)
   public String auctions(

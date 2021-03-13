@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class AdminController {
 
+  private final UserService userService;
+
   @Autowired
-  private UserService userService;
+  public AdminController(UserService userService) {
+    this.userService = userService;
+  }
 
   @RequestMapping(value = "/admin", method = RequestMethod.GET)
   public String admin(Model model) {
