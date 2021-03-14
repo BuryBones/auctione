@@ -3,21 +3,29 @@ package com.epam.marketplace.dto.mappers;
 import com.epam.marketplace.entities.Item;
 import com.epam.marketplace.entities.User;
 import com.epam.marketplace.dto.ItemDto;
-import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MappingContext;
+import ma.glasnost.orika.converter.BidirectionalConverter;
+import ma.glasnost.orika.metadata.Type;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-public class ItemCustomMapper extends CustomMapper<Item, ItemDto> {
+@Component("ItemConverter")
+@Scope("prototype")
+public class ItemConverter extends BidirectionalConverter<Item, ItemDto> {
 
   @Override
-  public void mapAtoB(Item src, ItemDto dest, MappingContext context) {
+  public ItemDto convertTo(Item src, Type<ItemDto> type, MappingContext mappingContext) {
+    ItemDto dest = new ItemDto();
     dest.setId(src.getId());
     dest.setName(src.getName());
     dest.setDescript(src.getDescript());
     dest.setUserId(src.getUser().getId());
+    return dest;
   }
 
   @Override
-  public void mapBtoA(ItemDto src, Item dest, MappingContext context) {
+  public Item convertFrom(ItemDto src, Type<Item> type, MappingContext mappingContext) {
+    Item dest = new Item();
     User user = new User();
     user.setId(src.getUserId());
     dest.setUser(user);
@@ -28,5 +36,6 @@ public class ItemCustomMapper extends CustomMapper<Item, ItemDto> {
     } else {
       dest.setDescript(src.getDescript());
     }
+    return dest;
   }
 }

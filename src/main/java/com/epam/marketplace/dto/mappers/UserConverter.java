@@ -3,13 +3,19 @@ package com.epam.marketplace.dto.mappers;
 import com.epam.marketplace.entities.Role;
 import com.epam.marketplace.entities.User;
 import com.epam.marketplace.dto.UserDto;
-import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MappingContext;
+import ma.glasnost.orika.converter.BidirectionalConverter;
+import ma.glasnost.orika.metadata.Type;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-public class UserCustomMapper extends CustomMapper<User, UserDto> {
+@Component("userConverter")
+@Scope("prototype")
+public class UserConverter extends BidirectionalConverter<User, UserDto> {
 
   @Override
-  public void mapAtoB(User src, UserDto dest, MappingContext context) {
+  public UserDto convertTo(User src, Type<UserDto> type, MappingContext mappingContext) {
+    UserDto dest = new UserDto();
     dest.setId(src.getId());
     dest.setLogin(src.getLogin());
     dest.setFirstName(src.getFirstName());
@@ -18,14 +24,17 @@ public class UserCustomMapper extends CustomMapper<User, UserDto> {
     src.getUserRoles()
         .stream().map(Role::getRoleName)
         .forEach(dest::addRole);
+    return dest;
   }
 
   @Override
-  public void mapBtoA(UserDto src, User dest, MappingContext context) {
+  public User convertFrom(UserDto src, Type<User> type, MappingContext mappingContext) {
+    User dest = new User();
     dest.setLogin(src.getLogin());
     dest.setFirstName(src.getFirstName());
     dest.setLastName(src.getLastName());
     dest.setPassword(src.getPassword());
     dest.setEmail(src.getEmail());
+    return dest;
   }
 }

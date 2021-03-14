@@ -1,11 +1,10 @@
 package com.epam.marketplace.services;
 
 import com.epam.marketplace.dao.DealDao;
+import com.epam.marketplace.dto.mappers.CommonMapper;
 import com.epam.marketplace.entities.Deal;
 import com.epam.marketplace.dto.DealDto;
-import com.epam.marketplace.dto.mappers.DealMapper;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +13,12 @@ import org.springframework.stereotype.Service;
 public class DealService {
 
   private final DealDao dealDao;
-  private final DealMapper dealMapper;
+  private final CommonMapper mapper;
 
   @Autowired
-  public DealService (DealDao dealDao, DealMapper dealMapper) {
+  public DealService (DealDao dealDao, CommonMapper mapper) {
     this.dealDao = dealDao;
-    this.dealMapper = dealMapper;
+    this.mapper = mapper;
   }
 
   public Long getAmount(String status) {
@@ -32,13 +31,13 @@ public class DealService {
 
     ArrayList<DealDto> result = new ArrayList<>(deals.size());
     for (Deal d: deals) {
-      result.add(dealMapper.getDtoFromEntity(d));
+      result.add(mapper.getDtoFromEntity(d));
     }
     return result;
   }
 
   public boolean createAuction(DealDto newborn) {
-    Deal newDeal = dealMapper.getEntityFromDto(newborn);
+    Deal newDeal = mapper.getEntityFromDto(newborn);
     try {
       dealDao.save(newDeal);
     } catch (Exception e) {

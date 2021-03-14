@@ -1,9 +1,9 @@
 package com.epam.marketplace.services;
 
 import com.epam.marketplace.dao.ItemDao;
+import com.epam.marketplace.dto.mappers.CommonMapper;
 import com.epam.marketplace.entities.Item;
 import com.epam.marketplace.dto.ItemDto;
-import com.epam.marketplace.dto.mappers.ItemMapper;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,25 +13,25 @@ import org.springframework.stereotype.Service;
 public class ItemService {
 
   private final ItemDao itemDao;
-  private final ItemMapper itemMapper;
+  private final CommonMapper mapper;
 
   @Autowired
-  public ItemService(ItemDao itemDao, ItemMapper itemMapper) {
+  public ItemService(ItemDao itemDao, CommonMapper mapper) {
     this.itemDao = itemDao;
-    this.itemMapper = itemMapper;
+    this.mapper = mapper;
   }
 
   public List<ItemDto> getItemsByUserId(int userId) {
     List<Item> items = itemDao.findByUserId(userId);
     ArrayList<ItemDto> result = new ArrayList<>(items.size());
     for (Item i: items) {
-      result.add(itemMapper.getDtoFromEntity(i));
+      result.add(mapper.getDtoFromEntity(i));
     }
     return result;
   }
 
   public boolean createItem(ItemDto newBorn) {
-    Item newItem = itemMapper.getEntityFromDto(newBorn);
+    Item newItem = mapper.getEntityFromDto(newBorn);
     try {
       itemDao.save(newItem);
     } catch (Exception e) {

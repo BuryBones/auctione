@@ -1,9 +1,9 @@
 package com.epam.marketplace.services;
 
 import com.epam.marketplace.dao.BidDao;
+import com.epam.marketplace.dto.mappers.CommonMapper;
 import com.epam.marketplace.entities.Bid;
 import com.epam.marketplace.dto.BidDto;
-import com.epam.marketplace.dto.mappers.BidMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,16 +11,16 @@ import org.springframework.stereotype.Service;
 public class BidService {
 
   private final BidDao bidDao;
-  private final BidMapper bidMapper;
+  private final CommonMapper mapper;
 
   @Autowired
-  public BidService(BidDao bidDao, BidMapper bidMapper) {
+  public BidService(BidDao bidDao, CommonMapper mapper) {
     this.bidDao = bidDao;
-    this.bidMapper = bidMapper;
+    this.mapper = mapper;
   }
 
   public boolean createBid(BidDto newBorn) {
-    Bid newBid = bidMapper.getEntityFromDto(newBorn);
+    Bid newBid = mapper.getEntityFromDto(newBorn);
     try {
       bidDao.save(newBid);
     } catch (Exception e) {

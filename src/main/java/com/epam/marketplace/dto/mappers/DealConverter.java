@@ -11,13 +11,19 @@ import java.time.ZoneId;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Set;
-import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MappingContext;
+import ma.glasnost.orika.converter.BidirectionalConverter;
+import ma.glasnost.orika.metadata.Type;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-public class DealCustomMapper extends CustomMapper<Deal, DealDto> {
+@Component("dealConverter")
+@Scope("prototype")
+public class DealConverter extends BidirectionalConverter<Deal, DealDto> {
 
   @Override
-  public void mapAtoB(Deal src, DealDto dest, MappingContext context) {
+  public DealDto convertTo(Deal src, Type<DealDto> type, MappingContext mappingContext) {
+    DealDto dest = new DealDto();
     dest.setId(src.getId());
     dest.setSeller(src.getUser().getLastName() + " " + src.getUser().getFirstName());
     dest.setItem(src.getItem().getName());
@@ -32,10 +38,12 @@ public class DealCustomMapper extends CustomMapper<Deal, DealDto> {
     dest.setStartPrice(src.getInitPrice());
     dest.setStopDate(Date.from(src.getCloseTime().atZone(ZoneId.systemDefault()).toInstant()));
     dest.setStatus(src.getCloseTime().isAfter(LocalDateTime.now()));
+    return dest;
   }
 
   @Override
-  public void mapBtoA(DealDto src, Deal dest, MappingContext context) {
+  public Deal convertFrom(DealDto src, Type<Deal> type, MappingContext mappingContext) {
+    Deal dest = new Deal();
     dest.setInitPrice(src.getStartPrice());
     dest.setOpenTime(src.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
     dest.setCloseTime(src.getStopDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
@@ -48,5 +56,6 @@ public class DealCustomMapper extends CustomMapper<Deal, DealDto> {
     Item item = new Item();
     item.setId(src.getItemId());
     dest.setItem(item);
+    return dest;
   }
 }
