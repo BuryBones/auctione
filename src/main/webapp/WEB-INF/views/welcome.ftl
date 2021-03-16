@@ -12,7 +12,7 @@
     <script charset="UTF-8" type="text/javascript">
       <#include "js/welcomeValidation.js">
     </script>
-    <form class="input-form" id="login-form" onsubmit="return validateWelcome();" method="post">
+    <form class="input-form" id="login-form" action="j_spring_security_check" onsubmit="return validateWelcome();" method="post">
       <#if response??>
         <p class="error-response">${response}</p>
       </#if>

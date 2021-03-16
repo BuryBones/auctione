@@ -27,7 +27,7 @@ public class NewItemController {
     return "new-item";
   }
 
-  @RequestMapping(value = "/new-item.new", method = RequestMethod.POST)
+  @RequestMapping(value = "/new-item/new", method = RequestMethod.POST)
   public String createNewItem(
       @RequestParam(name = "userId") int userId,
       @RequestParam(name = "name") String name,

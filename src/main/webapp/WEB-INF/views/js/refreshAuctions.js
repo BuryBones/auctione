@@ -20,7 +20,7 @@ function refresh() {
   };
   xhttp.open(
     "GET",
-     "auctions.ajax?status=" + showDeals +
+     "auctions/ajax?status=" + showDeals +
      "&sortBy=" + sortBy +
      "&sortMode=" + sortMode +
      "&currentPage=" + currentPage +

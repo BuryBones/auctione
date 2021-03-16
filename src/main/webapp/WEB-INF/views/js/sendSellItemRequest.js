@@ -21,7 +21,7 @@ function sendSellRequest() {
   };
   xhttp.open(
     "POST",
-    "items.sell?" +
+    "items/sell?" +
     "userId=" + userId +
     "&itemId=" + itemId +
     "&initPrice=" + initPrice +

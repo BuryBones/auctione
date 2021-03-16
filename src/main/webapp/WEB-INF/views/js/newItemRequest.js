@@ -18,7 +18,7 @@ function createItem() {
   };
   xhttp.open(
     "POST",
-    "new-item.new?" +
+    "new-item/new?" +
     "userId=" + userId +
     "&name=" + name +
     "&description=" + description,

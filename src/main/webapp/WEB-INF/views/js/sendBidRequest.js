@@ -10,7 +10,7 @@ function sendBid() {
   var xhttp = new XMLHttpRequest();
   xhttp.open(
     "POST",
-    "auctions.bid?" +
+    "auctions/bid?" +
     "userId=" + userId +
     "&dealId=" + dealId +
     "&offer=" + offer,

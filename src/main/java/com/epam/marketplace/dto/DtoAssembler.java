@@ -18,7 +18,7 @@ public class DtoAssembler {
     result.setEmail(email);
     result.setFirstName(firstName);
     result.setLastName(lastName);
-    result.addRole("REGULAR_USER");
+    result.addRole("USER");
     return result;
   }
 

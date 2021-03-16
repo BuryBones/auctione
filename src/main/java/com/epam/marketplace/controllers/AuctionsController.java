@@ -44,7 +44,7 @@ public class AuctionsController {
     return "auctions";
   }
 
-  @RequestMapping(value = "/auctions.ajax", method = RequestMethod.GET)
+  @RequestMapping(value = "/auctions/ajax", method = RequestMethod.GET)
   public String auctionsAjax(
       @RequestParam(name = "status", defaultValue = "open") String status,
       @RequestParam(name = "sortBy", defaultValue = "stopDate") String sortBy,
@@ -60,7 +60,7 @@ public class AuctionsController {
     return "auctions-table";
   }
 
-  @RequestMapping(value = "/auctions.bid", method = RequestMethod.POST)
+  @RequestMapping(value = "/auctions/bid", method = RequestMethod.POST)
   public void makeBid(
       @RequestParam(name = "userId") int userId,
       @RequestParam(name = "dealId") int dealId,

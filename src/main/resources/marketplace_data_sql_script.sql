@@ -1,6 +1,6 @@
 INSERT INTO role (role_name) VALUES
 	('ADMIN'),
-	('REGULAR_USER')
+	('USER')
 ;
 
 INSERT INTO "user" (login,email,firstname,lastname,password) VALUES

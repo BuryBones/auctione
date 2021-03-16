@@ -39,7 +39,7 @@ public class ItemsController {
     return "items";
   }
 
-  @RequestMapping(value = "/items.sell", method = RequestMethod.POST)
+  @RequestMapping(value = "/items/sell", method = RequestMethod.POST)
   public String sellItem(
       @RequestParam(name = "userId") int userId,
       @RequestParam(name = "itemId") int itemId,
