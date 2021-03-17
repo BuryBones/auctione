@@ -9,8 +9,8 @@ import com.epam.marketplace.dto.UserDto;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service("userService")
@@ -19,12 +19,14 @@ public class UserService {
   private final UserDao userDao;
   private final RoleDao roleDao;
   private final CommonMapper mapper;
+  private final PasswordEncoder passwordEncoder;
 
   @Autowired
-  public UserService(UserDao userDao, RoleDao roleDao, CommonMapper mapper) {
+  public UserService(UserDao userDao, RoleDao roleDao, CommonMapper mapper, PasswordEncoder passwordEncoder) {
     this.userDao = userDao;
     this.roleDao = roleDao;
     this.mapper = mapper;
+    this.passwordEncoder = passwordEncoder;
   }
 
   public List<UserDto> getUsers() {
@@ -38,6 +40,8 @@ public class UserService {
 
   public boolean createUser(UserDto newBorn) {
     User newUser = mapper.getEntityFromDto(newBorn);
+    // TODO: find out how to add encoder ID (not like this)
+    newUser.setPassword("{bcrypt}" + passwordEncoder.encode(newUser.getPassword()));
     try {
       setDefaultRole(newUser);
       userDao.save(newUser);
@@ -48,18 +52,12 @@ public class UserService {
     return true;
   }
 
-  public boolean checkCredentials(String login, String password) {
-    Optional<User> optionalUser = userDao.findByLogin(login);
-    if (optionalUser.isPresent()) {
-      User user = optionalUser.get();
-      return user.getLogin().equals(login) && user.getPassword().equals(password);
-    } else {
-      return false;
-    }
-  }
-
   public boolean checkIfUserExistsByLogin(String login) {
     return userDao.findByLogin(login).isPresent();
+  }
+
+  public boolean checkIfEmailAlreadyRegistered(String email) {
+    return userDao.findByEmail(email).isPresent();
   }
 
   private void setDefaultRole(User user) {

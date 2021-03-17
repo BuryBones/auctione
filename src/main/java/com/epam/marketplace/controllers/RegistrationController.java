@@ -50,6 +50,9 @@ public class RegistrationController {
     if (userService.checkIfUserExistsByLogin(login)) {
       // user already exists!
       response = "Login '" + login + "' is occupied!";
+    } else if (userService.checkIfEmailAlreadyRegistered(email)) {
+      // email already registered!
+      response = "User with email '" + email + "' is already registered!";
     } else {
       userService.createUser(dtoAssembler.newUser(login, password, email, firstname, lastname));
       response = "Successfully registered new user!";

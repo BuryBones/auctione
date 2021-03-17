@@ -12,6 +12,8 @@ public interface UserDao extends CommonDao<User> {
 
   Optional<User> findByLogin(String login);
 
+  Optional<User> findByEmail(String email);
+
   List<User> findAllWithRoles();
 
 }
