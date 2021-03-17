@@ -62,13 +62,23 @@ public class UserService {
   }
 
   public String getCurrentUserName() {
-    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    return user.getLastName() + " " + user.getFirstName();
+    Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    if (obj instanceof User) {
+      User user = (User) obj;
+      return user.getLastName() + " " + user.getFirstName();
+    } else {
+      return "Guest";
+    }
   }
 
   public int getCurrentUserId() {
-    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    return user.getId();
+    Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    if (obj instanceof User) {
+      User user = (User) obj;
+      return user.getId();
+    } else {
+      return 0;
+    }
   }
 
   private void setDefaultRole(User user) {
