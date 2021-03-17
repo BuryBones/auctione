@@ -7,6 +7,7 @@ import com.epam.marketplace.services.ItemService;
 import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,11 +31,14 @@ public class ItemsController {
   @RequestMapping(value = "/items", method = RequestMethod.GET)
   public String items(Model model) {
     model.addAttribute("title", " - Items");
+    model.addAttribute("pageDisplayName","Items");
+    model.addAttribute("pageName","items");
+    model.addAttribute("currentUser", SecurityContextHolder.getContext().getAuthentication().getName());
 
     // TODO: remove after security implementation
     int userId = 7; // Magic number
 
-    List<ItemDto> items = itemService.getItemsByUserId(7);
+    List<ItemDto> items = itemService.getItemsByUserId(userId);
     model.addAttribute("items",items);
     return "items";
   }
@@ -47,6 +51,10 @@ public class ItemsController {
       @RequestParam(name = "stopDate") String stopDateStr,
       @RequestParam(name = "stopTime") String stopTimeStr,
       Model model) {
+    // TODO: probably no need of all these attribute if redirecting to some GET controller
+    model.addAttribute("pageDisplayName","Items");
+    model.addAttribute("pageName","items");
+    model.addAttribute("currentUser", SecurityContextHolder.getContext().getAuthentication().getName());
     try {
       dealService.createAuction(dtoAssembler.newDeal(userId,itemId,initPriceStr,stopDateStr,stopTimeStr));
     } catch (ParseException e) {

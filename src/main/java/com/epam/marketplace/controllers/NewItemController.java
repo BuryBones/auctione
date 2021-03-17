@@ -3,6 +3,7 @@ package com.epam.marketplace.controllers;
 import com.epam.marketplace.dto.DtoAssembler;
 import com.epam.marketplace.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,9 @@ public class NewItemController {
   @RequestMapping(value = "/new-item", method = RequestMethod.GET)
   public String newItem(Model model) {
     model.addAttribute("title", " - New Item");
+    model.addAttribute("pageDisplayName","New Item");
+    model.addAttribute("pageName","new-item");
+    model.addAttribute("currentUser", SecurityContextHolder.getContext().getAuthentication().getName());
     return "new-item";
   }
 

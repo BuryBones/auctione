@@ -1,12 +1,9 @@
 <#import "common-macro.ftl" as common>
 <@common.header title="${title}">
-  <nav>
-    <ul class="nav-menu">
-      <li class="nav-current">Welcome to AuctiOne!</li>
-      <li><a href="items">Items<img src="img/shopping_cart-24px.svg" alt="" title="Items"></a></li>
-      <li><a href="auctions">Deals<img src="img/gavel-24px.svg" alt="" title="Deals"></a></li>
-    </ul>
-  </nav>
+<@common.navigation
+  pageDisplayName="${(pageDisplayName)!}"
+  pageName="${(pageName)!}"
+  currentUserName="${(currentUser)!}"/>
   <main>
     <p>To participate in online-auctions you need to log in.</p>
     <script charset="UTF-8" type="text/javascript">

@@ -4,6 +4,7 @@ import com.epam.marketplace.services.BidService;
 import com.epam.marketplace.services.DealService;
 import com.epam.marketplace.dto.DtoAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,9 @@ public class AuctionsController {
       @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
       Model model) {
     model.addAttribute("title", " - Deals");
+    model.addAttribute("pageDisplayName","Deals");
+    model.addAttribute("pageName","auctions");
+    model.addAttribute("currentUser", SecurityContextHolder.getContext().getAuthentication().getName());
     model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
     long amount = dealService.getAmount(status);
     int totalPages = (int) Math.ceil((float) amount / pageSize);

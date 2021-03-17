@@ -1,13 +1,9 @@
 <#import "common-macro.ftl" as common>
 <@common.header title="${title}">
-  <nav>
-    <ul class="nav-menu">
-      <li class="nav-current">My Items</li>
-      <li><a href="auctions">Deals<img src="img/gavel-24px.svg" alt="" title="Deals"></a></li>
-      <li><a href="admin">Admin Page<img src="img/account_balance-24px.svg" alt="" title="Admin Page"></a></li>
-      <li class="logout"><span class="nav-username">Test Username</span><a href="j_spring_security_logout">Logout<img src="img/logout-24px.svg" alt="" title="Logout"></a></li>
-    </ul>
-  </nav>
+<@common.navigation
+  pageDisplayName="${(pageDisplayName)!}"
+  pageName="${(pageName)!}"
+  currentUserName="${(currentUser)!}"/>
   <main>
     <p>Here is the list of your items. <a href="new-item">Create new item</a></p>
     <br>
