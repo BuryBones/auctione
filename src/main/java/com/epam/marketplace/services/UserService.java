@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +59,16 @@ public class UserService {
 
   public boolean checkIfEmailAlreadyRegistered(String email) {
     return userDao.findByEmail(email).isPresent();
+  }
+
+  public String getCurrentUserName() {
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    return user.getLastName() + " " + user.getFirstName();
+  }
+
+  public int getCurrentUserId() {
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    return user.getId();
   }
 
   private void setDefaultRole(User user) {

@@ -4,10 +4,10 @@ import com.epam.marketplace.dto.ItemDto;
 import com.epam.marketplace.services.DealService;
 import com.epam.marketplace.dto.DtoAssembler;
 import com.epam.marketplace.services.ItemService;
+import com.epam.marketplace.services.UserService;
 import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +19,14 @@ public class ItemsController {
 
   private final ItemService itemService;
   private final DealService dealService;
+  private final UserService userService;
   private final DtoAssembler dtoAssembler;
 
   @Autowired
-  public ItemsController(ItemService itemService, DealService dealService, DtoAssembler dtoAssembler) {
+  public ItemsController(ItemService itemService, DealService dealService, UserService userService, DtoAssembler dtoAssembler) {
     this.itemService = itemService;
     this.dealService = dealService;
+    this.userService = userService;
     this.dtoAssembler = dtoAssembler;
   }
 
@@ -33,19 +35,14 @@ public class ItemsController {
     model.addAttribute("title", " - Items");
     model.addAttribute("pageDisplayName","Items");
     model.addAttribute("pageName","items");
-    model.addAttribute("currentUser", SecurityContextHolder.getContext().getAuthentication().getName());
-
-    // TODO: remove after security implementation
-    int userId = 7; // Magic number
-
-    List<ItemDto> items = itemService.getItemsByUserId(userId);
+    model.addAttribute("currentUser", userService.getCurrentUserName());
+    List<ItemDto> items = itemService.getItemsByUserId(userService.getCurrentUserId());
     model.addAttribute("items",items);
     return "items";
   }
 
   @RequestMapping(value = "/items/sell", method = RequestMethod.POST)
   public String sellItem(
-      @RequestParam(name = "userId") int userId,
       @RequestParam(name = "itemId") int itemId,
       @RequestParam(name = "initPrice") String initPriceStr,
       @RequestParam(name = "stopDate") String stopDateStr,
@@ -54,9 +51,10 @@ public class ItemsController {
     // TODO: probably no need of all these attribute if redirecting to some GET controller
     model.addAttribute("pageDisplayName","Items");
     model.addAttribute("pageName","items");
-    model.addAttribute("currentUser", SecurityContextHolder.getContext().getAuthentication().getName());
+    model.addAttribute("currentUser", userService.getCurrentUserName());
     try {
-      dealService.createAuction(dtoAssembler.newDeal(userId,itemId,initPriceStr,stopDateStr,stopTimeStr));
+      dealService.createAuction(dtoAssembler.newDeal(
+          userService.getCurrentUserId(), itemId,initPriceStr,stopDateStr,stopTimeStr));
     } catch (ParseException e) {
       // TODO: do smth with exception handling
       e.printStackTrace();

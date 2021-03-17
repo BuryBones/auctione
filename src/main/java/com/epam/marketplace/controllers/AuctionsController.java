@@ -3,8 +3,8 @@ package com.epam.marketplace.controllers;
 import com.epam.marketplace.services.BidService;
 import com.epam.marketplace.services.DealService;
 import com.epam.marketplace.dto.DtoAssembler;
+import com.epam.marketplace.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,12 +16,14 @@ public class AuctionsController {
 
   private final DealService dealService;
   private final BidService bidService;
+  private final UserService userService;
   private final DtoAssembler dtoAssembler;
 
   @Autowired
-  public AuctionsController(DealService dealService, BidService bidService, DtoAssembler dtoAssembler) {
+  public AuctionsController(DealService dealService, BidService bidService, UserService userService, DtoAssembler dtoAssembler) {
     this.dealService = dealService;
     this.bidService = bidService;
+    this.userService = userService;
     this.dtoAssembler = dtoAssembler;
   }
 
@@ -36,7 +38,7 @@ public class AuctionsController {
     model.addAttribute("title", " - Deals");
     model.addAttribute("pageDisplayName","Deals");
     model.addAttribute("pageName","auctions");
-    model.addAttribute("currentUser", SecurityContextHolder.getContext().getAuthentication().getName());
+    model.addAttribute("currentUser", userService.getCurrentUserName());
     model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
     long amount = dealService.getAmount(status);
     int totalPages = (int) Math.ceil((float) amount / pageSize);
@@ -66,11 +68,10 @@ public class AuctionsController {
 
   @RequestMapping(value = "/auctions/bid", method = RequestMethod.POST)
   public void makeBid(
-      @RequestParam(name = "userId") int userId,
       @RequestParam(name = "dealId") int dealId,
       @RequestParam(name = "offer") String offer
   ) {
-    bidService.createBid(dtoAssembler.newBid(userId, dealId, offer));
+    bidService.createBid(dtoAssembler.newBid(userService.getCurrentUserId(), dealId, offer));
   }
 
 }

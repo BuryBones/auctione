@@ -3,7 +3,6 @@ package com.epam.marketplace.controllers;
 import com.epam.marketplace.dto.DtoAssembler;
 import com.epam.marketplace.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +26,6 @@ public class RegistrationController {
     model.addAttribute("title", " - Registration");
     model.addAttribute("pageDisplayName","Registration");
     model.addAttribute("pageName","registration");
-    model.addAttribute("currentUser", SecurityContextHolder.getContext().getAuthentication().getName());
     return "registration";
   }
 
@@ -43,7 +41,6 @@ public class RegistrationController {
     model.addAttribute("title", " - Registration");
     model.addAttribute("pageDisplayName","Registration");
     model.addAttribute("pageName","registration");
-    model.addAttribute("currentUser", SecurityContextHolder.getContext().getAuthentication().getName());
     String response = "";
     boolean result = false;
     // VALIDATION
