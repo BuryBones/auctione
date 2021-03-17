@@ -45,21 +45,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable();
-    http.authorizeRequests().antMatchers("/admin*").hasRole("ADMIN");
-    http.authorizeRequests().antMatchers("/items*","/new-item*")
-        .hasAnyRole("ADMIN","USER");
     http.authorizeRequests().antMatchers("/auctions","/registration").permitAll();
+    http.authorizeRequests().antMatchers("/items/**","/new-item/**","/auctions/bid").hasAnyRole("ADMIN","USER");
+    http.authorizeRequests().antMatchers("/admin").hasRole("ADMIN");
     http.authorizeRequests().and().formLogin()
-        .loginProcessingUrl("/j_spring_security_check")
-        .loginPage("/welcome")
-        .defaultSuccessUrl("/auctions")
-        .failureUrl("/welcome?error=true")
-        .usernameParameter("login")
-        .passwordParameter("password")
-        .and()
-        .logout()
-        .logoutUrl("/j_spring_security_logout")
-        .logoutSuccessUrl("/welcome")
-        .invalidateHttpSession(true);
+      .loginProcessingUrl("/j_spring_security_check")
+      .loginPage("/welcome")
+      .defaultSuccessUrl("/auctions")
+      .failureUrl("/welcome?error=true")
+      .usernameParameter("login")
+      .passwordParameter("password")
+      .and()
+      .logout()
+      .logoutUrl("/j_spring_security_logout")
+      .logoutSuccessUrl("/welcome")
+      .invalidateHttpSession(true);
   }
 }
