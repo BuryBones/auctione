@@ -1,3 +1,4 @@
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <#import "common-macro.ftl" as common>
 <@common.header title="${title}">
 <@common.navigation

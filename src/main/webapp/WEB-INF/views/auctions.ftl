@@ -1,3 +1,4 @@
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <#import "common-macro.ftl" as common>
 <@common.header title="${title}">
 <@common.navigation
@@ -85,10 +86,12 @@
             </td>
             <td class="row-data"><span class="stopDate">${deal.stopDate?datetime?string("yyyy-MM-dd HH:mm:ss")}</span></td>
             <td class="row-data"><span class="countdown"></span></td>
-            <#if deal.status>
-              <td class="button-cell"><button class="table-button"  onclick="bidDialog();">MAKE A BID</button></td>
-            </#if>
-          </tr>
+            <@security.authorize access="isAuthenticated()">
+              <#if deal.status>
+                <td class="button-cell"><button class="table-button"  onclick="bidDialog();">MAKE A BID</button></td>
+              </#if>
+            </@security.authorize>
+        </tr>
         </#foreach>
         </tbody>
         <script charset="UTF-8" type="text/javascript">
