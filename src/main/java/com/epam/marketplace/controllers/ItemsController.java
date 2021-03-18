@@ -4,6 +4,7 @@ import com.epam.marketplace.dto.ItemDto;
 import com.epam.marketplace.services.DealService;
 import com.epam.marketplace.dto.DtoAssembler;
 import com.epam.marketplace.services.ItemService;
+import com.epam.marketplace.services.UserService;
 import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,37 +19,38 @@ public class ItemsController {
 
   private final ItemService itemService;
   private final DealService dealService;
+  private final UserService userService;
   private final DtoAssembler dtoAssembler;
 
   @Autowired
-  public ItemsController(ItemService itemService, DealService dealService, DtoAssembler dtoAssembler) {
+  public ItemsController(ItemService itemService, DealService dealService, UserService userService, DtoAssembler dtoAssembler) {
     this.itemService = itemService;
     this.dealService = dealService;
+    this.userService = userService;
     this.dtoAssembler = dtoAssembler;
   }
 
   @RequestMapping(value = "/items", method = RequestMethod.GET)
   public String items(Model model) {
     model.addAttribute("title", " - Items");
-
-    // TODO: remove after security implementation
-    int userId = 7; // Magic number
-
-    List<ItemDto> items = itemService.getItemsByUserId(7);
+    model.addAttribute("pageDisplayName","Items");
+    model.addAttribute("pageName","items");
+    model.addAttribute("currentUser", userService.getCurrentUserName());
+    List<ItemDto> items = itemService.getItemsByUserId(userService.getCurrentUserId());
     model.addAttribute("items",items);
     return "items";
   }
 
-  @RequestMapping(value = "/items.sell", method = RequestMethod.POST)
+  @RequestMapping(value = "/items/sell", method = RequestMethod.POST)
   public String sellItem(
-      @RequestParam(name = "userId") int userId,
       @RequestParam(name = "itemId") int itemId,
       @RequestParam(name = "initPrice") String initPriceStr,
       @RequestParam(name = "stopDate") String stopDateStr,
-      @RequestParam(name = "stopTime") String stopTimeStr,
-      Model model) {
+      @RequestParam(name = "stopTime") String stopTimeStr
+  ) {
     try {
-      dealService.createAuction(dtoAssembler.newDeal(userId,itemId,initPriceStr,stopDateStr,stopTimeStr));
+      dealService.createAuction(dtoAssembler.newDeal(
+          userService.getCurrentUserId(), itemId,initPriceStr,stopDateStr,stopTimeStr));
     } catch (ParseException e) {
       // TODO: do smth with exception handling
       e.printStackTrace();

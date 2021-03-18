@@ -20,6 +20,9 @@ public class AdminController {
   @RequestMapping(value = "/admin", method = RequestMethod.GET)
   public String admin(Model model) {
     model.addAttribute("title", " - Admin Page");
+    model.addAttribute("pageDisplayName","Admin Page");
+    model.addAttribute("pageName","admin");
+    model.addAttribute("currentUser", userService.getCurrentUserName());
     model.addAttribute("users", userService.getUsers());
     return "admin";
   }

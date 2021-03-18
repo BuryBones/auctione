@@ -40,7 +40,9 @@ function validateSellRequest() {
   var result = initPriceOk && stopDateOk;
   var message = document.getElementById("modal-message");
   if (result) {
+    // do nothing
   } else {
+    message.style.color = "#ed4f1f";
     if (!initPriceOk) {
       message.textContent = "Lot has NOT been placed. Check initial price.";
     } else if (!stopDateOk) {

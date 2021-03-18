@@ -1,19 +1,19 @@
 INSERT INTO role (role_name) VALUES
 	('ADMIN'),
-	('REGULAR_USER')
+	('USER')
 ;
 
 INSERT INTO "user" (login,email,firstname,lastname,password) VALUES
-	('ivan1990','ivanov@gmail.com','Ivan','Ivanov','12345678'),
-	('alex777','sasha.kalush@mail.ru','Alexander','Kalushenko','111$$$abc'),
-	('g30rge','gm30@bk.ru','George','Migello','pass1'),
-	('maxxx','dicker.max@serious.ge','Max','Dicker','acbdefg'),
-	('Just_John','firstblood@pat.us','John','Rambo','the$trongPa$$w0rd'),
-	('JacobsMonarch','monarch@coffee.se','Jacob','Potti','123heheheh'),
-	('flowerHelen','flowerhelen@mail.ru','Helen','Stone','helenhelen'),
-	('andrew25','an.smirnov@yandex.ru','Andrew','Smirnoff','somePassword1111'),
-	('mike12011990','mike.jee@mail.com','Mike','Jimmiling','qwerty123'),
-	('boris12','boriska-v@rabler.ru','Boris','Veltsin','boriska1205')
+	('ivan1990','ivanov@gmail.com','Ivan','Ivanov','$2a$04$UBv4irSE2Wsf1gO53XKhm.hfsHH91C5dNLi.PBrQ6L./RGSEvLk4m'),
+	('alex777','sasha.kalush@mail.ru','Alexander','Kalushenko','$2a$04$I9N9mTb6R0SXi9ErvJ4.aeHSmbDk/r.z8j2RKvJLQ5Gz/xOch4FM6'),
+	('g30rge','gm30@bk.ru','George','Migello','$2a$04$v.5LeazBqSY85ZRfGQwA4e984outIs/3ajRNbNw8X7N4qLSv4zKQa'),
+	('maxxx','dicker.max@serious.ge','Max','Dicker','$2a$04$elfzeW5AKmOoVJU4i6Pvr.WKpqPSX/Yy5f6oiRbkGKrHsgd5geRu6'),
+	('Just_John','firstblood@pat.us','John','Rambo','$2a$04$ID8c.JlnW9pGR11m3woxMu1JpzC8wp2XQeq49CcYnj8HTEWedxXm6'),
+	('JacobsMonarch','monarch@coffee.se','Jacob','Potti','$2a$04$491zLOqFKAeVysgjnH5XROGPlR1UL5QDAPOSiQY.1b5f9xoCP8of6'),
+	('flowerHelen','flowerhelen@mail.ru','Helen','Stone','$2a$04$8DC1CD8tbXvYqlDAtzHMPuSj.w1pMkdMXVSEvVrE/ZritXH7b85Pi'),
+	('andrew25','an.smirnov@yandex.ru','Andrew','Smirnoff','$2a$04$guQd3HUA2nTL30W7Vg9kBuOCSumGVCwLZrfE2ttamBss/QHG/fEki'),
+	('mike12011990','mike.jee@mail.com','Mike','Jimmiling','$2a$04$QSR.I73c.wtczRztgkLYWeA97iZLjfjs6nx/jSMH7GFymi1GG0L2a'),
+	('boris12','boriska-v@rabler.ru','Boris','Veltsin','$2a$04$5zVyBZiKd0FNJ4ioeaGQvOGGPB1.mWuLUjFVBo3Y5u1ZZvCcMtiWy')
 ;
 
 INSERT INTO user_role (user_id, role_id) VALUES 

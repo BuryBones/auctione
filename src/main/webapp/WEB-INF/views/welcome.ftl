@@ -1,18 +1,16 @@
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <#import "common-macro.ftl" as common>
 <@common.header title="${title}">
-  <nav>
-    <ul class="nav-menu">
-      <li class="nav-current">Welcome to AuctiOne!</li>
-      <li><a href="items">Items<img src="img/shopping_cart-24px.svg" alt="" title="Items"></a></li>
-      <li><a href="auctions">Deals<img src="img/gavel-24px.svg" alt="" title="Deals"></a></li>
-    </ul>
-  </nav>
+<@common.navigation
+  pageDisplayName="${(pageDisplayName)!}"
+  pageName="${(pageName)!}"
+  currentUserName="${(currentUser)!}"/>
   <main>
     <p>To participate in online-auctions you need to log in.</p>
     <script charset="UTF-8" type="text/javascript">
       <#include "js/welcomeValidation.js">
     </script>
-    <form class="input-form" id="login-form" onsubmit="return validateWelcome();" method="post">
+    <form class="input-form" id="login-form" action="j_spring_security_check" onsubmit="return validateWelcome();" method="post">
       <#if response??>
         <p class="error-response">${response}</p>
       </#if>

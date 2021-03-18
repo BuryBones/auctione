@@ -24,6 +24,8 @@ public class RegistrationController {
   @RequestMapping(value = "/registration", method = RequestMethod.GET)
   public String registration(Model model) {
     model.addAttribute("title", " - Registration");
+    model.addAttribute("pageDisplayName","Registration");
+    model.addAttribute("pageName","registration");
     return "registration";
   }
 
@@ -37,12 +39,17 @@ public class RegistrationController {
       Model model
   ) {
     model.addAttribute("title", " - Registration");
+    model.addAttribute("pageDisplayName","Registration");
+    model.addAttribute("pageName","registration");
     String response = "";
     boolean result = false;
     // VALIDATION
     if (userService.checkIfUserExistsByLogin(login)) {
       // user already exists!
       response = "Login '" + login + "' is occupied!";
+    } else if (userService.checkIfEmailAlreadyRegistered(email)) {
+      // email already registered!
+      response = "User with email '" + email + "' is already registered!";
     } else {
       userService.createUser(dtoAssembler.newUser(login, password, email, firstname, lastname));
       response = "Successfully registered new user!";

@@ -11,7 +11,7 @@ CREATE TABLE "user" (
 	email VARCHAR(45) NOT NULL,
 	firstname VARCHAR(45) NOT NULL,
 	lastname VARCHAR(45) NOT NULL,
-	password VARCHAR(45) NOT NULL,
+	password VARCHAR(90) NOT NULL,
 	PRIMARY KEY (id),
 	CONSTRAINT unique_login UNIQUE(login),
 	CONSTRAINT unique_email UNIQUE(email)

@@ -1,13 +1,10 @@
+<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <#import "common-macro.ftl" as common>
 <@common.header title="${title}">
-  <nav>
-    <ul class="nav-menu">
-      <li class="nav-current">Auctions</li>
-      <li><a href="items">Items<img src="img/shopping_cart-24px.svg" alt="" title="Items"></a></li>
-      <li><a href="admin">Admin Page<img src="img/account_balance-24px.svg" alt="" title="Admin Page"></a></li>
-      <li class="logout"><span class="nav-username">Test Username</span><a href="welcome?action=logout">Logout<img src="img/logout-24px.svg" alt="" title="Logout"></a></li>
-    </ul>
-  </nav>
+<@common.navigation
+  pageDisplayName="${(pageDisplayName)!}"
+  pageName="${(pageName)!}"
+  currentUserName="${(currentUser)!}"/>
   <main>
     <h2>Deals</h2>
     <div class="table-container">
@@ -71,29 +68,8 @@
           </tr>
         </thead>
         <tbody id="table-body">
-        <#foreach deal in deals>
-          <tr id="${deal?index}">
-            <script charset="UTF-8" type="text/javascript"><#include "js/makeBid.js"></script>
-            <td class="row-data">${deal.id}</td>
-            <td class="row-data">${deal.seller}</td>
-            <td class="row-data">${deal.item}</td>
-            <td class="row-data">${deal.info}</td>
-            <td class="row-data">${deal.startDate?datetime?string("yyyy-MM-dd HH:mm:ss")}</td>
-            <td class="row-data">${deal.startPrice?string["0.00"]}</td>
-            <td class="row-data">
-              <#if deal.lastBid??>
-              ${deal.lastBid?string["0.00"]}
-              <#else>
-              0
-            </#if>
-            </td>
-            <td class="row-data"><span class="stopDate">${deal.stopDate?datetime?string("yyyy-MM-dd HH:mm:ss")}</span></td>
-            <td class="row-data"><span class="countdown"></span></td>
-            <#if deal.status>
-              <td class="button-cell"><button class="table-button"  onclick="bidDialog();">MAKE A BID</button></td>
-            </#if>
-          </tr>
-        </#foreach>
+        <script charset="UTF-8" type="text/javascript"><#include "js/makeBid.js"></script>
+        <@common.dealtable dealsList=deals currentUser=userId/>
         </tbody>
         <script charset="UTF-8" type="text/javascript">
             <#include "js/libs/moment.js">

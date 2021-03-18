@@ -1,5 +1,9 @@
 package com.epam.marketplace.config;
 
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -8,9 +12,7 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 @Configuration
-
 @ComponentScan("com.epam.marketplace.*")
-
 public class ApplicationContextConfig {
 
   @Bean(name = "viewResolver")
@@ -34,4 +36,10 @@ public class ApplicationContextConfig {
     return config;
   }
 
+  @Bean("logger")
+  public Logger logger() {
+    Logger logger = Logger.getLogger("application");
+    logger.setLevel(Level.ALL);
+    return logger;
+  }
 }
