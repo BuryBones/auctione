@@ -40,10 +40,6 @@ public class ApplicationContextConfig {
   public Logger logger() {
     Logger logger = Logger.getLogger("application");
     logger.setLevel(Level.ALL);
-    ConsoleHandler handler = new ConsoleHandler();
-    handler.setFormatter(new SimpleFormatter());
-    handler.setLevel(Level.ALL);
-    logger.addHandler(handler);
     return logger;
   }
 }

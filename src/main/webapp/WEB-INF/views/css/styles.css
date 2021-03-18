@@ -70,12 +70,12 @@ main {
 .error-response {
     background-color: #a1a1a1;
     padding: .3rem;
-    color: orange;
+    color: #ed4f1f;
 }
 .success-response {
     background-color: #a1a1a1;
     padding: .3rem;
-    color: green;
+    color: #119c16;
 }
 .input-form {
     border: black solid 1px;
@@ -151,7 +151,7 @@ main {
     background-color: transparent;
     margin: 0.8rem 0.8rem 0.8rem 0.8rem;
 }
-table, th, td {
+table {
     background-color: #bdbdbd;
 }
 th {
@@ -165,7 +165,13 @@ th {
     padding-bottom: .3rem;
 }
 .sort-arrow {
-  display: none;
+    display: none;
+}
+.currentUserRow .row-data {
+    background-color: #e0ffb8;
+}
+.row-data {
+    background-color: #bdbdbd;
 }
 td {
     text-align: center;
@@ -188,6 +194,10 @@ td {
     min-width: 4rem;
     min-height: 2rem;
     cursor: pointer;
+}
+.table-button:disabled {
+    background-color: #b5b5b5;
+    color: #383838;
 }
 /* Pagination */
 .center {

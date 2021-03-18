@@ -50,7 +50,7 @@
 
 <#macro dealtable dealsList currentUser>
   <#foreach deal in dealsList>
-    <tr id="${deal?index}">
+    <tr id="${deal?index}" <#if deal.sellerId == currentUser>class="currentUserRow"</#if> >
       <td class="row-data">${deal.id}</td>
       <td class="row-data">${deal.seller}</td>
       <td class="row-data">${deal.item}</td>
@@ -59,17 +59,21 @@
       <td class="row-data">${deal.startPrice?string["0.00"]}</td>
       <td class="row-data">
         <#if deal.lastBid??>
-        ${deal.lastBid?string["0.00"]}
+          ${deal.lastBid?string["0.00"]}
         <#else>
-        0
+          0
       </#if>
       </td>
       <td class="row-data"><span class="stopDate">${deal.stopDate?string("yyyy-MM-dd HH:mm:ss")}</span></td>
       <td class="row-data"><span class="countdown"></span></td>
       <@security.authorize access="isAuthenticated()">
-        <#if deal.status && (deal.sellerId != currentUser)>
-          <td class="button-cell"><button class="table-button" onclick="bidDialog()">MAKE A BID</button></td>
+        <td class="button-cell">
+          <#if deal.status && (deal.sellerId != currentUser)>
+            <button class="table-button" onclick="bidDialog()">MAKE A BID</button>
+          <#else>
+            <button class="table-button" disabled>YOUR LOT</button>
         </#if>
+        </td>
       </@security.authorize>
     </tr>
   </#foreach>

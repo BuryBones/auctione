@@ -16,9 +16,9 @@
         </tr>
         <#list users as user>
         <tr>
-          <td>${user.login}</td>
-          <td>${user.lastName} ${user.firstName}</td>
-          <td><#list user.roles as role>${role} </#list></td>
+          <td class="row-data">${user.login}</td>
+          <td class="row-data">${user.lastName} ${user.firstName}</td>
+          <td class="row-data"><#list user.roles as role>${role} </#list></td>
         </tr>
       </#list>
       </table>

@@ -21,12 +21,18 @@
           <td class="row-data">${item.name}</td>
           <td class="row-data">
             <#if item.descript??>
-            ${item.descript}
+              ${item.descript}
             <#else>
-            No Description
+              No Description
           </#if>
           </td>
-          <td class="button-cell"><button class="table-button" onclick="sellDialog();">Sell</button></td>
+          <td class="button-cell">
+            <#if item.getOnSale()>
+              <button class="table-button" disabled>On Sale</button>
+            <#else>
+              <button class="table-button" onclick="sellDialog();">Sell</button>
+            </#if>
+          </td>
         </tr>
       </#foreach>
       </table>
@@ -38,18 +44,18 @@
       <p>Create new auction for <span id="item-name"></span>.</p>
       <br>
       <p id="modal-message"></p>
-      <form class="modal-input-form" onsubmit="return validateSellRequest() && sendSellRequest();">
-        <input type="hidden" id="itemId" value="-1">
+      <form class="modal-input-form" action="items/sell" onsubmit="return validateSellRequest();" method="post">
+        <input type="hidden" id="itemId" name="itemId">
         <label for="init-price">Start price</label>
         <br>
-        <input type="number" step="0.01" placeholder="Enter initial price" id="init-price" min="1" required>
+        <input type="number" step="0.01" name="initPrice" placeholder="Enter initial price" id="init-price" min="1" required>
         <br>
         <br>
         <label for="until">Close time</label>
         <br>
         <span id="until">
-          <input type="date" id="until-date" required>
-          <input type="time" id="until-time" required>
+          <input type="date" name="stopDate" id="until-date" required>
+          <input type="time" name="stopTime" id="until-time" required>
         </span>
         <br>
         <span>
@@ -65,7 +71,6 @@
   </div>
   <script charset="UTF-8" type="text/javascript">
     <#include "js/sellItem.js">
-    <#include "js/sendSellItemRequest.js">
     <#include "js/libs/moment.js">
   </script>
 </@common.header>

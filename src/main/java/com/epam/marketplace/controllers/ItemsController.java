@@ -46,12 +46,8 @@ public class ItemsController {
       @RequestParam(name = "itemId") int itemId,
       @RequestParam(name = "initPrice") String initPriceStr,
       @RequestParam(name = "stopDate") String stopDateStr,
-      @RequestParam(name = "stopTime") String stopTimeStr,
-      Model model) {
-    // TODO: probably no need of all these attribute if redirecting to some GET controller
-    model.addAttribute("pageDisplayName","Items");
-    model.addAttribute("pageName","items");
-    model.addAttribute("currentUser", userService.getCurrentUserName());
+      @RequestParam(name = "stopTime") String stopTimeStr
+  ) {
     try {
       dealService.createAuction(dtoAssembler.newDeal(
           userService.getCurrentUserId(), itemId,initPriceStr,stopDateStr,stopTimeStr));
