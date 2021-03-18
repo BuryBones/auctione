@@ -124,8 +124,8 @@ public class DealDaoImpl implements DealDao {
     CriteriaQuery<Deal> cq = cb.createQuery(Deal.class);
 
     Root<Deal> root = cq.from(Deal.class);
-    Join<Deal, User> userJoin = root.join(Deal_.user, JoinType.LEFT);
-    Join<Deal, Item> itemJoin = root.join(Deal_.item, JoinType.LEFT);
+    Join<Deal, User> userJoin = (Join<Deal, User>) root.fetch(Deal_.user);
+    Join<Deal, Item> itemJoin = (Join<Deal, Item>) root.fetch(Deal_.item);
 
     switch (status) {
       case "open":
