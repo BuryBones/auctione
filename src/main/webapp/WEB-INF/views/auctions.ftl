@@ -69,7 +69,7 @@
         </thead>
         <tbody id="table-body">
         <script charset="UTF-8" type="text/javascript"><#include "js/makeBid.js"></script>
-        <@common.dealtable dealsList=deals/>
+        <@common.dealtable dealsList=deals currentUser=userId/>
         </tbody>
         <script charset="UTF-8" type="text/javascript">
             <#include "js/libs/moment.js">

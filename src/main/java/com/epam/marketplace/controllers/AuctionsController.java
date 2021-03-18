@@ -47,6 +47,7 @@ public class AuctionsController {
     model.addAttribute("sortMode", sortMode);
     model.addAttribute("totalPages", totalPages);
     model.addAttribute("currentPage", currentPage);
+    model.addAttribute("userId", userService.getCurrentUserId());
     return "auctions";
   }
 
@@ -63,14 +64,17 @@ public class AuctionsController {
     int totalPages = (int) Math.ceil((float) amount / pageSize);
     model.addAttribute("totalPages", totalPages);
     model.addAttribute("currentPage", currentPage);
+    model.addAttribute("userId", userService.getCurrentUserId());
     return "auctions-table";
   }
 
   @RequestMapping(value = "/auctions/bid", method = RequestMethod.POST)
   public void makeBid(
       @RequestParam(name = "dealId") int dealId,
-      @RequestParam(name = "offer") String offer
+      @RequestParam(name = "offer") String offer,
+      Model model
   ) {
+    model.addAttribute("userId", userService.getCurrentUserId());
     bidService.createBid(dtoAssembler.newBid(userService.getCurrentUserId(), dealId, offer));
   }
 

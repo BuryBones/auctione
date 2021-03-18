@@ -7,6 +7,10 @@ import java.util.Date;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * This class is used by view controllers to make a DTO with the data received from a client.
+ */
+
 @Component("dtoAssembler")
 @Scope("prototype")
 public class DtoAssembler {

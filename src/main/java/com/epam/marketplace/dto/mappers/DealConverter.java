@@ -26,6 +26,7 @@ public class DealConverter extends BidirectionalConverter<Deal, DealDto> {
     DealDto dest = new DealDto();
     dest.setId(src.getId());
     dest.setSeller(src.getUser().getLastName() + " " + src.getUser().getFirstName());
+    dest.setSellerId(src.getUser().getId());
     dest.setItem(src.getItem().getName());
     dest.setInfo(src.getItem().getDescript());
     dest.setStartDate(Date.from(src.getOpenTime().atZone(ZoneId.systemDefault()).toInstant()));

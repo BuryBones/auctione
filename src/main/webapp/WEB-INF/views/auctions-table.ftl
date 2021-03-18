@@ -1,1 +1,1 @@
-<@common.dealtable dealsList=deals/>
+<@common.dealtable dealsList=deals currentUser=userId/>

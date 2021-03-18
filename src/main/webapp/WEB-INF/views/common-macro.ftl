@@ -48,8 +48,8 @@
 </nav>
 </#macro>
 
-<#macro dealtable dealsList>
-  <#foreach deal in deals>
+<#macro dealtable dealsList currentUser>
+  <#foreach deal in dealsList>
     <tr id="${deal?index}">
       <td class="row-data">${deal.id}</td>
       <td class="row-data">${deal.seller}</td>
@@ -66,11 +66,11 @@
       </td>
       <td class="row-data"><span class="stopDate">${deal.stopDate?string("yyyy-MM-dd HH:mm:ss")}</span></td>
       <td class="row-data"><span class="countdown"></span></td>
-      <#if deal.status>
-        <@security.authorize access="isAuthenticated()">
-          <td class="button-cell"><button class="table-button"  onclick="bidDialog()">MAKE A BID</button></td>
-        </@security.authorize>
-      </#if>
+      <@security.authorize access="isAuthenticated()">
+        <#if deal.status && (deal.sellerId != currentUser)>
+          <td class="button-cell"><button class="table-button" onclick="bidDialog()">MAKE A BID</button></td>
+        </#if>
+      </@security.authorize>
     </tr>
   </#foreach>
 </#macro>
