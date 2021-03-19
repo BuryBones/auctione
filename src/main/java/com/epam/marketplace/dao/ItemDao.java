@@ -14,4 +14,5 @@ public interface ItemDao extends CommonDao<Item> {
 
   List<Item> findByUserId(int userId);
 
+  List<Item> findByUserIdWithDeals(int userId);
 }

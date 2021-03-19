@@ -1,8 +1,6 @@
-package com.epam.marketplace.services.dto;
+package com.epam.marketplace.dto;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DealDto {
@@ -20,16 +18,6 @@ public class DealDto {
   private boolean status = true;
 
   public DealDto() {
-  }
-
-  public DealDto(Integer userId, Integer itemId, String initPrice, String stopDate, String stopTime)
-      throws ParseException {
-    this.sellerId = userId;
-    this.itemId = itemId;
-    this.startPrice = new BigDecimal(initPrice);
-    this.startDate = new Date();
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    this.stopDate = formatter.parse(stopDate + " " + stopTime);
   }
 
   public Integer getSellerId() {

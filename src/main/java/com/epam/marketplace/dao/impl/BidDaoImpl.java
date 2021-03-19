@@ -14,9 +14,11 @@ import com.epam.marketplace.dao.BidDao;
 import com.epam.marketplace.entities.Bid;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component("bidDao")
+@Scope("prototype")
 public class BidDaoImpl implements BidDao {
 
   @Override

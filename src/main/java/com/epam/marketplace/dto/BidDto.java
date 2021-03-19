@@ -1,4 +1,4 @@
-package com.epam.marketplace.services.dto;
+package com.epam.marketplace.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -12,13 +12,6 @@ public class BidDto {
   private Integer dealId;
 
   public BidDto(){
-  }
-
-  public BidDto(Integer userId, Integer dealId, String offer) {
-    this.userId = userId;
-    this.dealId = dealId;
-    this.offer = new BigDecimal(offer);
-    this.dateAndTime = new Date();
   }
 
   public Integer getId() {

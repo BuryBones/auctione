@@ -1,19 +1,19 @@
 INSERT INTO role (role_name) VALUES
 	('ADMIN'),
-	('REGULAR_USER')
+	('USER')
 ;
 
-INSERT INTO "user" (login,firstname,lastname,password) VALUES
-	('ivan1990','Ivan','Ivanov','12345678'),
-	('alex777','Alexander','Kalushenko','111$$$abc'),
-	('g30rge','George','Migello','pass1'),
-	('maxxx','Max','Dicker','acbdefg'),
-	('Just_John','John','Rambo','the$trongPa$$w0rd'),
-	('JacobsMonarch','Jacob','Potti','123heheheh'),
-	('flowerHelen','Helen','Stone','helenhelen'),
-	('andrew25','Andrew','Smirnoff','somePassword1111'),
-	('testuser','test','test','qwerty123'),
-	('boris12','Boris','Veltsin','boriska1205')
+INSERT INTO "user" (login,email,firstname,lastname,password) VALUES
+	('ivan1990','ivanov@gmail.com','Ivan','Ivanov','$2a$04$UBv4irSE2Wsf1gO53XKhm.hfsHH91C5dNLi.PBrQ6L./RGSEvLk4m'),
+	('alex777','sasha.kalush@mail.ru','Alexander','Kalushenko','$2a$04$I9N9mTb6R0SXi9ErvJ4.aeHSmbDk/r.z8j2RKvJLQ5Gz/xOch4FM6'),
+	('g30rge','gm30@bk.ru','George','Migello','$2a$04$v.5LeazBqSY85ZRfGQwA4e984outIs/3ajRNbNw8X7N4qLSv4zKQa'),
+	('maxxx','dicker.max@serious.ge','Max','Dicker','$2a$04$elfzeW5AKmOoVJU4i6Pvr.WKpqPSX/Yy5f6oiRbkGKrHsgd5geRu6'),
+	('Just_John','firstblood@pat.us','John','Rambo','$2a$04$ID8c.JlnW9pGR11m3woxMu1JpzC8wp2XQeq49CcYnj8HTEWedxXm6'),
+	('JacobsMonarch','monarch@coffee.se','Jacob','Potti','$2a$04$491zLOqFKAeVysgjnH5XROGPlR1UL5QDAPOSiQY.1b5f9xoCP8of6'),
+	('flowerHelen','flowerhelen@mail.ru','Helen','Stone','$2a$04$8DC1CD8tbXvYqlDAtzHMPuSj.w1pMkdMXVSEvVrE/ZritXH7b85Pi'),
+	('andrew25','an.smirnov@yandex.ru','Andrew','Smirnoff','$2a$04$guQd3HUA2nTL30W7Vg9kBuOCSumGVCwLZrfE2ttamBss/QHG/fEki'),
+	('mike12011990','mike.jee@mail.com','Mike','Jimmiling','$2a$04$QSR.I73c.wtczRztgkLYWeA97iZLjfjs6nx/jSMH7GFymi1GG0L2a'),
+	('boris12','boriska-v@rabler.ru','Boris','Veltsin','$2a$04$5zVyBZiKd0FNJ4ioeaGQvOGGPB1.mWuLUjFVBo3Y5u1ZZvCcMtiWy')
 ;
 
 INSERT INTO user_role (user_id, role_id) VALUES 
@@ -40,25 +40,30 @@ INSERT INTO item (name,user_id,descript) VALUES
 	('Бюст Эраста П. Фандорина',4,'Гипсовый'),
 	('Набор фишек с покемонами',7,'104 шт.'),
 	('Колода карт (52) Fallout',7,DEFAULT),
-	('Necronomicon',9,DEFAULT)
+	('Necronomicon',9,DEFAULT),
+	('Dead Space Marker Figure',9,'34 cm height. Make us the whole!'),
+	('iPhone 2G',10,'Sunk in the river 10 years ago')
 ;
 
-INSERT INTO deal (user_id,item_id,init_price,open_time,close_time,status) VALUES
-	(7,7,5000,NOW(),(NOW() + INTERVAL '7 DAY'),true),
-	(2,5,9999.99,NOW(),(NOW() + INTERVAL '1 DAY'),true),
-	(3,2,92630,NOW(),(NOW() + INTERVAL '3 DAY'),true),
-	(1,1,650,NOW(),(NOW() + INTERVAL '5 DAY'),true),
-	(7,8,2499.99,NOW(),(NOW() + INTERVAL '10 DAY'),true),
-	(4,6,10000,(NOW() - INTERVAL '7 DAY'),(NOW() - INTERVAL '5 DAY'),false),
-  (5,4,20000,TO_DATE('20210101','YYYYMMDD'),TO_DATE('20210104','YYYYMMDD'),false),
-  (7,3,3400,TO_DATE('20210128','YYYYMMDD'),TO_DATE('202102015','YYYYMMDD'),false)
+INSERT INTO deal (user_id,item_id,init_price,open_time,close_time) VALUES
+	(7,7,5000,NOW(),(NOW() + INTERVAL '7 DAY')),
+	(2,5,9999.99,NOW(),(NOW() + INTERVAL '1 DAY')),
+	(3,2,92630,NOW(),(NOW() + INTERVAL '3 DAY')),
+	(1,1,650,NOW(),(NOW() + INTERVAL '5 DAY')),
+	(7,8,2499.99,NOW(),(NOW() + INTERVAL '10 DAY')),
+	(4,6,10000,(NOW() - INTERVAL '7 DAY'),(NOW() - INTERVAL '5 DAY')),
+  (5,4,20000,TO_DATE('20210101','YYYYMMDD'),TO_DATE('20210104','YYYYMMDD')),
+  (7,3,3400,TO_DATE('20210128','YYYYMMDD'),TO_DATE('202102015','YYYYMMDD')),
+  (9,9,14999,(NOW() - INTERVAL '3 DAY'),(NOW() + INTERVAL '2 MINUTE')),
+  (9,10,8300,(NOW() - INTERVAL '2 DAY'),(NOW() + INTERVAL '3 MINUTE')),
+  (10,11,1200,(NOW() - INTERVAL '6 HOUR'),(NOW() + INTERVAL '3 DAY'))
 ;
 
 INSERT INTO bid (user_id,deal_id,date_and_time,offer) VALUES
 	(6,4,(NOW() - INTERVAL '3 HOUR'),700),
 	(5,2,(NOW() - INTERVAL '2 HOUR'),10100),
 	(2,4,(NOW() - INTERVAL '1 HOUR'),800),
-	(6,4,(NOW() - INTERVAL '30 MINUTE'),1000)
+	(6,4,(NOW() - INTERVAL '30 MINUTE'),1000),
+	(1,10,(NOW() - INTERVAL '1 DAY'),8350),
+	(3,11,(NOW() - INTERVAL '1 HOUR'),1201)
 ;
-
-

@@ -1,21 +1,18 @@
-package com.epam.marketplace.services.dto;
+package com.epam.marketplace.dto;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class ItemDto {
 
   private Integer id;
   private String name;
   private String descript;
-  // TODO: needless?
   private Integer userId;
-  private Integer dealId;
+  private Set<Integer> dealIds = new HashSet<>();
+  private Boolean isOnSale = false;
 
   public ItemDto() {
-  }
-
-  public ItemDto(String name, String descript, Integer userId) {
-    this.name = name;
-    this.descript = descript;
-    this.userId = userId;
   }
 
   public Integer getId() {
@@ -50,11 +47,19 @@ public class ItemDto {
     this.userId = userId;
   }
 
-  public Integer getDealId() {
-    return dealId;
+  public Set<Integer> getDealIds() {
+    return dealIds;
   }
 
-  public void setDealId(Integer dealId) {
-    this.dealId = dealId;
+  public void addDealId(Integer dealId) {
+    dealIds.add(dealId);
+  }
+
+  public boolean getOnSale() {
+    return isOnSale;
+  }
+
+  public void setOnSale(boolean onSale) {
+    isOnSale = onSale;
   }
 }

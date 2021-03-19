@@ -2,7 +2,8 @@ package com.epam.marketplace.controllers;
 
 import com.epam.marketplace.services.BidService;
 import com.epam.marketplace.services.DealService;
-import com.epam.marketplace.services.dto.BidDto;
+import com.epam.marketplace.dto.DtoAssembler;
+import com.epam.marketplace.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,49 +14,68 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AuctionsController {
 
-  @Autowired
-  DealService dealService;
+  private final DealService dealService;
+  private final BidService bidService;
+  private final UserService userService;
+  private final DtoAssembler dtoAssembler;
 
   @Autowired
-  BidService bidService;
+  public AuctionsController(DealService dealService, BidService bidService, UserService userService, DtoAssembler dtoAssembler) {
+    this.dealService = dealService;
+    this.bidService = bidService;
+    this.userService = userService;
+    this.dtoAssembler = dtoAssembler;
+  }
 
   @RequestMapping(value = "/auctions", method = RequestMethod.GET)
   public String auctions(
       @RequestParam(name = "status", defaultValue = "open") String status,
       @RequestParam(name = "sortBy", defaultValue = "stopDate") String sortBy,
       @RequestParam(name = "sortMode", defaultValue = "asc") String sortMode,
+      @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
+      @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
       Model model) {
-    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode));
+    model.addAttribute("title", " - Deals");
+    model.addAttribute("pageDisplayName","Deals");
+    model.addAttribute("pageName","auctions");
+    model.addAttribute("currentUser", userService.getCurrentUserName());
+    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
+    long amount = dealService.getAmount(status);
+    int totalPages = (int) Math.ceil((float) amount / pageSize);
+    model.addAttribute("status", status);
+    model.addAttribute("sortBy", sortBy);
+    model.addAttribute("sortMode", sortMode);
+    model.addAttribute("totalPages", totalPages);
+    model.addAttribute("currentPage", currentPage);
+    model.addAttribute("userId", userService.getCurrentUserId());
     return "auctions";
   }
 
-  @RequestMapping(value = "/auctions.ajax", method = RequestMethod.GET)
+  @RequestMapping(value = "/auctions/ajax", method = RequestMethod.GET)
   public String auctionsAjax(
       @RequestParam(name = "status", defaultValue = "open") String status,
       @RequestParam(name = "sortBy", defaultValue = "stopDate") String sortBy,
       @RequestParam(name = "sortMode", defaultValue = "asc") String sortMode,
+      @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
+      @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
       Model model) {
-    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode));
+    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
+    long amount = dealService.getAmount(status);
+    int totalPages = (int) Math.ceil((float) amount / pageSize);
+    model.addAttribute("totalPages", totalPages);
+    model.addAttribute("currentPage", currentPage);
+    model.addAttribute("userId", userService.getCurrentUserId());
     return "auctions-table";
   }
 
-  @RequestMapping(value = "/auctions.bid", method = RequestMethod.POST)
-  public String makeBid(
-      @RequestParam(name = "status", defaultValue = "open") String status,
-      @RequestParam(name = "sortBy", defaultValue = "stopDate") String sortBy,
-      @RequestParam(name = "sortMode", defaultValue = "asc") String sortMode,
-      @RequestParam(name = "userId") int userId,
+  @RequestMapping(value = "/auctions/bid", method = RequestMethod.POST)
+  public void makeBid(
       @RequestParam(name = "dealId") int dealId,
       @RequestParam(name = "offer") String offer,
       Model model
   ) {
-    // TODO: remove creating an object out of controller!
-    BidDto newBid = new BidDto(userId, dealId, offer);
-    bidService.createBid(newBid);
-
-    model.addAttribute("deals",dealService.getAuctions(status, sortBy, sortMode));
-
-    return "auctions";
+    model.addAttribute("userId", userService.getCurrentUserId());
+    bidService.createBid(dtoAssembler.newBid(userService.getCurrentUserId(), dealId, offer));
   }
 
 }

@@ -67,6 +67,16 @@ main {
     margin-right: 1.5rem;
 }
 /* Inputs */
+.error-response {
+    background-color: #a1a1a1;
+    padding: .3rem;
+    color: #ed4f1f;
+}
+.success-response {
+    background-color: #a1a1a1;
+    padding: .3rem;
+    color: #119c16;
+}
 .input-form {
     border: black solid 1px;
     background-color: gray;
@@ -141,7 +151,7 @@ main {
     background-color: transparent;
     margin: 0.8rem 0.8rem 0.8rem 0.8rem;
 }
-table, th, td {
+table {
     background-color: #bdbdbd;
 }
 th {
@@ -153,6 +163,15 @@ th {
     padding-right: .9rem;
     padding-top: .3rem;
     padding-bottom: .3rem;
+}
+.sort-arrow {
+    display: none;
+}
+.currentUserRow .row-data {
+    background-color: #e0ffb8;
+}
+.row-data {
+    background-color: #bdbdbd;
 }
 td {
     text-align: center;
@@ -176,6 +195,10 @@ td {
     min-height: 2rem;
     cursor: pointer;
 }
+.table-button:disabled {
+    background-color: #b5b5b5;
+    color: #383838;
+}
 /* Pagination */
 .center {
     text-align: center;
@@ -185,20 +208,32 @@ td {
     margin-bottom: .8rem;
     display: inline-block;
 }
-.pagination a {
+.pagination-button {
     color: black;
+    background-color: #bdbdbd;
     float: left;
     padding: .3rem .7rem;
-    text-decoration: none;
+    margin-left: .1rem;
+    margin-right: .1rem;
+    border: none;
+    border-radius: 5px;
+    transition: background-color .2s;
+    cursor: pointer;
+}
+.pagination-button-active {
+    float: left;
+    padding: .3rem .7rem;
+    margin-left: .1rem;
+    margin-right: .1rem;
+    border: none;
     border-radius: 5px;
     transition: background-color .3s;
-}
-.pagination a.active {
     background-color: orange;
     color: black;
+    cursor: pointer;
 }
-.pagination a:hover:not(.active) {
-    background-color: #ddd;
+.pagination-button:hover {
+    background-color: lightslategray;
 }
 /* Modals */
 .modal {

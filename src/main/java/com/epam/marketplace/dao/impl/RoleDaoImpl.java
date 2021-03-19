@@ -11,7 +11,11 @@ import com.epam.marketplace.dao.RoleDao;
 import com.epam.marketplace.entities.Role;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component("roleDao")
+@Scope("prototype")
 public class RoleDaoImpl implements RoleDao {
 
   @Override
