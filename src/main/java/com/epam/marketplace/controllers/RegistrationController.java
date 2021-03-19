@@ -1,24 +1,37 @@
 package com.epam.marketplace.controllers;
 
-import com.epam.marketplace.OperationResult;
+import com.epam.marketplace.dto.DtoAssembler;
 import com.epam.marketplace.dto.UserDto;
 import com.epam.marketplace.services.UserService;
-import java.util.logging.Logger;
+import com.epam.marketplace.validation.ConstraintsValidator;
+import com.epam.marketplace.validation.logic.UserLogicValidator;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@Validated
 public class RegistrationController {
 
-  private final Logger logger = Logger.getLogger("application");
   private final UserService userService;
+  private final ConstraintsValidator constraintsValidator;
+  private final UserLogicValidator userLogicValidator;
 
   @Autowired
-  public RegistrationController(UserService userService) {
+  public RegistrationController(UserService userService,
+      ConstraintsValidator constraintsValidator,
+      UserLogicValidator userLogicValidator) {
     this.userService = userService;
+    this.constraintsValidator = constraintsValidator;
+    this.userLogicValidator = userLogicValidator;
   }
 
   @RequestMapping(value = "/registration", method = RequestMethod.GET)
@@ -37,11 +50,14 @@ public class RegistrationController {
     model.addAttribute("pageDisplayName","Registration");
     model.addAttribute("pageName","registration");
 
-    OperationResult result = userService.createUser(userDto);
-    logger.info("New user registration result: " + result.getMessage());
+    // TODO: make service validate everything, and controller get the response only
+//    constraintsValidator.validate(userDto);
+//    if (userLogicValidator.validate(userDto).equals("ok")) {
+//      userService.createUser(userDto);
+//    }
 
-    model.addAttribute("response", result.getMessage());
-    model.addAttribute("result", result.getResult());
+//    model.addAttribute("response", response);
+//    model.addAttribute("result", result);
     return "registration";
   }
 }
