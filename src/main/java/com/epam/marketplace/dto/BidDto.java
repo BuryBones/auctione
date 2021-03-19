@@ -2,13 +2,27 @@ package com.epam.marketplace.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
-public class BidDto {
+public class BidDto extends AbstractDto {
 
   private Integer id;
+
+  @NotNull(message = "Date and time of the bid cannot be empty")
   private Date dateAndTime;
+
+  @NotNull(message = "Offer cannot be empty")
+  @DecimalMin("1.00")
   private BigDecimal offer;
+
+  @NotNull(message = "User ID cannot be empty")
+  @Min(1)
   private Integer userId;
+
+  @NotNull(message = "Deal ID cannot be empty")
+  @Min(1)
   private Integer dealId;
 
   public BidDto(){

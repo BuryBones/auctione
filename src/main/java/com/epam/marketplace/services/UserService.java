@@ -20,6 +20,7 @@ public class UserService {
   private final UserDao userDao;
   private final RoleDao roleDao;
   private final CommonMapper mapper;
+  // TODO: отедельный бин Бкрипт,
   private final PasswordEncoder passwordEncoder;
 
   @Autowired

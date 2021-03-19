@@ -216,4 +216,22 @@ public class DealDaoImpl implements DealDao {
     session.close();
     return result;
   }
+
+  @Override
+  public boolean checkIfAnyOpenDealsByItemId(int itemId) {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    CriteriaBuilder cb = session.getCriteriaBuilder();
+    CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+
+    Root<Deal> root = cq.from(Deal.class);
+    cq.select(cb.count(root))
+        .where(cb.equal(root.get(Deal_.item),itemId))
+        .where(cb.isTrue(root.get(Deal_.status)));
+
+    Query<Long> query = session.createQuery(cq);
+    Long count = query.getSingleResult();
+
+    session.close();
+    return count > 0;
+  }
 }

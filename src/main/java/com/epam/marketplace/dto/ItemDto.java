@@ -2,12 +2,22 @@ package com.epam.marketplace.dto;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-public class ItemDto {
+public class ItemDto extends AbstractDto {
 
   private Integer id;
+
+  @NotNull(message = "Item name cannot be empty")
+  @Size(min = 6, max = 45, message = "Item name length has to be from 6 to 45 symbols")
   private String name;
+
+  @Size(max = 300, message = "Description length cannot be longer than 300 symbols")
   private String descript;
+
+  @Min(1)
   private Integer userId;
   private Set<Integer> dealIds = new HashSet<>();
   private Boolean isOnSale = false;

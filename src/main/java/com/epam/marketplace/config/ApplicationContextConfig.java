@@ -1,9 +1,10 @@
 package com.epam.marketplace.config;
 
-import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -41,5 +42,11 @@ public class ApplicationContextConfig {
     Logger logger = Logger.getLogger("application");
     logger.setLevel(Level.ALL);
     return logger;
+  }
+
+  @Bean("validator")
+  public Validator validator() {
+    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    return factory.usingContext().getValidator();
   }
 }
