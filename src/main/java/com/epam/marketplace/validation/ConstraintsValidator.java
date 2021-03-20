@@ -1,5 +1,6 @@
 package com.epam.marketplace.validation;
 
+import com.epam.marketplace.OperationResult;
 import com.epam.marketplace.dto.AbstractDto;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
@@ -17,14 +18,14 @@ public class ConstraintsValidator {
     this.validator = validator;
   }
 
-  public <T extends AbstractDto> String validate(T dto) {
+  public <T extends AbstractDto> OperationResult validate(T dto) {
     Set<ConstraintViolation<T>> errors = validator.validate(dto);
     if (errors.isEmpty()) {
-      return "ok";
+      return OperationResult.success();
     } else {
       StringBuilder stringBuilder = new StringBuilder("The following problems occurred:");
       errors.forEach(e -> stringBuilder.append("\r\n" + e.getMessage()));
-      return stringBuilder.toString();
+      return new OperationResult(false, stringBuilder.toString());
     }
   }
 }

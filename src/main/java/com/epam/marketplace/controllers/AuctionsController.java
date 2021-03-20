@@ -83,11 +83,12 @@ public class AuctionsController {
       @RequestParam(name = "offer") String offer,
       Model model
   ) {
-    // TODO: make some on-view notification about operation result for user
     model.addAttribute("userId", userService.getCurrentUserId());
-    logger.info("Making new bid result: " + bidService.createBid(
+    // TODO: add success/failure attribute?
+    logger.info(bidService.createBid(
         dtoAssembler.newBidDto(
             userService.getCurrentUserId(), dealId, offer)).getMessage());
+//    model.addAttribute("response", response);
     return "auctions";
   }
 }

@@ -3,7 +3,6 @@ package com.epam.marketplace.controllers;
 import com.epam.marketplace.dto.DtoAssembler;
 import com.epam.marketplace.services.ItemService;
 import com.epam.marketplace.services.UserService;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class NewItemController {
 
-  private final Logger logger = Logger.getLogger("application");
   private final ItemService itemService;
   private final UserService userService;
   private final DtoAssembler dtoAssembler;
@@ -40,9 +38,7 @@ public class NewItemController {
       @RequestParam(name = "name") String name,
       @RequestParam(name = "description", required = false, defaultValue = "") String description
   ) {
-    logger.info("Creating new item result: " + itemService.createItem(
-        dtoAssembler.newItemDto(
-            userService.getCurrentUserId(), name,description)).getMessage());
+    itemService.createItem(dtoAssembler.newItemDto(userService.getCurrentUserId(), name,description));
     return "redirect:/items";
   }
 }
