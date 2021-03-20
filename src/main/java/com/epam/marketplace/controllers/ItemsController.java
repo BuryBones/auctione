@@ -49,7 +49,7 @@ public class ItemsController {
       @RequestParam(name = "stopTime") String stopTimeStr
   ) {
     try {
-      dealService.createAuction(dtoAssembler.newDeal(
+      dealService.createAuction(dtoAssembler.newDealDto(
           userService.getCurrentUserId(), itemId,initPriceStr,stopDateStr,stopTimeStr));
     } catch (ParseException e) {
       // TODO: do smth with exception handling

@@ -38,7 +38,7 @@ public class NewItemController {
       @RequestParam(name = "name") String name,
       @RequestParam(name = "description", required = false, defaultValue = "") String description
   ) {
-    itemService.createItem(dtoAssembler.newItem(userService.getCurrentUserId(), name,description));
+    itemService.createItem(dtoAssembler.newItemDto(userService.getCurrentUserId(), name,description));
     return "redirect:/items";
   }
 }
