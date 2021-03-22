@@ -2,15 +2,10 @@ package com.epam.marketplace.services;
 
 import com.epam.marketplace.OperationResult;
 import com.epam.marketplace.dao.ItemDao;
-import com.epam.marketplace.dto.DealDto;
 import com.epam.marketplace.dto.mappers.CommonMapper;
 import com.epam.marketplace.entities.Deal;
 import com.epam.marketplace.entities.Item;
 import com.epam.marketplace.dto.ItemDto;
-import com.epam.marketplace.validation.ConstraintsValidator;
-import com.epam.marketplace.validation.logic.AbstractLogicValidator;
-import com.epam.marketplace.validation.logic.DealLogicValidator;
-import com.epam.marketplace.validation.logic.ItemLogicValidator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -23,17 +18,11 @@ public class ItemService {
   private final Logger logger = Logger.getLogger("application");
   private final ItemDao itemDao;
   private final CommonMapper mapper;
-  private final ConstraintsValidator constraintsValidator;
-  private final ItemLogicValidator itemLogicValidator;
 
   @Autowired
-  public ItemService(ItemDao itemDao, CommonMapper mapper,
-      ConstraintsValidator constraintsValidator,
-      ItemLogicValidator itemLogicValidator) {
+  public ItemService(ItemDao itemDao, CommonMapper mapper) {
     this.itemDao = itemDao;
     this.mapper = mapper;
-    this.constraintsValidator = constraintsValidator;
-    this.itemLogicValidator = itemLogicValidator;
   }
 
   public List<ItemDto> getItemsByUserId(int userId) {
@@ -55,21 +44,7 @@ public class ItemService {
   }
 
   public OperationResult createItem(ItemDto newBorn) {
-    OperationResult validationResult = validate(newBorn);
-    if (validationResult.getResult()) {
-      Item newItem = mapper.getEntityFromDto(newBorn);
-      return itemDao.save(newItem);
-    } else {
-      return validationResult;
-    }
-  }
-
-  public OperationResult validate(ItemDto itemDto) {
-    OperationResult constraintsValidationResult = constraintsValidator.validate(itemDto);
-    if (constraintsValidationResult.getResult()) {
-      return itemLogicValidator.validate(itemDto);
-    } else {
-      return constraintsValidationResult;
-    }
+    Item newItem = mapper.getEntityFromDto(newBorn);
+    return itemDao.save(newItem);
   }
 }
