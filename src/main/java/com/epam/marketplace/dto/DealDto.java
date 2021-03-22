@@ -2,19 +2,47 @@ package com.epam.marketplace.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-public class DealDto {
+public class DealDto extends AbstractDto {
 
   private Integer id;
+
+  @Size(min = 2, max = 90, message = "Seller name has to be from 2 to 90 symbols")
   private String seller;
+
+  @NotNull(message = "Seller ID cannot be empty")
+  @Min(1)
   private Integer sellerId;
+
+  @Size(min = 6, max = 45, message = "Item name length has to be from 6 to 45 symbols")
   private String item;
+
+  @NotNull(message = "Item ID cannot be empty")
+  @Min(1)
   private Integer itemId;
+
+  @Size(max = 300, message = "Description length cannot be longer than 300 symbols")
   private String info;
+
+  @NotNull(message = "Start date cannot be empty")
   private Date startDate;
+
+  @NotNull(message = "Start price cannot be empty")
+  @DecimalMin("1.00")
   private BigDecimal startPrice;
+
+  @DecimalMin("1.00")
   private BigDecimal lastBid;
+
+  @NotNull(message = "Stop date cannot be empty")
+  @Future
   private Date stopDate;
+
   private boolean status = true;
 
   public DealDto() {

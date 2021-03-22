@@ -10,12 +10,10 @@ import org.springframework.stereotype.Component;
 /**
  * This class is used by view controllers to make a DTO with the data received from a client.
  */
-
 @Component("dtoAssembler")
-@Scope("prototype")
 public class DtoAssembler {
 
-  public UserDto newUser(String login, String password, String email, String firstName, String lastName) {
+  public UserDto newUserDto(String login, String password, String email, String firstName, String lastName) {
     UserDto result = new UserDto();
     result.setLogin(login);
     result.setPassword(password);
@@ -26,7 +24,7 @@ public class DtoAssembler {
     return result;
   }
 
-  public ItemDto newItem(int userId, String name, String description) {
+  public ItemDto newItemDto(int userId, String name, String description) {
     ItemDto result = new ItemDto();
     result.setUserId(userId);
     result.setName(name);
@@ -34,7 +32,7 @@ public class DtoAssembler {
     return result;
   }
 
-  public DealDto newDeal(int userId, int itemId, String initPrice, String stopDate, String stopTime)
+  public DealDto newDealDto(int userId, int itemId, String initPrice, String stopDate, String stopTime)
       throws ParseException {
     DealDto result = new DealDto();
     result.setSellerId(userId);
@@ -46,7 +44,7 @@ public class DtoAssembler {
     return result;
   }
 
-  public BidDto newBid(int userId, int dealId, String offer) {
+  public BidDto newBidDto(int userId, int dealId, String offer) {
     BidDto result = new BidDto();
     result.setUserId(userId);
     result.setDealId(dealId);
@@ -54,5 +52,4 @@ public class DtoAssembler {
     result.setDateAndTime(new Date());
     return result;
   }
-
 }

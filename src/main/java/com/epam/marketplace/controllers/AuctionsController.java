@@ -4,23 +4,30 @@ import com.epam.marketplace.services.BidService;
 import com.epam.marketplace.services.DealService;
 import com.epam.marketplace.dto.DtoAssembler;
 import com.epam.marketplace.services.UserService;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class AuctionsController {
 
+  private final Logger logger = Logger.getLogger("application");
   private final DealService dealService;
   private final BidService bidService;
   private final UserService userService;
   private final DtoAssembler dtoAssembler;
 
   @Autowired
-  public AuctionsController(DealService dealService, BidService bidService, UserService userService, DtoAssembler dtoAssembler) {
+  public AuctionsController(
+      DealService dealService,
+      BidService bidService,
+      UserService userService,
+      DtoAssembler dtoAssembler) {
     this.dealService = dealService;
     this.bidService = bidService;
     this.userService = userService;
@@ -68,14 +75,19 @@ public class AuctionsController {
     return "auctions-table";
   }
 
+  // TODO: make this interaction non-ajax?
   @RequestMapping(value = "/auctions/bid", method = RequestMethod.POST)
-  public void makeBid(
+  @ResponseBody
+  public String makeBid(
       @RequestParam(name = "dealId") int dealId,
       @RequestParam(name = "offer") String offer,
       Model model
   ) {
+    // TODO: make some on-view notification about operation result for user
     model.addAttribute("userId", userService.getCurrentUserId());
-    bidService.createBid(dtoAssembler.newBid(userService.getCurrentUserId(), dealId, offer));
+    logger.info("Making new bid result: " + bidService.createBid(
+        dtoAssembler.newBidDto(
+            userService.getCurrentUserId(), dealId, offer)).getMessage());
+    return "auctions";
   }
-
 }

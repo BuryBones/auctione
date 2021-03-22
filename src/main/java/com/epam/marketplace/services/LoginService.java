@@ -16,19 +16,18 @@ import org.springframework.stereotype.Service;
 @Service("loginService")
 public class LoginService implements UserDetailsService {
 
+  private final Logger logger = Logger.getLogger("application");
   private final UserDao userDao;
-  private final Logger logger;
 
   @Autowired
-  public LoginService(UserDao userDao, Logger logger) {
+  public LoginService(UserDao userDao) {
     this.userDao = userDao;
-    this.logger = logger;
   }
 
   @Override
   public User loadUserByUsername(String login) throws UsernameNotFoundException {
     User user;
-    Optional<User> optionalUser = userDao.findByLogin(login);
+    Optional<User> optionalUser = userDao.findByLoginWithRoles(login);
     if (optionalUser.isPresent()) {
       user = optionalUser.get();
       logger.info("Found user by login: " + login);
@@ -38,14 +37,13 @@ public class LoginService implements UserDetailsService {
     }
     Set<Role> roles = user.getUserRoles();
     if (roles != null && !roles.isEmpty()) {
-      logger.info("No roles found for " + login);
       for (Role role: roles) {
         logger.info("Role for " + login + ": " + role.getRoleName());
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role.getRoleName());
         user.addAuthority(authority);
       }
     } else {
-      logger.info("No roles found for " + login);
+      logger.warning("No roles found for " + login);
     }
     return user;
   }

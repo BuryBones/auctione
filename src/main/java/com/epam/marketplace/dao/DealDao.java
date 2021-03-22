@@ -16,4 +16,5 @@ public interface DealDao extends CommonDao<Deal> {
   List<Deal> findAllFullByStatus(boolean status);
   List<Deal> findAllFullWithLastBidByStatus(String status, int pageSize, int currentPage, String sortBy, boolean order);
   Long findAmountByStatus(String status);
+  boolean checkIfAnyOpenDealsByItemId(int itemId);
 }

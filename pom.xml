@@ -57,6 +57,7 @@
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
       <version>8.0.1</version>
+      <scope>provided</scope>
     </dependency>
     <!--Hibernate & Databases-->
     <dependency>
@@ -74,6 +75,22 @@
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>42.2.16</version>
+    </dependency>
+    <!--Validation-->
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>2.0.1.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
+      <version>2.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>5.2.4.Final</version>
     </dependency>
     <!--Tests-->
     <dependency>

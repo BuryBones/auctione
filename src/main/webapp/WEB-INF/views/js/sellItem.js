@@ -13,9 +13,7 @@ function sellDialog() {
     document.getElementById("until-date").value = "";
     document.getElementById("until-time").value = "";
 
-
     document.getElementById("until-date").min = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
-
 
     modal.style.display = "block";
 
