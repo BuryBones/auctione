@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 public class UserLogicValidator extends AbstractLogicValidator<UserDto>{
 
   private final Logger logger = Logger.getLogger("application");
-  private final UserService userService;
+  private UserService userService;
 
   @Autowired
-  public UserLogicValidator(UserService userService) {
+  public void setUserService(UserService userService) {
     this.userService = userService;
   }
 

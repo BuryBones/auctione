@@ -12,7 +12,6 @@ public class DealDto extends AbstractDto {
 
   private Integer id;
 
-  @NotNull(message = "Seller name cannot be empty")
   @Size(min = 2, max = 90, message = "Seller name has to be from 2 to 90 symbols")
   private String seller;
 
@@ -20,7 +19,6 @@ public class DealDto extends AbstractDto {
   @Min(1)
   private Integer sellerId;
 
-  @NotNull(message = "Item name cannot be empty")
   @Size(min = 6, max = 45, message = "Item name length has to be from 6 to 45 symbols")
   private String item;
 

@@ -21,6 +21,7 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.From;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import com.epam.marketplace.HibernateUtil;
 import com.epam.marketplace.dao.DealDao;
@@ -224,9 +225,12 @@ public class DealDaoImpl implements DealDao {
     CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 
     Root<Deal> root = cq.from(Deal.class);
-    cq.select(cb.count(root))
-        .where(cb.equal(root.get(Deal_.item),itemId))
-        .where(cb.isTrue(root.get(Deal_.status)));
+
+    Predicate idPredicate = cb.equal(root.get(Deal_.item),itemId);
+    Predicate statusPredicate = cb.isTrue(root.get(Deal_.status));
+    Predicate finalPredicate = cb.and(idPredicate,statusPredicate);
+
+    cq.select(cb.count(root)).where(finalPredicate);
 
     Query<Long> query = session.createQuery(cq);
     Long count = query.getSingleResult();

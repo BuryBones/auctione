@@ -1,5 +1,6 @@
 package com.epam.marketplace.services;
 
+import com.epam.marketplace.OperationResult;
 import com.epam.marketplace.dao.ItemDao;
 import com.epam.marketplace.dto.mappers.CommonMapper;
 import com.epam.marketplace.entities.Deal;
@@ -14,15 +15,14 @@ import org.springframework.stereotype.Service;
 @Service("itemService")
 public class ItemService {
 
+  private final Logger logger = Logger.getLogger("application");
   private final ItemDao itemDao;
   private final CommonMapper mapper;
-  private final Logger logger;
 
   @Autowired
-  public ItemService(ItemDao itemDao, CommonMapper mapper, Logger logger) {
+  public ItemService(ItemDao itemDao, CommonMapper mapper) {
     this.itemDao = itemDao;
     this.mapper = mapper;
-    this.logger = logger;
   }
 
   public List<ItemDto> getItemsByUserId(int userId) {
@@ -43,14 +43,8 @@ public class ItemService {
     return result;
   }
 
-  public boolean createItem(ItemDto newBorn) {
+  public OperationResult createItem(ItemDto newBorn) {
     Item newItem = mapper.getEntityFromDto(newBorn);
-    try {
-      itemDao.save(newItem);
-    } catch (Exception e) {
-      e.printStackTrace();
-      return false;
-    }
-    return true;
+    return itemDao.save(newItem);
   }
 }

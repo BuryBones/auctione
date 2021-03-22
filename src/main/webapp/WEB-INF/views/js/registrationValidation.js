@@ -1,6 +1,5 @@
 function validateRegistration() {
-    return true;
-//    return checkLogin() && checkFirstName() && checkLastName() && checkEmail() && checkPassword() && checkPasswordsMatch();
+    return checkLogin() && checkFirstName() && checkLastName() && checkEmail() && checkPassword() && checkPasswordsMatch();
 }
 
 function checkLogin() {
