@@ -46,7 +46,7 @@ public class BidDaoImpl implements BidDao {
 
     Root<Bid> root = criteriaQuery.from(Bid.class);
     criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(Bid_.DEAL),dealId));
-    criteriaQuery.orderBy(criteriaBuilder.desc(root.get(Bid_.dateAndTime)));
+    criteriaQuery.orderBy(criteriaBuilder.desc(root.get(Bid_.offer)));
 
     Query<Bid> query = session.createQuery(criteriaQuery);
     query.setMaxResults(1);

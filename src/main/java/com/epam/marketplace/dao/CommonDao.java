@@ -1,8 +1,10 @@
 package com.epam.marketplace.dao;
 
 import com.epam.marketplace.HibernateUtil;
+import com.epam.marketplace.OperationResult;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
@@ -16,6 +18,8 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 public interface CommonDao<T> {
+
+  Logger logger = Logger.getLogger("application");
 
   Class<T> getType();
 
@@ -66,7 +70,7 @@ public interface CommonDao<T> {
     return result;
   }
 
-  default void save(T object) {
+  default OperationResult save(T object) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     Transaction transaction = null;
     try {
@@ -80,12 +84,13 @@ public interface CommonDao<T> {
           transaction.rollback();
         }
       } catch (HibernateException he) {
-        System.err.println("Transaction rollback not successful");
-        System.out.println(he.getMessage());
+        logger.severe("SAVING FAILED \r\n" + he.getMessage());
+        return new OperationResult(false, "Failed to create new record");
       }
     } finally {
       session.close();
     }
+    return OperationResult.success();
   }
 
   default void update(T object) {

@@ -2,15 +2,44 @@ package com.epam.marketplace.dto;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
-public class UserDto {
+public class UserDto extends AbstractDto {
 
   private Integer id;
-  private String login = "";
-  private String password = "";
+
+  @NotNull(message = "Login cannot be empty")
+  @Size(min = 6, max = 45, message = "Login length has to be from 6 to 45 symbols")
+  @Pattern(regexp = "(^[a-zA-Z0-9]+[a-zA-Z0-9._-]+$)",
+      message = "Login contains unacceptable symbols")
+  private String login;
+
+  @NotNull(message = "Password cannot be empty")
+  @Size(min = 8, max = 45, message = "Password length has to be from 8 to 45 symbols")
+  @Pattern(regexp = "(^[a-zA-Z0-9!#$*+_^.,-]+$)",
+      message = "Password contains unacceptable symbols")
+  private String password;
+
+  @NotNull(message = "First name cannot be empty")
+  @Size(min = 1, max = 45, message = "First name length has to be from 1 to 45 symbols")
+  @Pattern(regexp = "(^[a-zA-Z]+[- ]*[a-zA-Z]+$)",
+      message = "First name contains unacceptable symbols")
   private String firstName;
+
+  @NotNull(message = "Last name cannot be empty")
+  @Size(min = 1, max = 45, message = "Last name length has to be from 1 to 45 symbols")
+  @Pattern(regexp = "(^[a-zA-Z]+[- ]*[a-zA-Z]+$)",
+      message = "Last name contains unacceptable symbols")
   private String lastName;
+
+  @NotNull(message = "Email Name cannot be empty")
+  @Size(min = 3, max = 45, message = "Email length has to be from 3 to 45 symbols")
+  @Pattern(regexp = "(^[a-zA-Z0-9]+[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$)",
+      message = "Incorrect email format")
   private String email;
+
   private Set<String> roles = new HashSet<>();
 
   public UserDto() {

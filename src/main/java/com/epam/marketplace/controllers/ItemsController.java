@@ -7,6 +7,7 @@ import com.epam.marketplace.services.ItemService;
 import com.epam.marketplace.services.UserService;
 import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ItemsController {
 
+  private final Logger logger = Logger.getLogger("application");
   private final ItemService itemService;
   private final DealService dealService;
   private final UserService userService;
@@ -48,12 +50,15 @@ public class ItemsController {
       @RequestParam(name = "stopDate") String stopDateStr,
       @RequestParam(name = "stopTime") String stopTimeStr
   ) {
+    // TODO: make some on-view notification about operation result for user
     try {
-      dealService.createAuction(dtoAssembler.newDeal(
-          userService.getCurrentUserId(), itemId,initPriceStr,stopDateStr,stopTimeStr));
+      logger.info("Creating new deal result: " + dealService.createAuction(
+          dtoAssembler.newDealDto(
+          userService.getCurrentUserId(), itemId,initPriceStr,stopDateStr,stopTimeStr))
+          .getMessage());
     } catch (ParseException e) {
       // TODO: do smth with exception handling
-      e.printStackTrace();
+      logger.severe(e.getMessage());
     }
     return "redirect:/auctions";
   }
