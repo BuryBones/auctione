@@ -20,8 +20,8 @@
           <td class="row-data">${item.id}</td>
           <td class="row-data">${item.name}</td>
           <td class="row-data">
-            <#if item.descript??>
-              ${item.descript}
+            <#if item.description??>
+              ${item.description}
             <#else>
               No Description
           </#if>
@@ -48,14 +48,13 @@
         <input type="hidden" id="itemId" name="itemId">
         <label for="init-price">Start price</label>
         <br>
-        <input type="number" step="0.01" name="initPrice" placeholder="Enter initial price" id="init-price" min="1" required>
+        <input type="number" step="0.01" name="startPrice" placeholder="Enter initial price" id="init-price" min="1" required>
         <br>
         <br>
         <label for="until">Close time</label>
         <br>
         <span id="until">
-          <input type="date" name="stopDate" id="until-date" required>
-          <input type="time" name="stopTime" id="until-time" required>
+          <input type="datetime-local" name="stopDate" id="until-datetime" required>
         </span>
         <br>
         <span>

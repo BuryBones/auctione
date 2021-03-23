@@ -4,9 +4,11 @@ import com.epam.marketplace.dto.UserDto;
 import com.epam.marketplace.exceptions.validity.ValidityException;
 import com.epam.marketplace.services.UserService;
 import java.util.logging.Logger;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -30,18 +32,24 @@ public class RegistrationController {
   }
 
   @RequestMapping(value = "/registration", method = RequestMethod.POST)
-  public String submit(
-      UserDto userDto, Model model
-  ) throws ValidityException {
+  public String submit(@Valid UserDto userDto, BindingResult result, Model model)
+      throws ValidityException {
     model.addAttribute("title", " - Registration");
     model.addAttribute("pageDisplayName", "Registration");
     model.addAttribute("pageName", "registration");
 
-    userService.createUser(userDto);
-//    logger.info("New user registration result: " + result.getMessage());
-
-//    model.addAttribute("response", result.getMessage());
-//    model.addAttribute("result", result.getResult());
+    if ((result != null) && result.hasErrors()) {
+      StringBuilder responseBuilder = new StringBuilder();
+      result.getAllErrors().forEach(e -> responseBuilder.append(e.getDefaultMessage() + "; "));
+      model.addAttribute("response", responseBuilder.toString());
+      model.addAttribute("result", false);
+      logger.warning(responseBuilder.toString());
+    } else {
+      userService.createUser(userDto);
+      // TODO: check what would be displayed when exception is thrown
+      model.addAttribute("response", "Success");
+      model.addAttribute("result", true);
+    }
     return "registration";
   }
 }
