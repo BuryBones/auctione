@@ -1,6 +1,7 @@
 package com.epam.marketplace.controllers;
 
 import com.epam.marketplace.dto.ItemDto;
+import com.epam.marketplace.exceptions.validity.ValidityException;
 import com.epam.marketplace.services.DealService;
 import com.epam.marketplace.dto.DtoAssembler;
 import com.epam.marketplace.services.ItemService;
@@ -25,7 +26,8 @@ public class ItemsController {
   private final DtoAssembler dtoAssembler;
 
   @Autowired
-  public ItemsController(ItemService itemService, DealService dealService, UserService userService, DtoAssembler dtoAssembler) {
+  public ItemsController(ItemService itemService, DealService dealService, UserService userService,
+      DtoAssembler dtoAssembler) {
     this.itemService = itemService;
     this.dealService = dealService;
     this.userService = userService;
@@ -35,11 +37,11 @@ public class ItemsController {
   @RequestMapping(value = "/items", method = RequestMethod.GET)
   public String items(Model model) {
     model.addAttribute("title", " - Items");
-    model.addAttribute("pageDisplayName","Items");
-    model.addAttribute("pageName","items");
+    model.addAttribute("pageDisplayName", "Items");
+    model.addAttribute("pageName", "items");
     model.addAttribute("currentUser", userService.getCurrentUserName());
     List<ItemDto> items = itemService.getItemsByUserId(userService.getCurrentUserId());
-    model.addAttribute("items",items);
+    model.addAttribute("items", items);
     return "items";
   }
 
@@ -52,11 +54,10 @@ public class ItemsController {
   ) {
     // TODO: make some on-view notification about operation result for user
     try {
-      logger.info("Creating new deal result: " + dealService.createAuction(
+      dealService.createAuction(
           dtoAssembler.newDealDto(
-          userService.getCurrentUserId(), itemId,initPriceStr,stopDateStr,stopTimeStr))
-          .getMessage());
-    } catch (ParseException e) {
+              userService.getCurrentUserId(), itemId, initPriceStr, stopDateStr, stopTimeStr));
+    } catch (ParseException | ValidityException e) {
       // TODO: do smth with exception handling
       logger.severe(e.getMessage());
     }

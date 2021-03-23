@@ -1,5 +1,6 @@
 package com.epam.marketplace.controllers;
 
+import com.epam.marketplace.exceptions.validity.ValidityException;
 import com.epam.marketplace.services.BidService;
 import com.epam.marketplace.services.DealService;
 import com.epam.marketplace.dto.DtoAssembler;
@@ -43,10 +44,11 @@ public class AuctionsController {
       @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
       Model model) {
     model.addAttribute("title", " - Deals");
-    model.addAttribute("pageDisplayName","Deals");
-    model.addAttribute("pageName","auctions");
+    model.addAttribute("pageDisplayName", "Deals");
+    model.addAttribute("pageName", "auctions");
     model.addAttribute("currentUser", userService.getCurrentUserName());
-    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
+    model.addAttribute("deals",
+        dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
     long amount = dealService.getAmount(status);
     int totalPages = (int) Math.ceil((float) amount / pageSize);
     model.addAttribute("status", status);
@@ -66,7 +68,8 @@ public class AuctionsController {
       @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
       @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
       Model model) {
-    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
+    model.addAttribute("deals",
+        dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
     long amount = dealService.getAmount(status);
     int totalPages = (int) Math.ceil((float) amount / pageSize);
     model.addAttribute("totalPages", totalPages);
@@ -82,12 +85,12 @@ public class AuctionsController {
       @RequestParam(name = "dealId") int dealId,
       @RequestParam(name = "offer") String offer,
       Model model
-  ) {
+  ) throws ValidityException {
     // TODO: make some on-view notification about operation result for user
     model.addAttribute("userId", userService.getCurrentUserId());
-    logger.info("Making new bid result: " + bidService.createBid(
+    bidService.createBid(
         dtoAssembler.newBidDto(
-            userService.getCurrentUserId(), dealId, offer)).getMessage());
+            userService.getCurrentUserId(), dealId, offer));
     return "auctions";
   }
 }

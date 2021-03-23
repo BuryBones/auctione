@@ -1,33 +1,35 @@
 package com.epam.marketplace.services;
 
-import com.epam.marketplace.OperationResult;
 import com.epam.marketplace.dao.DealDao;
 import com.epam.marketplace.dto.mappers.CommonMapper;
 import com.epam.marketplace.entities.Deal;
 import com.epam.marketplace.dto.DealDto;
-import com.epam.marketplace.validation.ConstraintsValidator;
-import com.epam.marketplace.validation.logic.DealLogicValidator;
+import com.epam.marketplace.exceptions.validity.ValidityException;
+import com.epam.marketplace.validation.logic.ValidatorType;
+import com.epam.marketplace.validation.logic.deal.AbstractDealLogicValidator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("dealService")
 public class DealService {
 
+  private final Logger logger = Logger.getLogger("application");
   private final DealDao dealDao;
   private final CommonMapper mapper;
-  private final ConstraintsValidator constraintsValidator;
-  private final DealLogicValidator dealLogicValidator;
+  private List<AbstractDealLogicValidator> validators;
+
+  private final BeanFactory beanFactory;
 
   @Autowired
-  public DealService(DealDao dealDao, CommonMapper mapper,
-      ConstraintsValidator constraintsValidator,
-      DealLogicValidator dealLogicValidator) {
+  public DealService(DealDao dealDao, CommonMapper mapper, BeanFactory beanFactory) {
     this.dealDao = dealDao;
     this.mapper = mapper;
-    this.constraintsValidator = constraintsValidator;
-    this.dealLogicValidator = dealLogicValidator;
+    this.beanFactory = beanFactory;
   }
 
   public Long getAmount(String status) {
@@ -45,22 +47,19 @@ public class DealService {
     return result;
   }
 
-  public OperationResult createAuction(DealDto newborn) {
-    OperationResult validationResult = validate(newborn);
-    if (validationResult.getResult()) {
-      Deal newDeal = mapper.getEntityFromDto(newborn);
-      return dealDao.save(newDeal);
-    } else {
-      return validationResult;
+  public void createAuction(DealDto newborn) throws ValidityException {
+    for (AbstractDealLogicValidator validator: validators) {
+      logger.info("Validating with " + validator.getClass().getName());
+      validator.validate(newborn);
     }
+    Deal newDeal = mapper.getEntityFromDto(newborn);
+    dealDao.save(newDeal);
   }
 
-  public OperationResult validate(DealDto dealDto) {
-    OperationResult constraintsValidationResult = constraintsValidator.validate(dealDto);
-    if (constraintsValidationResult.getResult()) {
-      return dealLogicValidator.validate(dealDto);
-    } else {
-      return constraintsValidationResult;
-    }
+  @PostConstruct
+  private void initValidators() {
+    validators = (List<AbstractDealLogicValidator>)
+        beanFactory.getBean("validators",ValidatorType.DEAL);
+    logger.info("Deal service got " + validators.size() + " validators");
   }
 }

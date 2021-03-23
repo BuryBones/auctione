@@ -4,9 +4,6 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -37,12 +34,6 @@ public class ApplicationContextConfig {
     config.setTemplateLoaderPath("/WEB-INF/views/");
     config.setDefaultEncoding("UTF-8");
     return config;
-  }
-
-  @Bean("validator")
-  public Validator validator() {
-    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-    return factory.usingContext().getValidator();
   }
 
   @PostConstruct
