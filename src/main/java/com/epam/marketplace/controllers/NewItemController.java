@@ -20,7 +20,8 @@ public class NewItemController {
   private final DtoAssembler dtoAssembler;
 
   @Autowired
-  public NewItemController(ItemService itemService, UserService userService, DtoAssembler dtoAssembler) {
+  public NewItemController(ItemService itemService, UserService userService,
+      DtoAssembler dtoAssembler) {
     this.itemService = itemService;
     this.userService = userService;
     this.dtoAssembler = dtoAssembler;
@@ -29,8 +30,8 @@ public class NewItemController {
   @RequestMapping(value = "/new-item", method = RequestMethod.GET)
   public String newItem(Model model) {
     model.addAttribute("title", " - New Item");
-    model.addAttribute("pageDisplayName","New Item");
-    model.addAttribute("pageName","new-item");
+    model.addAttribute("pageDisplayName", "New Item");
+    model.addAttribute("pageName", "new-item");
     model.addAttribute("currentUser", userService.getCurrentUserName());
     return "new-item";
   }
@@ -40,9 +41,9 @@ public class NewItemController {
       @RequestParam(name = "name") String name,
       @RequestParam(name = "description", required = false, defaultValue = "") String description
   ) {
-    logger.info("Creating new item result: " + itemService.createItem(
+    itemService.createItem(
         dtoAssembler.newItemDto(
-            userService.getCurrentUserId(), name,description)).getMessage());
+            userService.getCurrentUserId(), name, description));
     return "redirect:/items";
   }
 }

@@ -1,7 +1,7 @@
 package com.epam.marketplace.controllers;
 
-import com.epam.marketplace.OperationResult;
 import com.epam.marketplace.dto.UserDto;
+import com.epam.marketplace.exceptions.validity.ValidityException;
 import com.epam.marketplace.services.UserService;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,24 +24,24 @@ public class RegistrationController {
   @RequestMapping(value = "/registration", method = RequestMethod.GET)
   public String registration(Model model) {
     model.addAttribute("title", " - Registration");
-    model.addAttribute("pageDisplayName","Registration");
-    model.addAttribute("pageName","registration");
+    model.addAttribute("pageDisplayName", "Registration");
+    model.addAttribute("pageName", "registration");
     return "registration";
   }
 
   @RequestMapping(value = "/registration", method = RequestMethod.POST)
   public String submit(
       UserDto userDto, Model model
-  ) {
+  ) throws ValidityException {
     model.addAttribute("title", " - Registration");
-    model.addAttribute("pageDisplayName","Registration");
-    model.addAttribute("pageName","registration");
+    model.addAttribute("pageDisplayName", "Registration");
+    model.addAttribute("pageName", "registration");
 
-    OperationResult result = userService.createUser(userDto);
-    logger.info("New user registration result: " + result.getMessage());
+    userService.createUser(userDto);
+//    logger.info("New user registration result: " + result.getMessage());
 
-    model.addAttribute("response", result.getMessage());
-    model.addAttribute("result", result.getResult());
+//    model.addAttribute("response", result.getMessage());
+//    model.addAttribute("result", result.getResult());
     return "registration";
   }
 }

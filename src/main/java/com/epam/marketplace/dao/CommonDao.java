@@ -1,7 +1,6 @@
 package com.epam.marketplace.dao;
 
 import com.epam.marketplace.HibernateUtil;
-import com.epam.marketplace.OperationResult;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -25,20 +24,20 @@ public interface CommonDao<T> {
 
   default Optional<T> findById(int id) {
     Session session = HibernateUtil.getSessionFactory().openSession();
-    T result = session.get(getType(),id);
+    T result = session.get(getType(), id);
     session.close();
     return Optional.ofNullable(result);
   }
 
-  default Optional<T> findByIdWithAttributes(int id, Attribute<T,?>... fields)
-      throws IllegalArgumentException{
+  default Optional<T> findByIdWithAttributes(int id, Attribute<T, ?>... fields)
+      throws IllegalArgumentException {
     Session session = HibernateUtil.getSessionFactory().openSession();
     CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
     CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(getType());
 
     Root<T> root = criteriaQuery.from(getType());
     if (fields != null && fields.length > 0) {
-      for (Attribute<T, ?> field: fields) {
+      for (Attribute<T, ?> field : fields) {
         if (field instanceof SingularAttribute) {
           SingularAttribute<T, ?> attribute = (SingularAttribute<T, ?>) field;
           root.fetch(attribute, JoinType.LEFT);
@@ -70,7 +69,7 @@ public interface CommonDao<T> {
     return result;
   }
 
-  default OperationResult save(T object) {
+  default void save(T object) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     Transaction transaction = null;
     try {
@@ -85,12 +84,10 @@ public interface CommonDao<T> {
         }
       } catch (HibernateException he) {
         logger.severe("SAVING FAILED \r\n" + he.getMessage());
-        return new OperationResult(false, "Failed to create new record");
       }
     } finally {
       session.close();
     }
-    return OperationResult.success();
   }
 
   default void update(T object) {
