@@ -1,6 +1,6 @@
 package com.epam.marketplace.exceptions;
 
-public class MarketplaceException extends Exception {
+public class MarketplaceException extends RuntimeException {
 
   public MarketplaceException(String message) {
     super(message);

@@ -32,8 +32,7 @@ public class RegistrationController {
   }
 
   @RequestMapping(value = "/registration", method = RequestMethod.POST)
-  public String submit(@Valid UserDto userDto, BindingResult result, Model model)
-      throws ValidityException {
+  public String submit(@Valid UserDto userDto, BindingResult result, Model model) {
     model.addAttribute("title", " - Registration");
     model.addAttribute("pageDisplayName", "Registration");
     model.addAttribute("pageName", "registration");
@@ -41,12 +40,9 @@ public class RegistrationController {
     if ((result != null) && result.hasErrors()) {
       StringBuilder responseBuilder = new StringBuilder();
       result.getAllErrors().forEach(e -> responseBuilder.append(e.getDefaultMessage() + "; "));
-      model.addAttribute("response", responseBuilder.toString());
-      model.addAttribute("result", false);
-      logger.warning(responseBuilder.toString());
+      throw new ValidityException(responseBuilder.toString());
     } else {
       userService.createUser(userDto);
-      // TODO: check what would be displayed when exception is thrown
       model.addAttribute("response", "Success");
       model.addAttribute("result", true);
     }
