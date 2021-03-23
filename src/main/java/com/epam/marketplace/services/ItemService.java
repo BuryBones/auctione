@@ -17,11 +17,13 @@ public class ItemService {
   private final Logger logger = Logger.getLogger("application");
   private final ItemDao itemDao;
   private final CommonMapper mapper;
+  private final UserService userService;
 
   @Autowired
-  public ItemService(ItemDao itemDao, CommonMapper mapper) {
+  public ItemService(ItemDao itemDao, CommonMapper mapper, UserService userService) {
     this.itemDao = itemDao;
     this.mapper = mapper;
+    this.userService = userService;
   }
 
   public List<ItemDto> getItemsByUserId(int userId) {
@@ -43,6 +45,7 @@ public class ItemService {
   }
 
   public void createItem(ItemDto newBorn) {
+    newBorn.setUserId(userService.getCurrentUserId());
     Item newItem = mapper.getEntityFromDto(newBorn);
     itemDao.save(newItem);
   }

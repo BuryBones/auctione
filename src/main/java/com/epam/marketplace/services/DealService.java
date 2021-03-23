@@ -8,6 +8,7 @@ import com.epam.marketplace.exceptions.validity.ValidityException;
 import com.epam.marketplace.validation.logic.ValidatorType;
 import com.epam.marketplace.validation.logic.deal.AbstractDealLogicValidator;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -21,15 +22,17 @@ public class DealService {
   private final Logger logger = Logger.getLogger("application");
   private final DealDao dealDao;
   private final CommonMapper mapper;
+  private final BeanFactory beanFactory;
+  private final UserService userService;
   private List<AbstractDealLogicValidator> validators;
 
-  private final BeanFactory beanFactory;
-
   @Autowired
-  public DealService(DealDao dealDao, CommonMapper mapper, BeanFactory beanFactory) {
+  public DealService(DealDao dealDao, CommonMapper mapper,
+      BeanFactory beanFactory, UserService userService) {
     this.dealDao = dealDao;
     this.mapper = mapper;
     this.beanFactory = beanFactory;
+    this.userService = userService;
   }
 
   public Long getAmount(String status) {
@@ -48,6 +51,8 @@ public class DealService {
   }
 
   public void createAuction(DealDto newborn) throws ValidityException {
+    newborn.setSellerId(userService.getCurrentUserId());
+    newborn.setStartDate(new Date());
     for (AbstractDealLogicValidator validator: validators) {
       logger.info("Validating with " + validator.getClass().getName());
       validator.validate(newborn);

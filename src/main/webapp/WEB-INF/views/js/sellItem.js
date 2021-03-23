@@ -10,10 +10,10 @@ function sellDialog() {
 
     // reset inputs to defaults
     document.getElementById("init-price").value = "";
-    document.getElementById("until-date").value = "";
-    document.getElementById("until-time").value = "";
+    document.getElementById("until-datetime").value = "";
 
-    document.getElementById("until-date").min = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+    // setting minimum date available to choose
+//    document.getElementById("until-datetime").min = new Date();
 
     modal.style.display = "block";
 
@@ -58,9 +58,7 @@ function checkInitPrice() {
 
 function checkStopDateTime() {
 
-  var stopDate = document.getElementById("until-date").value;
-  var stopTime = document.getElementById("until-time").value;
-  var stopDateTime = stopDate + " " + stopTime;
+  var stopDateTime = document.getElementById("until-datetime").value;
   result = !(moment(stopDateTime, "YYYY-MM-DD HH:mm:ss").isBefore(moment().add(1,'hours')));
   return result;
 }

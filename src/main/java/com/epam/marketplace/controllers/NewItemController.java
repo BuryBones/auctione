@@ -1,15 +1,16 @@
 package com.epam.marketplace.controllers;
 
-import com.epam.marketplace.dto.DtoAssembler;
+import com.epam.marketplace.dto.ItemDto;
 import com.epam.marketplace.services.ItemService;
 import com.epam.marketplace.services.UserService;
 import java.util.logging.Logger;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class NewItemController {
@@ -17,14 +18,11 @@ public class NewItemController {
   private final Logger logger = Logger.getLogger("application");
   private final ItemService itemService;
   private final UserService userService;
-  private final DtoAssembler dtoAssembler;
 
   @Autowired
-  public NewItemController(ItemService itemService, UserService userService,
-      DtoAssembler dtoAssembler) {
+  public NewItemController(ItemService itemService, UserService userService) {
     this.itemService = itemService;
     this.userService = userService;
-    this.dtoAssembler = dtoAssembler;
   }
 
   @RequestMapping(value = "/new-item", method = RequestMethod.GET)
@@ -37,13 +35,16 @@ public class NewItemController {
   }
 
   @RequestMapping(value = "/new-item/new", method = RequestMethod.POST)
-  public String createNewItem(
-      @RequestParam(name = "name") String name,
-      @RequestParam(name = "description", required = false, defaultValue = "") String description
-  ) {
-    itemService.createItem(
-        dtoAssembler.newItemDto(
-            userService.getCurrentUserId(), name, description));
+  public String createNewItem(@Valid ItemDto itemDto, BindingResult result) {
+    // TODO: make some on-view notification about operation result for user
+    if ((result != null) && result.hasErrors()) {
+      StringBuilder responseBuilder = new StringBuilder();
+      result.getAllErrors().forEach(e -> responseBuilder.append(e.getDefaultMessage() + "; "));
+      logger.warning(responseBuilder.toString());
+    } else {
+      itemService.createItem(itemDto);
+      logger.info("No errors found");
+    }
     return "redirect:/items";
   }
 }

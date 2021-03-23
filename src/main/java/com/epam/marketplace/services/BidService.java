@@ -7,6 +7,7 @@ import com.epam.marketplace.dto.BidDto;
 import com.epam.marketplace.exceptions.validity.ValidityException;
 import com.epam.marketplace.validation.logic.ValidatorType;
 import com.epam.marketplace.validation.logic.bid.AbstractBidLogicValidator;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -21,17 +22,21 @@ public class BidService {
   private final BidDao bidDao;
   private final CommonMapper mapper;
   private final BeanFactory beanFactory;
+  private final UserService userService;
   private List<AbstractBidLogicValidator> validators;
 
   @Autowired
-  public BidService(BidDao bidDao, CommonMapper mapper, BeanFactory beanFactory) {
+  public BidService(BidDao bidDao, CommonMapper mapper,
+      BeanFactory beanFactory, UserService userService) {
     this.bidDao = bidDao;
     this.mapper = mapper;
     this.beanFactory = beanFactory;
+    this.userService = userService;
   }
 
-
   public void createBid(BidDto newBorn) throws ValidityException {
+    newBorn.setUserId(userService.getCurrentUserId());
+    newBorn.setDateAndTime(new Date());
     for (AbstractBidLogicValidator validator : validators) {
       logger.info("Validating with " + validator.getClass().getName());
       validator.validate(newBorn);
