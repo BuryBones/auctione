@@ -43,11 +43,11 @@ public class ItemsController {
   }
 
   @RequestMapping(value = "/items/sell", method = RequestMethod.POST)
-  public String sellItem(@Valid DealDto dealDto, BindingResult result) throws ValidityException {
+  public String sellItem(@Valid DealDto dealDto, BindingResult result) {
     if ((result != null) && result.hasErrors()) {
       StringBuilder responseBuilder = new StringBuilder();
       result.getAllErrors().forEach(e -> responseBuilder.append(e.getDefaultMessage() + "; "));
-      logger.warning(responseBuilder.toString());
+      throw new ValidityException(responseBuilder.toString());
     } else {
       dealService.createAuction(dealDto);
       logger.info("No errors found");

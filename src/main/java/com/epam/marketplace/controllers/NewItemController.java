@@ -1,6 +1,7 @@
 package com.epam.marketplace.controllers;
 
 import com.epam.marketplace.dto.ItemDto;
+import com.epam.marketplace.exceptions.validity.ValidityException;
 import com.epam.marketplace.services.ItemService;
 import com.epam.marketplace.services.UserService;
 import java.util.logging.Logger;
@@ -36,11 +37,10 @@ public class NewItemController {
 
   @RequestMapping(value = "/new-item/new", method = RequestMethod.POST)
   public String createNewItem(@Valid ItemDto itemDto, BindingResult result) {
-    // TODO: make some on-view notification about operation result for user
     if ((result != null) && result.hasErrors()) {
       StringBuilder responseBuilder = new StringBuilder();
       result.getAllErrors().forEach(e -> responseBuilder.append(e.getDefaultMessage() + "; "));
-      logger.warning(responseBuilder.toString());
+      throw new ValidityException(responseBuilder.toString());
     } else {
       itemService.createItem(itemDto);
       logger.info("No errors found");

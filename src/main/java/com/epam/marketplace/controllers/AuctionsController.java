@@ -80,18 +80,15 @@ public class AuctionsController {
   // TODO: make this interaction non-ajax?
   @RequestMapping(value = "/auctions/bid", method = RequestMethod.POST)
   @ResponseBody
-  public String makeBid(@Valid BidDto bidDto, BindingResult result, Model model)
-      throws ValidityException {
-    // TODO: make some on-view notification about operation result for user
-    StringBuilder responseBuilder = new StringBuilder();
+  public void makeBid(@Valid BidDto bidDto, BindingResult result, Model model) {
     if ((result != null) && result.hasErrors()) {
+      StringBuilder responseBuilder = new StringBuilder();
       result.getAllErrors().forEach(e -> responseBuilder.append(e.getDefaultMessage() + "; "));
-      logger.warning(responseBuilder.toString());
+      throw new ValidityException(responseBuilder.toString());
     } else {
       bidService.createBid(bidDto);
       logger.info("No errors found");
     }
     model.addAttribute("userId", userService.getCurrentUserId());
-    return responseBuilder.toString();
   }
 }
