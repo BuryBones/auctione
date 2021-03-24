@@ -23,7 +23,7 @@ public class BidService {
   private final CommonMapper mapper;
   private final UserService userService;
 
-  private List<LogicValidator<? extends Dto>> validators;
+  private final List<LogicValidator<? extends Dto>> validators;
 
   @Autowired
   public BidService(BidDao bidDao, CommonMapper mapper, UserService userService,

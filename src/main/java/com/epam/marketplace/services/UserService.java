@@ -30,7 +30,7 @@ public class UserService {
   // TODO: отедельный бин Бкрипт,
   private final PasswordEncoder passwordEncoder;
 
-  private List<LogicValidator<? extends Dto>> validators;
+  private final List<LogicValidator<? extends Dto>> validators;
 
   @Autowired
   public UserService(UserDao userDao, RoleDao roleDao,

@@ -24,7 +24,7 @@ public class DealService {
   private final CommonMapper mapper;
   private final UserService userService;
 
-  private List<LogicValidator<? extends Dto>> validators;
+  private final List<LogicValidator<? extends Dto>> validators;
 
   @Autowired
   public DealService(DealDao dealDao, CommonMapper mapper, UserService userService,
