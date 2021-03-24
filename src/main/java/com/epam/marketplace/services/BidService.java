@@ -23,15 +23,15 @@ public class BidService {
   private final CommonMapper mapper;
   private final UserService userService;
 
-  @Autowired
-  @Qualifier("bidValidators")
   private List<LogicValidator<? extends Dto>> validators;
 
   @Autowired
-  public BidService(BidDao bidDao, CommonMapper mapper, UserService userService) {
+  public BidService(BidDao bidDao, CommonMapper mapper, UserService userService,
+      @Qualifier("bidValidators") List<LogicValidator<? extends Dto>> validators) {
     this.bidDao = bidDao;
     this.mapper = mapper;
     this.userService = userService;
+    this.validators = validators;
   }
 
   public void createBid(BidDto newBorn) throws ValidityException {

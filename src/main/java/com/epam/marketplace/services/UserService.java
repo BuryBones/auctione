@@ -30,18 +30,18 @@ public class UserService {
   // TODO: отедельный бин Бкрипт,
   private final PasswordEncoder passwordEncoder;
 
-  @Autowired
-  @Qualifier("userValidators")
   private List<LogicValidator<? extends Dto>> validators;
 
   @Autowired
   public UserService(UserDao userDao, RoleDao roleDao,
       CommonMapper mapper,
-      PasswordEncoder passwordEncoder) {
+      PasswordEncoder passwordEncoder,
+      @Qualifier("userValidators") List<LogicValidator<? extends Dto>> validators) {
     this.userDao = userDao;
     this.roleDao = roleDao;
     this.mapper = mapper;
     this.passwordEncoder = passwordEncoder;
+    this.validators = validators;
   }
 
   public List<UserDto> getUsers() {

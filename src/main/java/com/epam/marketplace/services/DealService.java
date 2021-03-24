@@ -24,15 +24,15 @@ public class DealService {
   private final CommonMapper mapper;
   private final UserService userService;
 
-  @Autowired
-  @Qualifier("dealValidators")
   private List<LogicValidator<? extends Dto>> validators;
 
   @Autowired
-  public DealService(DealDao dealDao, CommonMapper mapper, UserService userService) {
+  public DealService(DealDao dealDao, CommonMapper mapper, UserService userService,
+      @Qualifier("dealValidators") List<LogicValidator<? extends Dto>> validators) {
     this.dealDao = dealDao;
     this.mapper = mapper;
     this.userService = userService;
+    this.validators = validators;
   }
 
   public Long getAmount(String status) {
