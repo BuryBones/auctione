@@ -11,15 +11,17 @@
       <#include "js/newItemValidation.js">
       <#include "js/newItemRequest.js">
     </script>
-    <form class="input-form" onsubmit="return validateNewItem() && createItem();">
+    <form class="input-form" action="new-item/new" onsubmit="return validateNewItem();" method="post">
       <ui>
         <li class="form-row">
           <label for="name">Item Name</label>
-          <input type="text" placeholder="Enter item name" id="name" required minlength="6" maxlength="45">
+          <input type="text" name="name" placeholder="Enter item name" id="name" required
+                 minlength="6" maxlength="45">
         </li>
         <li class="form-row">
           <label for="description">Description</label>
-          <input type="text" placeholder="Enter description" id="description" maxlength="300">
+          <input type="text" name="description" placeholder="Enter description" id="description"
+                 maxlength="300">
         </li>
         <li>
           <input class="form-button" type="submit" value="Create new item">

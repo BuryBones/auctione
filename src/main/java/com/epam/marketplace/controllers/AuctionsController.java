@@ -1,17 +1,19 @@
 package com.epam.marketplace.controllers;
 
+import com.epam.marketplace.dto.BidDto;
+import com.epam.marketplace.exceptions.validity.ValidityException;
 import com.epam.marketplace.services.BidService;
 import com.epam.marketplace.services.DealService;
-import com.epam.marketplace.dto.DtoAssembler;
 import com.epam.marketplace.services.UserService;
 import java.util.logging.Logger;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class AuctionsController {
@@ -20,18 +22,15 @@ public class AuctionsController {
   private final DealService dealService;
   private final BidService bidService;
   private final UserService userService;
-  private final DtoAssembler dtoAssembler;
 
   @Autowired
   public AuctionsController(
       DealService dealService,
       BidService bidService,
-      UserService userService,
-      DtoAssembler dtoAssembler) {
+      UserService userService) {
     this.dealService = dealService;
     this.bidService = bidService;
     this.userService = userService;
-    this.dtoAssembler = dtoAssembler;
   }
 
   @RequestMapping(value = "/auctions", method = RequestMethod.GET)
@@ -43,10 +42,11 @@ public class AuctionsController {
       @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
       Model model) {
     model.addAttribute("title", " - Deals");
-    model.addAttribute("pageDisplayName","Deals");
-    model.addAttribute("pageName","auctions");
+    model.addAttribute("pageDisplayName", "Deals");
+    model.addAttribute("pageName", "auctions");
     model.addAttribute("currentUser", userService.getCurrentUserName());
-    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
+    model.addAttribute("deals",
+        dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
     long amount = dealService.getAmount(status);
     int totalPages = (int) Math.ceil((float) amount / pageSize);
     model.addAttribute("status", status);
@@ -66,7 +66,8 @@ public class AuctionsController {
       @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
       @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
       Model model) {
-    model.addAttribute("deals", dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
+    model.addAttribute("deals",
+        dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));
     long amount = dealService.getAmount(status);
     int totalPages = (int) Math.ceil((float) amount / pageSize);
     model.addAttribute("totalPages", totalPages);
@@ -77,17 +78,14 @@ public class AuctionsController {
 
   // TODO: make this interaction non-ajax?
   @RequestMapping(value = "/auctions/bid", method = RequestMethod.POST)
-  @ResponseBody
-  public String makeBid(
-      @RequestParam(name = "dealId") int dealId,
-      @RequestParam(name = "offer") String offer,
-      Model model
-  ) {
-    // TODO: make some on-view notification about operation result for user
-    model.addAttribute("userId", userService.getCurrentUserId());
-    logger.info("Making new bid result: " + bidService.createBid(
-        dtoAssembler.newBidDto(
-            userService.getCurrentUserId(), dealId, offer)).getMessage());
-    return "auctions";
+  public void makeBid(@Valid BidDto bidDto, BindingResult result) {
+    if ((result != null) && result.hasErrors()) {
+      StringBuilder responseBuilder = new StringBuilder();
+      result.getAllErrors().forEach(e -> responseBuilder.append(e.getDefaultMessage() + "; "));
+      throw new ValidityException(responseBuilder.toString());
+    } else {
+      bidService.createBid(bidDto);
+      logger.info("No errors found");
+    }
   }
 }

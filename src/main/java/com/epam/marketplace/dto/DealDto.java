@@ -7,16 +7,15 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
-public class DealDto extends AbstractDto {
+public class DealDto implements Dto {
 
   private Integer id;
 
   @Size(min = 2, max = 90, message = "Seller name has to be from 2 to 90 symbols")
   private String seller;
 
-  @NotNull(message = "Seller ID cannot be empty")
-  @Min(1)
   private Integer sellerId;
 
   @Size(min = 6, max = 45, message = "Item name length has to be from 6 to 45 symbols")
@@ -29,7 +28,6 @@ public class DealDto extends AbstractDto {
   @Size(max = 300, message = "Description length cannot be longer than 300 symbols")
   private String info;
 
-  @NotNull(message = "Start date cannot be empty")
   private Date startDate;
 
   @NotNull(message = "Start price cannot be empty")
@@ -41,6 +39,7 @@ public class DealDto extends AbstractDto {
 
   @NotNull(message = "Stop date cannot be empty")
   @Future
+  @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
   private Date stopDate;
 
   private boolean status = true;
