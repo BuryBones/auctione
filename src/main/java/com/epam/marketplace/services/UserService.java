@@ -2,20 +2,20 @@ package com.epam.marketplace.services;
 
 import com.epam.marketplace.dao.RoleDao;
 import com.epam.marketplace.dao.UserDao;
+import com.epam.marketplace.dto.Dto;
+import com.epam.marketplace.dto.UserDto;
 import com.epam.marketplace.dto.mappers.CommonMapper;
 import com.epam.marketplace.entities.Role;
 import com.epam.marketplace.entities.User;
-import com.epam.marketplace.dto.UserDto;
 import com.epam.marketplace.exceptions.validity.ValidityException;
-import com.epam.marketplace.validation.logic.ValidatorType;
+import com.epam.marketplace.validation.logic.LogicValidator;
 import com.epam.marketplace.validation.logic.user.AbstractUserLogicValidator;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,19 +29,19 @@ public class UserService {
   private final CommonMapper mapper;
   // TODO: отедельный бин Бкрипт,
   private final PasswordEncoder passwordEncoder;
-  private final BeanFactory beanFactory;
-  private List<AbstractUserLogicValidator> validators;
+
+  @Autowired
+  @Qualifier("userValidators")
+  private List<LogicValidator<? extends Dto>> validators;
 
   @Autowired
   public UserService(UserDao userDao, RoleDao roleDao,
       CommonMapper mapper,
-      PasswordEncoder passwordEncoder,
-      BeanFactory beanFactory) {
+      PasswordEncoder passwordEncoder) {
     this.userDao = userDao;
     this.roleDao = roleDao;
     this.mapper = mapper;
     this.passwordEncoder = passwordEncoder;
-    this.beanFactory = beanFactory;
   }
 
   public List<UserDto> getUsers() {
@@ -54,9 +54,10 @@ public class UserService {
   }
 
   public void createUser(UserDto newBorn) throws ValidityException {
-    for (AbstractUserLogicValidator validator : validators) {
-      logger.info("Validating with " + validator.getClass().getName());
-      validator.validate(newBorn);
+    for (LogicValidator<? extends Dto> validatorInterface : validators) {
+      AbstractUserLogicValidator userValidator = (AbstractUserLogicValidator) validatorInterface;
+      logger.info("Validating with " + userValidator.getClass().getName());
+      userValidator.validate(newBorn);
     }
     User newUser = mapper.getEntityFromDto(newBorn);
     // TODO: find out how to add encoder ID (not like this)
@@ -97,12 +98,5 @@ public class UserService {
     HashSet<Role> roles = new HashSet<>();
     roles.add(roleDao.findById(2).get());
     user.setUserRoles(roles);
-  }
-
-  @PostConstruct
-  private void initValidators() {
-    validators = (List<AbstractUserLogicValidator>)
-        beanFactory.getBean("validators", ValidatorType.USER);
-    logger.info("User service got " + validators.size() + " validators");
   }
 }

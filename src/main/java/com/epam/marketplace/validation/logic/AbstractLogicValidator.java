@@ -1,11 +1,11 @@
 package com.epam.marketplace.validation.logic;
 
-import com.epam.marketplace.dto.AbstractDto;
+import com.epam.marketplace.dto.Dto;
 import java.util.Date;
 import org.springframework.stereotype.Component;
 
 @Component
-public abstract class AbstractLogicValidator<T extends AbstractDto> implements LogicValidator<T> {
+public abstract class AbstractLogicValidator<T extends Dto> implements LogicValidator<T> {
 
   // TODO: can be moved to global settings
   protected final long maxLag = 60000;  // millis
