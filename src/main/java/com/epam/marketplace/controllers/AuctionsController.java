@@ -14,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class AuctionsController {
@@ -79,8 +78,7 @@ public class AuctionsController {
 
   // TODO: make this interaction non-ajax?
   @RequestMapping(value = "/auctions/bid", method = RequestMethod.POST)
-  @ResponseBody
-  public void makeBid(@Valid BidDto bidDto, BindingResult result, Model model) {
+  public void makeBid(@Valid BidDto bidDto, BindingResult result) {
     if ((result != null) && result.hasErrors()) {
       StringBuilder responseBuilder = new StringBuilder();
       result.getAllErrors().forEach(e -> responseBuilder.append(e.getDefaultMessage() + "; "));
@@ -89,6 +87,5 @@ public class AuctionsController {
       bidService.createBid(bidDto);
       logger.info("No errors found");
     }
-    model.addAttribute("userId", userService.getCurrentUserId());
   }
 }

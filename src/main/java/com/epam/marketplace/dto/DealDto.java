@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class DealDto extends AbstractDto {
+public class DealDto implements Dto {
 
   private Integer id;
 

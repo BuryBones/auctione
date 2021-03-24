@@ -6,7 +6,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-public class BidDto extends AbstractDto {
+public class BidDto implements Dto {
 
   private Integer id;
 

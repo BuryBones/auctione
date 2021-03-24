@@ -2,11 +2,10 @@ package com.epam.marketplace.dto;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class ItemDto extends AbstractDto {
+public class ItemDto implements Dto {
 
   private Integer id;
 

@@ -1,26 +1,35 @@
 package com.epam.marketplace.config;
 
-import com.epam.marketplace.dto.AbstractDto;
+import com.epam.marketplace.dto.Dto;
 import com.epam.marketplace.validation.logic.LogicValidator;
 import com.epam.marketplace.validation.logic.ValidatorType;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 
 @Configuration
 public class ValidatorConfig {
 
-  @Autowired
-  private List<LogicValidator<? extends AbstractDto>> validators;
+  private final Logger logger = Logger.getLogger("application");
 
-  @Bean("validators")
-  @Scope("prototype")
-  public List<LogicValidator<? extends AbstractDto>> getValidators(ValidatorType type) {
-    return validators.stream()
-        .filter(e -> e.getType().equals(type))
-        .collect(Collectors.toList());
+  @Autowired
+  private List<LogicValidator<? extends Dto>> validators;
+
+  @Autowired
+  private ConfigurableBeanFactory beanFactory;
+
+  @PostConstruct
+  private void registerValidators() {
+    for (ValidatorType type : ValidatorType.values()) {
+      List<LogicValidator<? extends Dto>> list = validators.stream()
+          .filter(e -> e.getType().equals(type))
+          .collect(Collectors.toUnmodifiableList());
+      beanFactory.registerSingleton(type.getName(), list);
+      logger.info("Registered: " + type.getName() + ": " + list.size());
+    }
   }
 }
