@@ -8,9 +8,9 @@
 <main>
   <script charset="UTF-8" type="text/javascript">
     <#include "js/registrationValidation.js">
-    <#include "js/sendRegistrationRequest.js">
   </script>
   <form class="input-form" onsubmit="return validateRegistration();" method="post">
+    <@security.csrfInput/>
     <#if response??>
       <p
         <#if result>class="success-response"

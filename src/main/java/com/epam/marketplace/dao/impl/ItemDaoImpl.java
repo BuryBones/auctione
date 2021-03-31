@@ -1,5 +1,8 @@
 package com.epam.marketplace.dao.impl;
 
+import com.epam.marketplace.HibernateUtil;
+import com.epam.marketplace.dao.ItemDao;
+import com.epam.marketplace.entities.Item;
 import com.epam.marketplace.entities.Item_;
 import java.util.List;
 import java.util.Optional;
@@ -7,16 +10,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
-import com.epam.marketplace.HibernateUtil;
-import com.epam.marketplace.dao.ItemDao;
-import com.epam.marketplace.entities.Item;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component("itemDao")
-@Scope("prototype")
+@Repository
 public class ItemDaoImpl implements ItemDao {
 
   public Optional<Item> findByName(String name) {
@@ -42,7 +40,7 @@ public class ItemDaoImpl implements ItemDao {
     CriteriaQuery<Item> criteriaQuery = criteriaBuilder.createQuery(Item.class);
 
     Root<Item> root = criteriaQuery.from(Item.class);
-    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(Item_.user),userId));
+    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(Item_.user), userId));
 
     Query<Item> query = session.createQuery(criteriaQuery);
     List<Item> result = query.getResultList();
@@ -60,7 +58,7 @@ public class ItemDaoImpl implements ItemDao {
     Root<Item> root = criteriaQuery.from(Item.class);
     root.fetch(Item_.deals, JoinType.LEFT);
     criteriaQuery.distinct(true);
-    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(Item_.user),userId));
+    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(Item_.user), userId));
 
     Query<Item> query = session.createQuery(criteriaQuery);
     List<Item> result = query.getResultList();

@@ -1,16 +1,14 @@
 package com.epam.marketplace.dto.mappers;
 
+import com.epam.marketplace.dto.ItemDto;
 import com.epam.marketplace.entities.Item;
 import com.epam.marketplace.entities.User;
-import com.epam.marketplace.dto.ItemDto;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.converter.BidirectionalConverter;
 import ma.glasnost.orika.metadata.Type;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component("ItemConverter")
-@Scope("prototype")
+@Component
 public class ItemConverter extends BidirectionalConverter<Item, ItemDto> {
 
   @Override

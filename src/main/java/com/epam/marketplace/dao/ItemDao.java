@@ -1,8 +1,8 @@
 package com.epam.marketplace.dao;
 
+import com.epam.marketplace.entities.Item;
 import java.util.List;
 import java.util.Optional;
-import com.epam.marketplace.entities.Item;
 
 public interface ItemDao extends CommonDao<Item> {
 

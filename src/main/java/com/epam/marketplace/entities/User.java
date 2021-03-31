@@ -52,13 +52,13 @@ public class User implements UserDetails {
       inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false))
   private Set<Role> userRoles = new HashSet<>();
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
   private Set<Item> items = new HashSet<>();
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
   private Set<Deal> deals = new HashSet<>();
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
   private Set<Bid> bids = new HashSet<>();
 
   public User() {

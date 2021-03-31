@@ -32,10 +32,11 @@ public class Item {
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "item",cascade = CascadeType.ALL)
-  private Set<Deal> deals  = new HashSet<>();
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL)
+  private Set<Deal> deals = new HashSet<>();
 
-  public Item() {}
+  public Item() {
+  }
 
   public void addDeal(Deal deal) {
     getDeals().add(deal);

@@ -1,7 +1,10 @@
 package com.epam.marketplace.dao.impl;
 
+import com.epam.marketplace.HibernateUtil;
+import com.epam.marketplace.dao.DealDao;
 import com.epam.marketplace.entities.Bid;
 import com.epam.marketplace.entities.Bid_;
+import com.epam.marketplace.entities.Deal;
 import com.epam.marketplace.entities.Deal_;
 import com.epam.marketplace.entities.Item;
 import com.epam.marketplace.entities.Item_;
@@ -9,11 +12,9 @@ import com.epam.marketplace.entities.User;
 import com.epam.marketplace.entities.User_;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Function;
-import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -23,29 +24,24 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import com.epam.marketplace.HibernateUtil;
-import com.epam.marketplace.dao.DealDao;
-import com.epam.marketplace.entities.Deal;
-import javax.persistence.criteria.SetJoin;
 import javax.persistence.criteria.Subquery;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component("dealDao")
-@Scope("prototype")
+@Repository
 public class DealDaoImpl implements DealDao {
 
-  private HashMap<String, Function<From,Expression>> compareBy = new HashMap<>();
+  private HashMap<String, Function<From, Expression>> compareBy = new HashMap<>();
+
   {
-    compareBy.put("id",         (root) -> root.get(Deal_.id));
-    compareBy.put("seller",     (root) -> root.get(User_.lastName));
-    compareBy.put("item",       (root) -> root.get(Item_.name));
-    compareBy.put("startDate",  (root) -> root.get(Deal_.openTime));
+    compareBy.put("id", (root) -> root.get(Deal_.id));
+    compareBy.put("seller", (root) -> root.get(User_.lastName));
+    compareBy.put("item", (root) -> root.get(Item_.name));
+    compareBy.put("startDate", (root) -> root.get(Deal_.openTime));
     compareBy.put("startPrice", (root) -> root.get(Deal_.initPrice));
-    compareBy.put("lastBid",    (root) -> root.get(Bid_.offer));  // doesn't work
-    compareBy.put("stopDate",   (root) -> root.get(Deal_.closeTime));
+    compareBy.put("lastBid", (root) -> root.get(Bid_.offer));  // doesn't work
+    compareBy.put("stopDate", (root) -> root.get(Deal_.closeTime));
   }
 
   @Override
@@ -55,7 +51,7 @@ public class DealDaoImpl implements DealDao {
     CriteriaQuery<Deal> criteriaQuery = criteriaBuilder.createQuery(Deal.class);
 
     Root<Deal> root = criteriaQuery.from(Deal.class);
-    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(Deal_.status),status));
+    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(Deal_.status), status));
 
     Query<Deal> query = session.createQuery(criteriaQuery);
     List<Deal> result = query.getResultList();
@@ -106,7 +102,7 @@ public class DealDaoImpl implements DealDao {
     CriteriaQuery<Deal> criteriaQuery = criteriaBuilder.createQuery(Deal.class);
 
     Root<Deal> root = criteriaQuery.from(Deal.class);
-    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(Deal_.status),status));
+    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(Deal_.status), status));
     root.fetch(Deal_.user, JoinType.LEFT);
     root.fetch(Deal_.item, JoinType.LEFT);
     criteriaQuery.orderBy(criteriaBuilder.asc(root.get(Deal_.id)));
@@ -119,7 +115,8 @@ public class DealDaoImpl implements DealDao {
   }
 
   @Override
-  public List<Deal> findAllFullWithLastBidByStatus(String status, int pageSize, int currentPage, String sortBy, boolean order) {
+  public List<Deal> findAllFullWithLastBidByStatus(String status, int pageSize, int currentPage,
+      String sortBy, boolean order) {
     Session session = HibernateUtil.getSessionFactory().openSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Deal> cq = cb.createQuery(Deal.class);
@@ -130,10 +127,10 @@ public class DealDaoImpl implements DealDao {
 
     switch (status) {
       case "open":
-        cq.where(cb.greaterThan(root.get(Deal_.closeTime),LocalDateTime.now()));
+        cq.where(cb.greaterThan(root.get(Deal_.closeTime), LocalDateTime.now()));
         break;
       case "closed":
-        cq.where(cb.lessThan(root.get(Deal_.closeTime),LocalDateTime.now()));
+        cq.where(cb.lessThan(root.get(Deal_.closeTime), LocalDateTime.now()));
         break;
       case "all":
       default: // do nothing
@@ -176,18 +173,12 @@ public class DealDaoImpl implements DealDao {
           break;
       }
     }
+    TypedQuery<Deal> query = session.createQuery(cq);
+    query.setFirstResult((currentPage - 1) * pageSize);
+    query.setMaxResults(pageSize);
+    List<Deal> result = query.getResultList();
+    session.close();
 
-    List<Deal> result = new ArrayList<>();
-    try {
-      TypedQuery<Deal> query = session.createQuery(cq);
-      query.setFirstResult((currentPage - 1) * pageSize);
-      query.setMaxResults(pageSize);
-      result = query.getResultList();
-    } catch (Exception e) {
-      e.printStackTrace();
-    } finally {
-      session.close();
-    }
     return result;
   }
 
@@ -201,10 +192,10 @@ public class DealDaoImpl implements DealDao {
 
     switch (status) {
       case "open":
-        cq.where(cb.greaterThan(root.get(Deal_.closeTime),LocalDateTime.now()));
+        cq.where(cb.greaterThan(root.get(Deal_.closeTime), LocalDateTime.now()));
         break;
       case "closed":
-        cq.where(cb.lessThan(root.get(Deal_.closeTime),LocalDateTime.now()));
+        cq.where(cb.lessThan(root.get(Deal_.closeTime), LocalDateTime.now()));
         break;
       case "all":
       default:  // do nothing
@@ -226,9 +217,9 @@ public class DealDaoImpl implements DealDao {
 
     Root<Deal> root = cq.from(Deal.class);
 
-    Predicate idPredicate = cb.equal(root.get(Deal_.item),itemId);
+    Predicate idPredicate = cb.equal(root.get(Deal_.item), itemId);
     Predicate statusPredicate = cb.isTrue(root.get(Deal_.status));
-    Predicate finalPredicate = cb.and(idPredicate,statusPredicate);
+    Predicate finalPredicate = cb.and(idPredicate, statusPredicate);
 
     cq.select(cb.count(root)).where(finalPredicate);
 

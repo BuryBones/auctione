@@ -5,7 +5,7 @@
 <head>
   <style type="text/css">
       <#include "css/styles.css">
-    </style>
+  </style>
   <title>AuctiOne${title}</title>
   <meta charset="UTF-8">
   <link rel="icon" href="img/Bag.png">
@@ -38,7 +38,7 @@
         ${currentUserName}
       </span>
       <@security.authorize access="isAuthenticated()">
-        <a href="j_spring_security_logout">Logout<img src="img/logout-24px.svg" alt="" title="Logout"></a></li>
+        <a href="/market/logout">Logout<img src="img/logout-24px.svg" alt="" title="Logout"></a></li>
       </@security.authorize>
       <@security.authorize access="!isAuthenticated()">
         <a href="welcome">Log in<img src="img/login-24px.svg" alt="" title="Log in"></a></li>

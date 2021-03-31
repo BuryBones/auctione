@@ -7,7 +7,7 @@
   <groupId>com.epam</groupId>
   <artifactId>online_marketplace</artifactId>
   <packaging>war</packaging>
-  <version>0.2</version>
+  <version>0.3</version>
 
   <properties>
     <maven.compiler.source>14</maven.compiler.source>
@@ -45,8 +45,17 @@
         <artifactId>maven-war-plugin</artifactId>
         <version>3.3.1</version>
         <configuration>
-          <warName>market</warName>
           <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <url>http://localhost:8080/manager/text</url>
+          <server>TomcatServer</server>
+          <path>/market</path>
         </configuration>
       </plugin>
     </plugins>
@@ -124,6 +133,16 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context-support</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-dao</artifactId>
+      <version>2.0.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
       <version>${spring.version}</version>
     </dependency>
     <!--Spring Security-->

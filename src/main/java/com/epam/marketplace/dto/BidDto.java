@@ -22,7 +22,7 @@ public class BidDto implements Dto {
   @Min(1)
   private Integer dealId;
 
-  public BidDto(){
+  public BidDto() {
   }
 
   public Integer getId() {

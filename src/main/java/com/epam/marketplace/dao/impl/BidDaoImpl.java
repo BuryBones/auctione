@@ -1,8 +1,6 @@
 package com.epam.marketplace.dao.impl;
 
 import com.epam.marketplace.entities.Bid_;
-import com.epam.marketplace.entities.User;
-import com.epam.marketplace.entities.User_;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -14,11 +12,9 @@ import com.epam.marketplace.dao.BidDao;
 import com.epam.marketplace.entities.Bid;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component("bidDao")
-@Scope("prototype")
+@Repository
 public class BidDaoImpl implements BidDao {
 
   @Override
@@ -45,7 +41,7 @@ public class BidDaoImpl implements BidDao {
     CriteriaQuery<Bid> criteriaQuery = criteriaBuilder.createQuery(Bid.class);
 
     Root<Bid> root = criteriaQuery.from(Bid.class);
-    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(Bid_.DEAL),dealId));
+    criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(Bid_.DEAL), dealId));
     criteriaQuery.orderBy(criteriaBuilder.desc(root.get(Bid_.offer)));
 
     Query<Bid> query = session.createQuery(criteriaQuery);

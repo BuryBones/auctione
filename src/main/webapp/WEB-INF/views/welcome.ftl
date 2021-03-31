@@ -11,6 +11,7 @@
       <#include "js/welcomeValidation.js">
     </script>
     <form class="input-form" id="login-form" action="j_spring_security_check" onsubmit="return validateWelcome();" method="post">
+      <@security.csrfInput/>
       <#if response??>
         <p class="error-response">${response}</p>
       </#if>
