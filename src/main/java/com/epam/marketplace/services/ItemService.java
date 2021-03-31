@@ -1,17 +1,17 @@
 package com.epam.marketplace.services;
 
 import com.epam.marketplace.dao.ItemDao;
+import com.epam.marketplace.dto.ItemDto;
 import com.epam.marketplace.dto.mappers.CommonMapper;
 import com.epam.marketplace.entities.Deal;
 import com.epam.marketplace.entities.Item;
-import com.epam.marketplace.dto.ItemDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("itemService")
+@Service
 public class ItemService {
 
   private final Logger logger = Logger.getLogger("application");

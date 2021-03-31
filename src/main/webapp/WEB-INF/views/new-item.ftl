@@ -9,9 +9,9 @@
     <p>Fill the form to create new item.</p>
     <script charset="UTF-8" type="text/javascript">
       <#include "js/newItemValidation.js">
-      <#include "js/newItemRequest.js">
     </script>
     <form class="input-form" action="new-item/new" onsubmit="return validateNewItem();" method="post">
+      <@security.csrfInput/>
       <ui>
         <li class="form-row">
           <label for="name">Item Name</label>

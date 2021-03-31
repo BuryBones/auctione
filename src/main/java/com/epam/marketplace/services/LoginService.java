@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Service("loginService")
+@Service
 public class LoginService implements UserDetailsService {
 
   private final Logger logger = Logger.getLogger("application");
@@ -37,7 +37,7 @@ public class LoginService implements UserDetailsService {
     }
     Set<Role> roles = user.getUserRoles();
     if (roles != null && !roles.isEmpty()) {
-      for (Role role: roles) {
+      for (Role role : roles) {
         logger.info("Role for " + login + ": " + role.getRoleName());
         GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role.getRoleName());
         user.addAuthority(authority);

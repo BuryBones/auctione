@@ -1,7 +1,7 @@
 package com.epam.marketplace.dao;
 
-import java.util.Optional;
 import com.epam.marketplace.entities.Role;
+import java.util.Optional;
 
 public interface RoleDao extends CommonDao<Role> {
 

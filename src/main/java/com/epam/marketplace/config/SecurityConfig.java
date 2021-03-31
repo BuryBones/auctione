@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -26,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Bean
   public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder(BCryptVersion.$2A,4);
+    return new BCryptPasswordEncoder(BCryptVersion.$2A, 4);
   }
 
   @Autowired
@@ -44,27 +45,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.csrf().disable();
     http.authorizeRequests()
-        .antMatchers("/auctions","/auctions/ajax","/registration","/validity-error")
+        .antMatchers("/auctions", "/auctions/ajax", "/registration", "/validity-error")
         .permitAll();
     http.authorizeRequests()
-        .antMatchers("/items/**","/new-item/**","/auctions/bid")
-        .hasAnyRole("ADMIN","USER");
+        .antMatchers("/items/**", "/new-item/**", "/auctions/bid")
+        .hasAnyRole("ADMIN", "USER");
     http.authorizeRequests()
         .antMatchers("/admin")
         .hasRole("ADMIN");
     http.authorizeRequests().and().formLogin()
-      .loginProcessingUrl("/j_spring_security_check")
-      .loginPage("/welcome")
-      .defaultSuccessUrl("/auctions")
-      .failureUrl("/welcome?error=true")
-      .usernameParameter("login")
-      .passwordParameter("password")
-      .and()
-      .logout()
-      .logoutUrl("/j_spring_security_logout")
-      .logoutSuccessUrl("/welcome")
-      .invalidateHttpSession(true);
+        .loginProcessingUrl("/j_spring_security_check")
+        .loginPage("/welcome")
+        .defaultSuccessUrl("/auctions")
+        .failureUrl("/welcome?error=true")
+        .usernameParameter("login")
+        .passwordParameter("password")
+        .and()
+        .logout()
+        .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET", false))
+        .logoutSuccessUrl("/")
+        .invalidateHttpSession(true);
   }
 }

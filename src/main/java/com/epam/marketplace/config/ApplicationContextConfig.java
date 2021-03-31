@@ -7,11 +7,15 @@ import javax.annotation.PostConstruct;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.orm.hibernate5.HibernateExceptionTranslator;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 @Configuration
+@EnableScheduling
 @ComponentScan("com.epam.marketplace.*")
 public class ApplicationContextConfig {
 
@@ -34,6 +38,16 @@ public class ApplicationContextConfig {
     config.setTemplateLoaderPath("/WEB-INF/views/");
     config.setDefaultEncoding("UTF-8");
     return config;
+  }
+
+  @Bean
+  public HibernateExceptionTranslator hibernateExceptionTranslator() {
+    return new HibernateExceptionTranslator();
+  }
+
+  @Bean
+  public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+    return new PersistenceExceptionTranslationPostProcessor();
   }
 
   @PostConstruct

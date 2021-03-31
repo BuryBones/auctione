@@ -1,21 +1,19 @@
 package com.epam.marketplace.dao.impl;
 
+import com.epam.marketplace.HibernateUtil;
+import com.epam.marketplace.dao.RoleDao;
+import com.epam.marketplace.entities.Role;
 import com.epam.marketplace.entities.Role_;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import com.epam.marketplace.HibernateUtil;
-import com.epam.marketplace.dao.RoleDao;
-import com.epam.marketplace.entities.Role;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component("roleDao")
-@Scope("prototype")
+@Repository
 public class RoleDaoImpl implements RoleDao {
 
   @Override
@@ -26,7 +24,7 @@ public class RoleDaoImpl implements RoleDao {
 
     Root<Role> root = criteriaQuery.from(Role.class);
     criteriaQuery.select(root)
-        .where(criteriaBuilder.equal(root.get(Role_.roleName),name));
+        .where(criteriaBuilder.equal(root.get(Role_.roleName), name));
     Query<Role> query = session.createQuery(criteriaQuery);
     query.setMaxResults(1);
     List<Role> roles = query.getResultList();

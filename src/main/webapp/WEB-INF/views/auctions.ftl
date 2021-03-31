@@ -118,8 +118,10 @@
         </span>
       </form>
     </div>
-    <script charset="UTF-8" type="text/javascript">
+    <@security.csrfMetaTags/>
+    <script type="text/javascript" language="javascript">
       <#include "js/sendBidRequest.js">
+      <#include "js/libs/jquery-3.5.1.js">
     </script>
   </div>
 </@common.header>

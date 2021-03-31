@@ -44,10 +44,11 @@ public class Deal {
   @JoinColumn(name = "item_id", nullable = false)
   private Item item;
 
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "deal",cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "deal", cascade = CascadeType.ALL)
   private Set<Bid> bids = new HashSet<>();
 
-  public Deal() {}
+  public Deal() {
+  }
 
   public void addBid(Bid bid) {
     getBids().add(bid);
@@ -62,7 +63,7 @@ public class Deal {
   @Override
   public String toString() {
     return String.format("Deal ID: %d, from %s till %s%n start price %s, Open: %b",
-        getId(),getOpenTime(),getCloseTime(), getInitPrice(),getStatus());
+        getId(), getOpenTime(), getCloseTime(), getInitPrice(), getStatus());
   }
 
   @Override

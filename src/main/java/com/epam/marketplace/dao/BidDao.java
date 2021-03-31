@@ -1,8 +1,8 @@
 package com.epam.marketplace.dao;
 
+import com.epam.marketplace.entities.Bid;
 import java.time.LocalDateTime;
 import java.util.List;
-import com.epam.marketplace.entities.Bid;
 import java.util.Optional;
 
 public interface BidDao extends CommonDao<Bid> {

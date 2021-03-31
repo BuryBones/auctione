@@ -34,11 +34,12 @@ public class Bid {
   @JoinColumn(name = "deal_id", nullable = false)
   private Deal deal;
 
-  public Bid() {}
+  public Bid() {
+  }
 
   @Override
   public String toString() {
-    return String.format("Bid ID: %d Offer: %s, Date: %s",getId(),getOffer(),getDateAndTime());
+    return String.format("Bid ID: %d Offer: %s, Date: %s", getId(), getOffer(), getDateAndTime());
   }
 
   @Override

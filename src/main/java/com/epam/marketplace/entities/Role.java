@@ -24,9 +24,10 @@ public class Role {
   private String roleName;
 
   @ManyToMany(mappedBy = "userRoles")
-  private Set<User> users  = new HashSet<>();
+  private Set<User> users = new HashSet<>();
 
-  public Role() {}
+  public Role() {
+  }
 
   public void addUser(User user) {
     user.addRole(this);
@@ -38,7 +39,7 @@ public class Role {
 
   @Override
   public String toString() {
-    return String.format("Role ID: %d, %s",getId(),getRoleName());
+    return String.format("Role ID: %d, %s", getId(), getRoleName());
   }
 
   @Override

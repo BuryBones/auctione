@@ -1,5 +1,6 @@
 package com.epam.marketplace.controllers;
 
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
-  public String welcome() {
+  public String welcome(HttpSession httpSession) {
     return "redirect:/welcome";
   }
 
@@ -19,8 +20,8 @@ public class LoginController {
       @RequestParam(value = "error", required = false) String error,
       Model model) {
     model.addAttribute("title", "- Welcome");
-    model.addAttribute("pageDisplayName","Welcome to AuctiOne");
-    model.addAttribute("pageName","welcome");
+    model.addAttribute("pageDisplayName", "Welcome to AuctiOne");
+    model.addAttribute("pageName", "welcome");
     if (error != null) {
       model.addAttribute("response", "Invalid login/password");
     }

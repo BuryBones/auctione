@@ -45,6 +45,7 @@
       <br>
       <p id="modal-message"></p>
       <form class="modal-input-form" action="items/sell" onsubmit="return validateSellRequest();" method="post">
+        <@security.csrfInput/>
         <input type="hidden" id="itemId" name="itemId">
         <label for="init-price">Start price</label>
         <br>

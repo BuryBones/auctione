@@ -1,10 +1,10 @@
 package com.epam.marketplace.dto.mappers;
 
+import com.epam.marketplace.dto.DealDto;
 import com.epam.marketplace.entities.Bid;
 import com.epam.marketplace.entities.Deal;
 import com.epam.marketplace.entities.Item;
 import com.epam.marketplace.entities.User;
-import com.epam.marketplace.dto.DealDto;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -14,11 +14,9 @@ import java.util.Set;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.converter.BidirectionalConverter;
 import ma.glasnost.orika.metadata.Type;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component("dealConverter")
-@Scope("prototype")
+@Component
 public class DealConverter extends BidirectionalConverter<Deal, DealDto> {
 
   @Override
@@ -46,8 +44,10 @@ public class DealConverter extends BidirectionalConverter<Deal, DealDto> {
   public Deal convertFrom(DealDto src, Type<Deal> type, MappingContext mappingContext) {
     Deal dest = new Deal();
     dest.setInitPrice(src.getStartPrice());
-    dest.setOpenTime(src.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-    dest.setCloseTime(src.getStopDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+    dest.setOpenTime(
+        src.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+    dest.setCloseTime(
+        src.getStopDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
     dest.setStatus(src.getStatus());
 
     User user = new User();

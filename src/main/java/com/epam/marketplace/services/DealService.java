@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-@Service("dealService")
+@Service
 public class DealService {
 
   private final Logger logger = Logger.getLogger("application");
