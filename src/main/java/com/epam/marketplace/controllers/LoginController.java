@@ -19,9 +19,6 @@ public class LoginController {
   public String login(
       @RequestParam(value = "error", required = false) String error,
       Model model) {
-    model.addAttribute("title", "- Welcome");
-    model.addAttribute("pageDisplayName", "Welcome to AuctiOne");
-    model.addAttribute("pageName", "welcome");
     if (error != null) {
       model.addAttribute("response", "Invalid login/password");
     }

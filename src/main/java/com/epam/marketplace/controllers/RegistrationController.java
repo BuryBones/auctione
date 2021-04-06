@@ -24,19 +24,12 @@ public class RegistrationController {
   }
 
   @RequestMapping(value = "/registration", method = RequestMethod.GET)
-  public String registration(Model model) {
-    model.addAttribute("title", " - Registration");
-    model.addAttribute("pageDisplayName", "Registration");
-    model.addAttribute("pageName", "registration");
+  public String registration() {
     return "registration";
   }
 
   @RequestMapping(value = "/registration", method = RequestMethod.POST)
   public String submit(@Valid UserDto userDto, BindingResult result, Model model) {
-    model.addAttribute("title", " - Registration");
-    model.addAttribute("pageDisplayName", "Registration");
-    model.addAttribute("pageName", "registration");
-
     if ((result != null) && result.hasErrors()) {
       StringBuilder responseBuilder = new StringBuilder();
       result.getAllErrors().forEach(e -> responseBuilder.append(e.getDefaultMessage() + "; "));

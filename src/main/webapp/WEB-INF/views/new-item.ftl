@@ -1,9 +1,9 @@
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <#import "common-macro.ftl" as common>
-<@common.header title="${title}">
+<@common.header title="New Item">
 <@common.navigation
-  pageDisplayName="${(pageDisplayName)!}"
-  pageName="${(pageName)!}"
+  pageDisplayName="New Item"
+  pageName="new-item"
   currentUserName="${(currentUser)!}"/>
   <main>
     <p>Fill the form to create new item.</p>

@@ -1,9 +1,9 @@
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <#import "common-macro.ftl" as common>
-<@common.header title="${title}">
+<@common.header title="Deals">
 <@common.navigation
-  pageDisplayName="${(pageDisplayName)!}"
-  pageName="${(pageName)!}"
+  pageDisplayName="Deals"
+  pageName="auctions"
   currentUserName="${(currentUser)!}"/>
   <main>
     <h2>Deals</h2>

@@ -33,9 +33,6 @@ public class ItemsController {
 
   @RequestMapping(value = "/items", method = RequestMethod.GET)
   public String items(Model model) {
-    model.addAttribute("title", " - Items");
-    model.addAttribute("pageDisplayName", "Items");
-    model.addAttribute("pageName", "items");
     model.addAttribute("currentUser", userService.getCurrentUserName());
     List<ItemDto> items = itemService.getItemsByUserId(userService.getCurrentUserId());
     model.addAttribute("items", items);

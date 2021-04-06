@@ -41,9 +41,6 @@ public class AuctionsController {
       @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
       @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
       Model model) {
-    model.addAttribute("title", " - Deals");
-    model.addAttribute("pageDisplayName", "Deals");
-    model.addAttribute("pageName", "auctions");
     model.addAttribute("currentUser", userService.getCurrentUserName());
     model.addAttribute("deals",
         dealService.getAuctions(status, sortBy, sortMode, currentPage, pageSize));

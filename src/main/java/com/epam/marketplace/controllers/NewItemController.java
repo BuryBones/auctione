@@ -28,9 +28,6 @@ public class NewItemController {
 
   @RequestMapping(value = "/new-item", method = RequestMethod.GET)
   public String newItem(Model model) {
-    model.addAttribute("title", " - New Item");
-    model.addAttribute("pageDisplayName", "New Item");
-    model.addAttribute("pageName", "new-item");
     model.addAttribute("currentUser", userService.getCurrentUserName());
     return "new-item";
   }

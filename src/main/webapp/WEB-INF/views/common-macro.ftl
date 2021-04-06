@@ -6,7 +6,7 @@
   <style type="text/css">
       <#include "css/styles.css">
   </style>
-  <title>AuctiOne${title}</title>
+  <title>AuctiOne - ${title}</title>
   <meta charset="UTF-8">
   <link rel="icon" href="img/Bag.png">
 </head>
