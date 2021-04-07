@@ -3,6 +3,7 @@ package com.epam.marketplace.services;
 import com.epam.marketplace.dao.DealDao;
 import com.epam.marketplace.dto.DealDto;
 import com.epam.marketplace.dto.Dto;
+import com.epam.marketplace.dto.Pagination;
 import com.epam.marketplace.dto.mappers.CommonMapper;
 import com.epam.marketplace.entities.Deal;
 import com.epam.marketplace.exceptions.validity.ValidityException;
@@ -39,12 +40,21 @@ public class DealService {
     return dealDao.findAmountByStatus(status);
   }
 
-  public List<DealDto> getAuctions(String status, String sortBy, String sortMode, int currentPage,
-      int pageSize) {
-    boolean naturalOrder = sortMode.equals("asc");
-    List<Deal> deals = dealDao
-        .findAllFullWithLastBidByStatus(status, pageSize, currentPage, sortBy, naturalOrder);
+  public List<DealDto> getAuctions(Pagination pagination) {
 
+    // TODO: totalPages calc to separate method?
+    long amount = getAmount(pagination.getStatus());
+    int totalPages = (int) Math.ceil((float) amount / pagination.getPageSize());
+    pagination.setTotalPages(totalPages);
+
+    boolean naturalOrder = pagination.getSortMode().equals("asc");
+    List<Deal> deals = dealDao
+        .findAllFullWithLastBidByStatus(
+            pagination.getStatus(),
+            pagination.getPageSize(),
+            pagination.getCurrentPage(),
+            pagination.getSortBy(),
+            naturalOrder);
     ArrayList<DealDto> result = new ArrayList<>(deals.size());
     for (Deal d : deals) {
       result.add(mapper.getDtoFromEntity(d));
