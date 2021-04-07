@@ -1,37 +1,15 @@
 package com.epam.marketplace.dto;
 
-import javax.validation.constraints.NotNull;
-
 public class Pagination {
 
-  // sortMode is null!; status is null!; sortBy is null!;
-
-  @NotNull(message = "status is null!")
   private String status = "open";
-  @NotNull(message = "sortBy is null!")
   private String sortBy = "stopDate";
-  @NotNull(message = "sortMode is null!")
   private String sortMode = "asc";
-//  @NotNull(message = "totalPages is null!")
   private int totalPages = 1;
-  @NotNull(message = "currentPage is null!")
   private int currentPage = 1;
-  @NotNull(message = "pageSize is null!")
   private int pageSize = 5;
 
   public Pagination() {
-  }
-
-  @Override
-  public String toString() {
-    return "Pagination{" +
-        "status='" + status + '\'' +
-        ", sortBy='" + sortBy + '\'' +
-        ", sortMode='" + sortMode + '\'' +
-        ", totalPages=" + totalPages +
-        ", currentPage=" + currentPage +
-        ", pageSize=" + pageSize +
-        '}';
   }
 
   public String getStatus() {

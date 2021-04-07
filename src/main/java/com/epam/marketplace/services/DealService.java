@@ -41,12 +41,7 @@ public class DealService {
   }
 
   public List<DealDto> getAuctions(Pagination pagination) {
-
-    // TODO: totalPages calc to separate method?
-    long amount = getAmount(pagination.getStatus());
-    int totalPages = (int) Math.ceil((float) amount / pagination.getPageSize());
-    pagination.setTotalPages(totalPages);
-
+    setTotalPages(pagination);
     boolean naturalOrder = pagination.getSortMode().equals("asc");
     List<Deal> deals = dealDao
         .findAllFullWithLastBidByStatus(
@@ -72,5 +67,11 @@ public class DealService {
     }
     Deal newDeal = mapper.getEntityFromDto(newborn);
     dealDao.save(newDeal);
+  }
+
+  private void setTotalPages(Pagination pagination) {
+    long amount = getAmount(pagination.getStatus());
+    int totalPages = (int) Math.ceil((float) amount / pagination.getPageSize());
+    pagination.setTotalPages(totalPages);
   }
 }

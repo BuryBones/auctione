@@ -34,25 +34,16 @@ public class AuctionsController {
   }
 
   @RequestMapping(value = "/auctions", method = RequestMethod.GET)
-  public String auctions(
-      @Valid Pagination pagination, BindingResult result, Model model) {
-    if ((result != null) && result.hasErrors()) {
-      StringBuilder responseBuilder = new StringBuilder();
-      result.getAllErrors().forEach(e -> responseBuilder.append(e.getDefaultMessage() + "; "));
-      throw new ValidityException(responseBuilder.toString());
-    } else {
-      logger.info(pagination.toString());
-      model.addAttribute("deals", dealService.getAuctions(pagination));
-      model.addAttribute("pagination", pagination);
-      model.addAttribute("currentUser", userService.getCurrentUserName());
-      model.addAttribute("userId", userService.getCurrentUserId());
-    }
+  public String auctions(Pagination pagination, Model model) {
+    model.addAttribute("deals", dealService.getAuctions(pagination));
+    model.addAttribute("pagination", pagination);
+    model.addAttribute("currentUser", userService.getCurrentUserName());
+    model.addAttribute("userId", userService.getCurrentUserId());
     return "auctions";
   }
 
   @RequestMapping(value = "/auctions/ajax", method = RequestMethod.GET)
-  public String auctionsAjax(
-      @Valid Pagination pagination, BindingResult result, Model model) {
+  public String auctionsAjax(Pagination pagination, Model model) {
     model.addAttribute("deals",
         dealService.getAuctions(pagination));
     model.addAttribute("pagination", pagination);
