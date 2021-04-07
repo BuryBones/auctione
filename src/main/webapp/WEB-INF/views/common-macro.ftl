@@ -70,8 +70,10 @@
         <td class="button-cell">
           <#if deal.status && (deal.sellerId != currentUser)>
             <button class="table-button" onclick="bidDialog()">MAKE A BID</button>
-          <#else>
+          <#elseif deal.status && (deal.sellerId == currentUser)>
             <button class="table-button" disabled>YOUR LOT</button>
+          <#else>
+            <button class="table-button" disabled>CLOSED</button>
         </#if>
         </td>
       </@security.authorize>
