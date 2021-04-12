@@ -7,8 +7,10 @@ import com.epam.marketplace.dao.impl.RoleDaoImpl;
 import com.epam.marketplace.entities.Role;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled
 public class RoleDaoTest {
 
   private static RoleDao roleDao;

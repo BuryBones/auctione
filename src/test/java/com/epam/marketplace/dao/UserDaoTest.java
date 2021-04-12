@@ -7,8 +7,10 @@ import com.epam.marketplace.dao.impl.UserDaoImpl;
 import com.epam.marketplace.entities.User;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled
 public class UserDaoTest {
 
   private static UserDao userDao;
