@@ -1,11 +1,12 @@
 package com.epam.marketplace.services;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.epam.marketplace.dao.BidDao;
 import com.epam.marketplace.dto.BidDto;
 import com.epam.marketplace.dto.Dto;
 import com.epam.marketplace.dto.mappers.CommonMapper;
+import com.epam.marketplace.exceptions.validity.ValidityException;
 import com.epam.marketplace.validation.logic.LogicValidator;
 import com.epam.marketplace.validation.logic.bid.BidOfferValidator;
 import com.epam.marketplace.validation.logic.bid.BidOwnerValidator;
@@ -52,8 +53,6 @@ public class BidServiceTest {
     validators.add(bidOfferValidator);
     validators.add(bidOwnerValidator);
     validators.add(bidTimestampValidator);
-
-    Mockito.when(userService.getCurrentUserId()).thenReturn(2);
   }
 
   @Test
@@ -63,5 +62,15 @@ public class BidServiceTest {
     assertNotNull(mapper);
     assertNotNull(userService);
     assertNotNull(newBorn);
+  }
+
+  @Test
+  public void setUserIdTest() {
+    // when
+    Mockito.when(userService.getCurrentUserId()).thenReturn(2);
+    bidService.createBid(newBorn);
+
+    // then
+    assertEquals(2, newBorn.getUserId());
   }
 }
