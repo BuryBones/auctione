@@ -10,7 +10,6 @@ import com.epam.marketplace.entities.User;
 import com.epam.marketplace.exceptions.validity.ValidityException;
 import com.epam.marketplace.validation.logic.LogicValidator;
 import com.epam.marketplace.validation.logic.user.AbstractUserLogicValidator;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
@@ -28,7 +27,6 @@ public class UserService {
   private final UserDao userDao;
   private final RoleDao roleDao;
   private final CommonMapper mapper;
-  // TODO: отедельный бин Бкрипт,
   private final PasswordEncoder passwordEncoder;
 
   private final List<LogicValidator<? extends Dto>> validators;
@@ -57,8 +55,7 @@ public class UserService {
   public void createUser(UserDto newBorn) throws ValidityException {
     validate(newBorn);
     User newUser = mapper.getEntityFromDto(newBorn);
-    // TODO: find out how to add encoder ID (not like this)
-    newUser.setPassword("{bcrypt}" + passwordEncoder.encode(newUser.getPassword()));
+    newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
     setDefaultRole(newUser);
     userDao.save(newUser);
   }
