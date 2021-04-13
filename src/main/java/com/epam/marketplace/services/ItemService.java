@@ -51,7 +51,7 @@ public class ItemService {
 
   private boolean checkIfOnSale(Item entity) {
     return entity.getDeals().stream()
-            .anyMatch(Deal::getStatus);
+        .anyMatch(Deal::getStatus);
   }
 
   private void setNewbornFields(ItemDto newBorn) {

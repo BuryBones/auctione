@@ -50,10 +50,6 @@ public class DealService {
             pagination.getCurrentPage(),
             pagination.getSortBy(),
             naturalOrder);
-    //    ArrayList<DealDto> result = new ArrayList<>(deals.size());
-    //    for (Deal d : deals) {
-    //      result.add(mapper.getDtoFromEntity(d));
-    //    }
     return deals.stream().map(mapper::getDtoFromEntity).collect(Collectors.toList());
   }
 

@@ -45,10 +45,6 @@ public class UserService {
 
   public List<UserDto> getUsers() {
     List<User> users = userDao.findAllWithRoles();
-//    ArrayList<UserDto> result = new ArrayList<>(users.size());
-//    for (User u : users) {
-//      result.add(mapper.getDtoFromEntity(u));
-//    }
     return users.stream().map(mapper::getDtoFromEntity).collect(Collectors.toList());
   }
 

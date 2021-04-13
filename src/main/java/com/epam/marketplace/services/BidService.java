@@ -4,7 +4,6 @@ import com.epam.marketplace.dao.BidDao;
 import com.epam.marketplace.dto.BidDto;
 import com.epam.marketplace.dto.Dto;
 import com.epam.marketplace.dto.mappers.CommonMapper;
-import com.epam.marketplace.entities.Bid;
 import com.epam.marketplace.exceptions.validity.ValidityException;
 import com.epam.marketplace.validation.logic.LogicValidator;
 import com.epam.marketplace.validation.logic.bid.AbstractBidLogicValidator;
