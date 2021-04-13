@@ -35,14 +35,21 @@ public class BidService {
   }
 
   public void createBid(BidDto newBorn) throws ValidityException {
+    setNewbornFields(newBorn);
+    validate(newBorn);
+    bidDao.save(mapper.getEntityFromDto(newBorn));
+  }
+
+  private void setNewbornFields(BidDto newBorn) {
     newBorn.setUserId(userService.getCurrentUserId());
     newBorn.setDateAndTime(new Date());
+  }
+
+  private void validate(BidDto newBorn) throws ValidityException {
     for (LogicValidator<? extends Dto> validatorInterface : validators) {
       AbstractBidLogicValidator bidValidator = (AbstractBidLogicValidator) validatorInterface;
       logger.info("Validating with " + bidValidator.getClass().getName());
       bidValidator.validate(newBorn);
     }
-    Bid newBid = mapper.getEntityFromDto(newBorn);
-    bidDao.save(newBid);
   }
 }

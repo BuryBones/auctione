@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,19 +47,15 @@ public class UserService {
 
   public List<UserDto> getUsers() {
     List<User> users = userDao.findAllWithRoles();
-    ArrayList<UserDto> result = new ArrayList<>(users.size());
-    for (User u : users) {
-      result.add(mapper.getDtoFromEntity(u));
-    }
-    return result;
+//    ArrayList<UserDto> result = new ArrayList<>(users.size());
+//    for (User u : users) {
+//      result.add(mapper.getDtoFromEntity(u));
+//    }
+    return users.stream().map(mapper::getDtoFromEntity).collect(Collectors.toList());
   }
 
   public void createUser(UserDto newBorn) throws ValidityException {
-    for (LogicValidator<? extends Dto> validatorInterface : validators) {
-      AbstractUserLogicValidator userValidator = (AbstractUserLogicValidator) validatorInterface;
-      logger.info("Validating with " + userValidator.getClass().getName());
-      userValidator.validate(newBorn);
-    }
+    validate(newBorn);
     User newUser = mapper.getEntityFromDto(newBorn);
     // TODO: find out how to add encoder ID (not like this)
     newUser.setPassword("{bcrypt}" + passwordEncoder.encode(newUser.getPassword()));
@@ -98,5 +95,13 @@ public class UserService {
     HashSet<Role> roles = new HashSet<>();
     roles.add(roleDao.findById(2).get());
     user.setUserRoles(roles);
+  }
+
+  private void validate(UserDto newBorn) throws ValidityException {
+    for (LogicValidator<? extends Dto> validatorInterface : validators) {
+      AbstractUserLogicValidator userValidator = (AbstractUserLogicValidator) validatorInterface;
+      logger.info("Validating with " + userValidator.getClass().getName());
+      userValidator.validate(newBorn);
+    }
   }
 }

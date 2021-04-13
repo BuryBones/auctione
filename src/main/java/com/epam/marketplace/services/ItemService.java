@@ -29,24 +29,32 @@ public class ItemService {
   public List<ItemDto> getItemsByUserId(int userId) {
     List<Item> items = itemDao.findByUserIdWithDeals(userId);
     logger.info("For user #" + userId + " found " + items.size() + " items");
-    ArrayList<ItemDto> result = new ArrayList<>(items.size());
-    for (Item i : items) {
-      ItemDto itemDto = mapper.getDtoFromEntity(i);
-      i.getDeals().forEach(deal -> itemDto.addDealId(deal.getId()));
+    return getDtoList(items);
+  }
 
-      // set boolean 'isOnSale' on 'true' for item if there is an active deal for this item
-      itemDto.setOnSale(
-          i.getDeals().stream()
-              .findAny().filter(Deal::getStatus).isPresent());
-      logger.info("Item #" + itemDto.getId() + " onSale: " + itemDto.getOnSale());
+  public void createItem(ItemDto newBorn) {
+    setNewbornFields(newBorn);
+    itemDao.save(mapper.getEntityFromDto(newBorn));
+  }
+
+  private List<ItemDto> getDtoList(List<Item> entities) {
+    ArrayList<ItemDto> result = new ArrayList<>(entities.size());
+    for (Item item : entities) {
+      ItemDto itemDto = mapper.getDtoFromEntity(item);
+      item.getDeals().forEach(deal -> itemDto.addDealId(deal.getId()));
+      itemDto.setOnSale(checkIfOnSale(item));
       result.add(itemDto);
+      logger.info("Item #" + itemDto.getId() + " onSale: " + itemDto.getOnSale());
     }
     return result;
   }
 
-  public void createItem(ItemDto newBorn) {
+  private boolean checkIfOnSale(Item entity) {
+    return entity.getDeals().stream()
+            .anyMatch(Deal::getStatus);
+  }
+
+  private void setNewbornFields(ItemDto newBorn) {
     newBorn.setUserId(userService.getCurrentUserId());
-    Item newItem = mapper.getEntityFromDto(newBorn);
-    itemDao.save(newItem);
   }
 }
