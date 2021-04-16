@@ -2,7 +2,6 @@ package com.epam.marketplace.controllers;
 
 import com.epam.marketplace.dto.BidDto;
 import com.epam.marketplace.dto.Pagination;
-import com.epam.marketplace.exceptions.validity.ValidityException;
 import com.epam.marketplace.services.BidService;
 import com.epam.marketplace.services.DealService;
 import com.epam.marketplace.services.UserService;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class AuctionsController {
+public class AuctionsController implements ValidityExceptionReporter {
 
   private final Logger logger = Logger.getLogger("application");
   private final DealService dealService;
@@ -44,23 +43,19 @@ public class AuctionsController {
 
   @RequestMapping(value = "/auctions/ajax", method = RequestMethod.GET)
   public String auctionsAjax(Pagination pagination, Model model) {
-    model.addAttribute("deals",
-        dealService.getAuctions(pagination));
+    model.addAttribute("deals", dealService.getAuctions(pagination));
     model.addAttribute("pagination", pagination);
     model.addAttribute("userId", userService.getCurrentUserId());
     return "auctions-table";
   }
 
-  // TODO: make this interaction non-ajax?
-  @RequestMapping(value = "/auctions/bid", method = RequestMethod.POST)
+  @RequestMapping(value = "/auctions", method = RequestMethod.POST)
   public void makeBid(@Valid BidDto bidDto, BindingResult result) {
     if ((result != null) && result.hasErrors()) {
-      StringBuilder responseBuilder = new StringBuilder();
-      result.getAllErrors().forEach(e -> responseBuilder.append(e.getDefaultMessage() + "; "));
-      throw new ValidityException(responseBuilder.toString());
+      reportException(result);
     } else {
       bidService.createBid(bidDto);
-      logger.info("No errors found");
+      logger.info("BidDto is valid");
     }
   }
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class NewItemController {
+public class NewItemController implements ValidityExceptionReporter {
 
   private final Logger logger = Logger.getLogger("application");
   private final ItemService itemService;
@@ -35,12 +35,10 @@ public class NewItemController {
   @RequestMapping(value = "/new-item/new", method = RequestMethod.POST)
   public String createNewItem(@Valid ItemDto itemDto, BindingResult result) {
     if ((result != null) && result.hasErrors()) {
-      StringBuilder responseBuilder = new StringBuilder();
-      result.getAllErrors().forEach(e -> responseBuilder.append(e.getDefaultMessage() + "; "));
-      throw new ValidityException(responseBuilder.toString());
+      reportException(result);
     } else {
       itemService.createItem(itemDto);
-      logger.info("No errors found");
+      logger.info("ItemDto is valid");
     }
     return "redirect:/items";
   }

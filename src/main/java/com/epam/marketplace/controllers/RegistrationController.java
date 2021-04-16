@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class RegistrationController {
+public class RegistrationController implements ValidityExceptionReporter {
 
   private final Logger logger = Logger.getLogger("application");
   private final UserService userService;
@@ -31,11 +31,10 @@ public class RegistrationController {
   @RequestMapping(value = "/registration", method = RequestMethod.POST)
   public String submit(@Valid UserDto userDto, BindingResult result, Model model) {
     if ((result != null) && result.hasErrors()) {
-      StringBuilder responseBuilder = new StringBuilder();
-      result.getAllErrors().forEach(e -> responseBuilder.append(e.getDefaultMessage() + "; "));
-      throw new ValidityException(responseBuilder.toString());
+     reportException(result);
     } else {
       userService.createUser(userDto);
+      logger.info("UserDto is valid");
       model.addAttribute("response", "Success");
       model.addAttribute("result", true);
     }
