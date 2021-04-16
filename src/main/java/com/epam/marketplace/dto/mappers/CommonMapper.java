@@ -22,9 +22,12 @@ import org.springframework.stereotype.Component;
 public class CommonMapper {
 
   private final MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+  private final List<? extends BidirectionalConverter> orikaConverters;
 
   @Autowired
-  private List<? extends BidirectionalConverter> orikaConverters;
+  public CommonMapper(List<? extends BidirectionalConverter> orikaConverters) {
+    this.orikaConverters = orikaConverters;
+  }
 
   @PostConstruct
   public void init() {
