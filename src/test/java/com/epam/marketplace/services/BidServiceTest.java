@@ -1,12 +1,12 @@
 package com.epam.marketplace.services;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.epam.marketplace.dao.BidDao;
 import com.epam.marketplace.dto.BidDto;
 import com.epam.marketplace.dto.Dto;
-import com.epam.marketplace.dto.mappers.CommonMapper;
-import com.epam.marketplace.exceptions.validity.ValidityException;
+import com.epam.marketplace.entities.Bid;
 import com.epam.marketplace.validation.logic.LogicValidator;
 import com.epam.marketplace.validation.logic.bid.BidOfferValidator;
 import com.epam.marketplace.validation.logic.bid.BidOwnerValidator;
@@ -14,6 +14,7 @@ import com.epam.marketplace.validation.logic.bid.BidTimestampValidator;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.annotation.Resource;
+import ma.glasnost.orika.BoundMapperFacade;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +30,7 @@ public class BidServiceTest {
   @Mock
   private BidDao bidDao;
   @Mock
-  private CommonMapper mapper;
+  private BoundMapperFacade<Bid, BidDto> mapper;
   @Mock
   private UserService userService;
   @Spy

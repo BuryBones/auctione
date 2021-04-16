@@ -2,12 +2,12 @@ package com.epam.marketplace.services;
 
 import com.epam.marketplace.dao.ItemDao;
 import com.epam.marketplace.dto.ItemDto;
-import com.epam.marketplace.dto.mappers.CommonMapper;
 import com.epam.marketplace.entities.Deal;
 import com.epam.marketplace.entities.Item;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import ma.glasnost.orika.BoundMapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +16,12 @@ public class ItemService {
 
   private final Logger logger = Logger.getLogger("application");
   private final ItemDao itemDao;
-  private final CommonMapper mapper;
+  private final BoundMapperFacade<Item, ItemDto> mapper;
   private final UserService userService;
 
   @Autowired
-  public ItemService(ItemDao itemDao, CommonMapper mapper, UserService userService) {
+  public ItemService(ItemDao itemDao, BoundMapperFacade<Item, ItemDto> mapper,
+      UserService userService) {
     this.itemDao = itemDao;
     this.mapper = mapper;
     this.userService = userService;
@@ -34,13 +35,13 @@ public class ItemService {
 
   public void createItem(ItemDto newBorn) {
     setNewbornFields(newBorn);
-    itemDao.save(mapper.getEntityFromDto(newBorn));
+    itemDao.save(mapper.mapReverse(newBorn));
   }
 
   private List<ItemDto> getDtoList(List<Item> entities) {
     ArrayList<ItemDto> result = new ArrayList<>(entities.size());
     for (Item item : entities) {
-      ItemDto itemDto = mapper.getDtoFromEntity(item);
+      ItemDto itemDto = mapper.map(item);
       item.getDeals().forEach(deal -> itemDto.addDealId(deal.getId()));
       itemDto.setOnSale(checkIfOnSale(item));
       result.add(itemDto);
