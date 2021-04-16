@@ -8,6 +8,8 @@ import com.epam.marketplace.services.UserService;
 import java.util.logging.Logger;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -50,12 +52,16 @@ public class AuctionsController implements ValidityExceptionReporter {
   }
 
   @RequestMapping(value = "/auctions", method = RequestMethod.POST)
-  public void makeBid(@Valid BidDto bidDto, BindingResult result) {
+  public ResponseEntity<HttpStatus> makeBid(@Valid BidDto bidDto, BindingResult result) {
+    ResponseEntity<HttpStatus> response;
     if ((result != null) && result.hasErrors()) {
+      response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
       reportException(result);
     } else {
+      response = new ResponseEntity<>(HttpStatus.OK);
       bidService.createBid(bidDto);
       logger.info("BidDto is valid");
     }
+    return response;
   }
 }
