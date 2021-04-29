@@ -13,7 +13,6 @@ import com.epam.marketplace.validation.logic.bid.BidOwnerValidator;
 import com.epam.marketplace.validation.logic.bid.BidTimestampValidator;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import javax.annotation.Resource;
 import ma.glasnost.orika.BoundMapperFacade;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +22,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @ExtendWith(MockitoExtension.class)
 public class BidServiceTest {
@@ -37,7 +37,7 @@ public class BidServiceTest {
   private ArrayList<LogicValidator<? extends Dto>> validators;
 
   @InjectMocks
-  @Resource
+  @Autowired
   private BidService bidService;
 
   private BidDto newBorn;

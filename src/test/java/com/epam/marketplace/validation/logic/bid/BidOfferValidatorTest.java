@@ -8,7 +8,6 @@ import com.epam.marketplace.entities.Bid;
 import com.epam.marketplace.exceptions.validity.ValidityException;
 import java.math.BigDecimal;
 import java.util.Optional;
-import javax.annotation.Resource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @ExtendWith(MockitoExtension.class)
 public class BidOfferValidatorTest {
@@ -24,7 +24,7 @@ public class BidOfferValidatorTest {
   private BidDao bidDao;
 
   @InjectMocks
-  @Resource
+  @Autowired
   private BidOfferValidator bidOfferValidator;
 
   private BidDto bidDto;
