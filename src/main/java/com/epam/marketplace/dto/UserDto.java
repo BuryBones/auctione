@@ -45,6 +45,38 @@ public class UserDto implements Dto {
   public UserDto() {
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    UserDto userDto = (UserDto) o;
+
+    if (!getLogin().equals(userDto.getLogin())) {
+      return false;
+    }
+    if (!getFirstName().equals(userDto.getFirstName())) {
+      return false;
+    }
+    if (!getLastName().equals(userDto.getLastName())) {
+      return false;
+    }
+    return getEmail().equals(userDto.getEmail());
+  }
+
+  @Override
+  public int hashCode() {
+    int result = getLogin().hashCode();
+    result = 31 * result + getFirstName().hashCode();
+    result = 31 * result + getLastName().hashCode();
+    result = 31 * result + getEmail().hashCode();
+    return result;
+  }
+
   public Integer getId() {
     return id;
   }
