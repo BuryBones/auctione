@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@Disabled
+@ExtendWith(H2Extension.class)
 public class CommonDaoUserTest {
 
   private static UserDao userDao;
@@ -47,7 +47,7 @@ public class CommonDaoUserTest {
     // then
     assertTrue(optionalUser.isPresent());
     assertNotNull(optionalUser.get());
-    assertEquals(optionalUser.get(),expected);
+    assertEquals(optionalUser.get(), expected);
   }
 
   @Test
@@ -64,12 +64,13 @@ public class CommonDaoUserTest {
   public void saveUserTest() {
     // given
     User expected = new User();
-    expected.setLogin("test_login1");
+    expected.setLogin("test_login9");
+    expected.setEmail("test9@testmail.com");
     expected.setPassword("test_password");
     expected.setFirstName("Test");
     expected.setLastName("Testing");
 
-    Optional<Role> optionalRole = roleDao.findById(1);
+    Optional<Role> optionalRole = roleDao.findById(2);
     if (optionalRole.isPresent()) {
       expected.getUserRoles().add(optionalRole.get());
     } else {
@@ -80,7 +81,7 @@ public class CommonDaoUserTest {
     userDao.save(expected);
     userDao.refresh(expected);
     User actual = null;
-    Optional<User> optionalUser = userDao.findByLogin("test_login1");
+    Optional<User> optionalUser = userDao.findByLogin("test_login9");
     if (optionalUser.isPresent()) {
       actual = optionalUser.get();
     } else {
@@ -88,7 +89,7 @@ public class CommonDaoUserTest {
     }
 
     // then
-    assertEquals(expected,actual);
+    assertEquals(expected, actual);
 
     // cleanup
     userDao.delete(expected);
@@ -113,7 +114,7 @@ public class CommonDaoUserTest {
     // then
     assertTrue(actual.isPresent());
     assertNotNull(actual.get());
-    assertEquals(expected,actual.get());
+    assertEquals(expected, actual.get());
 
     // cleanup
     expected.setFirstName("TEST 1 FIRST");
@@ -125,6 +126,7 @@ public class CommonDaoUserTest {
     // given
     User testUser = new User();
     testUser.setLogin("TO DELETE");
+    testUser.setEmail("delete@testmail.com");
     testUser.setPassword("test_password");
     testUser.setFirstName("Test");
     testUser.setLastName("Testing");

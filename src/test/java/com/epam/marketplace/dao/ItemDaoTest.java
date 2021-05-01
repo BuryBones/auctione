@@ -1,16 +1,18 @@
 package com.epam.marketplace.dao;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.epam.marketplace.HibernateUtil;
 import com.epam.marketplace.dao.impl.ItemDaoImpl;
 import com.epam.marketplace.entities.Item;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@Disabled
+@ExtendWith(H2Extension.class)
 public class ItemDaoTest {
 
   private static ItemDao itemDao;

@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@Disabled
+@ExtendWith(H2Extension.class)
 public class CommonDaoItemTest {
 
   private static UserDao userDao;
@@ -46,7 +46,7 @@ public class CommonDaoItemTest {
     // then
     assertTrue(optionalItem.isPresent());
     assertNotNull(optionalItem.get());
-    assertEquals(optionalItem.get(),expected);
+    assertEquals(optionalItem.get(), expected);
   }
 
   @Test
@@ -85,7 +85,7 @@ public class CommonDaoItemTest {
     }
 
     // then
-    assertEquals(expected,actual);
+    assertEquals(expected, actual);
 
     // cleanup
     itemDao.delete(expected);
@@ -111,7 +111,7 @@ public class CommonDaoItemTest {
     // then
     assertTrue(actual.isPresent());
     assertNotNull(actual.get());
-    assertEquals(expected,actual.get());
+    assertEquals(expected, actual.get());
 
     // cleanup
     expected.setName("Test Item 1");
@@ -147,7 +147,7 @@ public class CommonDaoItemTest {
   public void findByIdWithAttributesItemTest() {
     // when
     Optional<Item> optionalItem = itemDao.findByIdWithAttributes(
-        2, Item_.user,Item_.deals);
+        2, Item_.user, Item_.deals);
 
     // then
     assertTrue(optionalItem.isPresent());

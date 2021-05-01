@@ -20,10 +20,10 @@ import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@Disabled
+@ExtendWith(H2Extension.class)
 public class CommonDaoDealTest {
 
   private static UserDao userDao;
@@ -44,8 +44,8 @@ public class CommonDaoDealTest {
     Deal expected = new Deal();
     expected.setId(5);
     expected.setInitPrice(new BigDecimal(20000));
-    expected.setOpenTime(LocalDateTime.of(2021,1,1,0,0));
-    expected.setCloseTime(LocalDateTime.of(2021,1,1,0,0).plusDays(5));
+    expected.setOpenTime(LocalDateTime.of(2021, 1, 1, 0, 0));
+    expected.setCloseTime(LocalDateTime.of(2021, 1, 1, 0, 0).plusDays(5));
 
     // when
     Optional<Deal> optionalDeal = dealDao.findById(5);
@@ -53,7 +53,7 @@ public class CommonDaoDealTest {
     // then
     assertTrue(optionalDeal.isPresent());
     assertNotNull(optionalDeal.get());
-    assertEquals(optionalDeal.get(),expected);
+    assertEquals(optionalDeal.get(), expected);
   }
 
   @Test
@@ -101,7 +101,7 @@ public class CommonDaoDealTest {
     }
 
     // then
-    assertEquals(expected,actual);
+    assertEquals(expected, actual);
 
     // cleanup
     dealDao.refresh(expected);
@@ -127,7 +127,7 @@ public class CommonDaoDealTest {
     // then
     assertTrue(actual.isPresent());
     assertNotNull(actual.get());
-    assertEquals(expected,actual.get());
+    assertEquals(expected, actual.get());
 
     // cleanup
     expected.setStatus(true);
@@ -171,7 +171,7 @@ public class CommonDaoDealTest {
   public void findByIdWithAttributesDealTest() {
     // when
     Optional<Deal> optionalDeal = dealDao.findByIdWithAttributes(
-        1, Deal_.user,Deal_.item,Deal_.bids);
+        1, Deal_.user, Deal_.item, Deal_.bids);
 
     // then
     assertTrue(optionalDeal.isPresent());

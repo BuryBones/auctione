@@ -1,6 +1,7 @@
 package com.epam.marketplace.dao;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.epam.marketplace.HibernateUtil;
 import com.epam.marketplace.dao.impl.DealDaoImpl;
@@ -9,10 +10,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@Disabled
+@ExtendWith(H2Extension.class)
 public class DealDaoTest {
 
   private static DealDao dealDao;
@@ -44,7 +45,7 @@ public class DealDaoTest {
   @Test
   public void findFromDateTest() {
     // when
-    LocalDateTime date = LocalDateTime.of(2021,1,2,0,0);
+    LocalDateTime date = LocalDateTime.of(2021, 1, 2, 0, 0);
     List<Deal> listOfExpected = dealDao.findFromDate(date);
     List<Deal> listOfAll = dealDao.findAll();
 

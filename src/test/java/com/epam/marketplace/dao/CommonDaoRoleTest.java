@@ -16,8 +16,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@Disabled
+@ExtendWith(H2Extension.class)
 public class CommonDaoRoleTest {
 
   private static RoleDao roleDao;
@@ -41,7 +42,7 @@ public class CommonDaoRoleTest {
     // then
     assertTrue(optionalRole.isPresent());
     assertNotNull(optionalRole.get());
-    assertEquals(optionalRole.get(),expected);
+    assertEquals(optionalRole.get(), expected);
   }
 
   @Test
@@ -78,6 +79,7 @@ public class CommonDaoRoleTest {
     roleDao.delete(expected);
   }
 
+  @Disabled("IGNORED: Test changes NaturalID")
   @Test
   public void updateRoleTest() {
     // given
@@ -97,11 +99,7 @@ public class CommonDaoRoleTest {
     // then
     assertTrue(actual.isPresent());
     assertNotNull(actual.get());
-    assertEquals(expected,actual.get());
-
-    // cleanup
-    expected.setRoleName("TEST_ROLE");
-    roleDao.update(expected);
+    assertEquals(expected, actual.get());
   }
 
   @Test
@@ -132,8 +130,4 @@ public class CommonDaoRoleTest {
     assertNotNull(role);
     assertFalse(role.getUsers().isEmpty());
   }
-
-
-
-
 }

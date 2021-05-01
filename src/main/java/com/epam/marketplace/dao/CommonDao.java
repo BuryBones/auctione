@@ -98,6 +98,8 @@ public interface CommonDao<T> {
       session.update(object);
       transaction.commit();
     } catch (RuntimeException e) {
+      System.out.println("Update error!");
+      System.out.println(e.getMessage());
       try {
         if (transaction != null) {
           transaction.rollback();

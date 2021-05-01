@@ -19,10 +19,10 @@ import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@Disabled
+@ExtendWith(H2Extension.class)
 public class CommonDaoBidTest {
 
   private static UserDao userDao;
@@ -42,7 +42,7 @@ public class CommonDaoBidTest {
     // given
     Bid expected = new Bid();
     expected.setId(5);
-    expected.setDateAndTime(LocalDateTime.of(2021,1,2,0,0));
+    expected.setDateAndTime(LocalDateTime.of(2021, 1, 2, 0, 0));
     expected.setOffer(new BigDecimal(21000));
 
     // when
@@ -51,7 +51,7 @@ public class CommonDaoBidTest {
     // then
     assertTrue(optionalBid.isPresent());
     assertNotNull(optionalBid.get());
-    assertEquals(optionalBid.get(),expected);
+    assertEquals(optionalBid.get(), expected);
   }
 
   @Test
@@ -97,7 +97,7 @@ public class CommonDaoBidTest {
     }
 
     // then
-    assertEquals(expected,actual);
+    assertEquals(expected, actual);
 
     // cleanup
     bidDao.refresh(expected);
@@ -123,7 +123,7 @@ public class CommonDaoBidTest {
     // then
     assertTrue(actual.isPresent());
     assertNotNull(actual.get());
-    assertEquals(expected,actual.get());
+    assertEquals(expected, actual.get());
 
     // cleanup
     expected.setOffer(expected.getOffer().subtract(BigDecimal.valueOf(100)));
@@ -165,7 +165,7 @@ public class CommonDaoBidTest {
   public void findByIdWithAttributesBidTest() {
     // when
     Optional<Bid> optionalBid = bidDao.findByIdWithAttributes(
-        1, Bid_.user,Bid_.deal);
+        1, Bid_.user, Bid_.deal);
 
     // then
     assertTrue(optionalBid.isPresent());

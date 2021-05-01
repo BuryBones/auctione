@@ -1,16 +1,17 @@
 package com.epam.marketplace.dao;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.epam.marketplace.HibernateUtil;
 import com.epam.marketplace.dao.impl.RoleDaoImpl;
 import com.epam.marketplace.entities.Role;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-@Disabled
+@ExtendWith(H2Extension.class)
 public class RoleDaoTest {
 
   private static RoleDao roleDao;
