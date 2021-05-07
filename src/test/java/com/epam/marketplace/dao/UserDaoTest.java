@@ -4,24 +4,24 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.epam.marketplace.HibernateUtil;
-import com.epam.marketplace.dao.impl.UserDaoImpl;
+import com.epam.marketplace.config.TestContextConfig;
 import com.epam.marketplace.entities.User;
 import java.util.Optional;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-@ExtendWith(H2Extension.class)
+@ExtendWith({H2Extension.class, SpringExtension.class})
+@ContextConfiguration(
+    classes = TestContextConfig.class,
+    loader = AnnotationConfigContextLoader.class)
 public class UserDaoTest {
 
-  private static UserDao userDao;
-
-  @BeforeAll
-  private static void setup() {
-    HibernateUtil.init();
-    userDao = new UserDaoImpl();
-  }
+  @Autowired
+  private UserDao userDao;
 
   @Test
   public void findByLoginSuccessTest() {

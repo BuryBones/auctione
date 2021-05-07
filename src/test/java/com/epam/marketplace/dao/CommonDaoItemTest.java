@@ -6,31 +6,31 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.epam.marketplace.HibernateUtil;
-import com.epam.marketplace.dao.impl.ItemDaoImpl;
-import com.epam.marketplace.dao.impl.UserDaoImpl;
+import com.epam.marketplace.config.TestContextConfig;
 import com.epam.marketplace.entities.Item;
 import com.epam.marketplace.entities.Item_;
 import com.epam.marketplace.entities.User;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-@ExtendWith(H2Extension.class)
+@ExtendWith({H2Extension.class, SpringExtension.class})
+@ContextConfiguration(
+    classes = TestContextConfig.class,
+    loader = AnnotationConfigContextLoader.class)
 public class CommonDaoItemTest {
 
-  private static UserDao userDao;
-  private static ItemDao itemDao;
+  @Autowired
+  private UserDao userDao;
 
-  @BeforeAll
-  private static void setup() {
-    HibernateUtil.init();
-    userDao = new UserDaoImpl();
-    itemDao = new ItemDaoImpl();
-  }
+  @Autowired
+  private ItemDao itemDao;
 
   @Test
   public void findByIdItemTest() {

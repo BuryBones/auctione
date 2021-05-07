@@ -3,26 +3,26 @@ package com.epam.marketplace.dao;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.epam.marketplace.HibernateUtil;
-import com.epam.marketplace.dao.impl.DealDaoImpl;
+import com.epam.marketplace.config.TestContextConfig;
 import com.epam.marketplace.entities.Deal;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-@ExtendWith(H2Extension.class)
+@ExtendWith({H2Extension.class, SpringExtension.class})
+@ContextConfiguration(
+    classes = TestContextConfig.class,
+    loader = AnnotationConfigContextLoader.class)
 public class DealDaoTest {
 
-  private static DealDao dealDao;
-
-  @BeforeAll
-  private static void setup() {
-    HibernateUtil.init();
-    dealDao = new DealDaoImpl();
-  }
+  @Autowired
+  private DealDao dealDao;
 
   @Test
   public void findByStatusOpenTest() {

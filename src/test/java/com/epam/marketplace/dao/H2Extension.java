@@ -1,5 +1,6 @@
 package com.epam.marketplace.dao;
 
+import com.epam.marketplace.HibernateUtil;
 import java.io.FileReader;
 import java.sql.DriverManager;
 import org.h2.tools.RunScript;
@@ -17,6 +18,7 @@ public class H2Extension implements BeforeAllCallback, ExtensionContext.Store.Cl
       RunScript.execute(DriverManager.getConnection("jdbc:h2:mem:test"),
           new FileReader("src/test/resources/common_test_script.sql"));
       notInitialized = false;
+      HibernateUtil.init();
     }
   }
 

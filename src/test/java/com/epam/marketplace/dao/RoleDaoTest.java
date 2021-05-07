@@ -3,24 +3,24 @@ package com.epam.marketplace.dao;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.epam.marketplace.HibernateUtil;
-import com.epam.marketplace.dao.impl.RoleDaoImpl;
+import com.epam.marketplace.config.TestContextConfig;
 import com.epam.marketplace.entities.Role;
 import java.util.Optional;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-@ExtendWith(H2Extension.class)
+@ExtendWith({H2Extension.class, SpringExtension.class})
+@ContextConfiguration(
+    classes = TestContextConfig.class,
+    loader = AnnotationConfigContextLoader.class)
 public class RoleDaoTest {
 
-  private static RoleDao roleDao;
-
-  @BeforeAll
-  private static void setup() {
-    HibernateUtil.init();
-    roleDao = new RoleDaoImpl();
-  }
+  @Autowired
+  private RoleDao roleDao;
 
   @Test
   public void findByNameSuccessTest() {
