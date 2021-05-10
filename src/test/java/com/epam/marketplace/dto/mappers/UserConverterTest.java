@@ -1,8 +1,6 @@
 package com.epam.marketplace.dto.mappers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import com.epam.marketplace.dto.UserDto;
 import com.epam.marketplace.entities.User;
@@ -12,7 +10,6 @@ import ma.glasnost.orika.converter.BidirectionalConverter;
 import ma.glasnost.orika.converter.ConverterFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -33,6 +30,12 @@ public class UserConverterTest {
     userConverter = mapperFactory.getMapperFacade(User.class, UserDto.class);
 
     // move out of setup?
+    user = new User();
+    user.setLogin("testLogin");
+    user.setFirstName("testFirstName");
+    user.setLastName("testLastName");
+    user.setEmail("test@email.com");
+
     userDto = new UserDto();
     userDto.setId(12);
     userDto.setLogin("testLogin");
@@ -43,14 +46,6 @@ public class UserConverterTest {
 
   @Test
   public void convertToTest() {
-    // given
-    user = mock(User.class);
-    when(user.getId()).thenReturn(12);
-    when(user.getFirstName()).thenReturn("testFirstName");
-    when(user.getLastName()).thenReturn(("testLastName"));
-    when(user.getLogin()).thenReturn("testLogin");
-    when(user.getEmail()).thenReturn("test@email.com");
-
     // when
     UserDto actual = userConverter.map(user);
 
@@ -58,7 +53,6 @@ public class UserConverterTest {
     assertEquals(userDto, actual);
   }
 
-  @Disabled
   @Test
   public void convertFromTest() {
     // when
@@ -66,7 +60,5 @@ public class UserConverterTest {
 
     // then
     assertEquals(user, actual);
-
-
   }
 }
