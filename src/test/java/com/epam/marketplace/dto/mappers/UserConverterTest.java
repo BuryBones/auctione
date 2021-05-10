@@ -10,6 +10,7 @@ import ma.glasnost.orika.converter.BidirectionalConverter;
 import ma.glasnost.orika.converter.ConverterFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -29,7 +30,6 @@ public class UserConverterTest {
     converterFactory.registerConverter(converter);
     userConverter = mapperFactory.getMapperFacade(User.class, UserDto.class);
 
-    // move out of setup?
     user = new User();
     user.setLogin("testLogin");
     user.setFirstName("testFirstName");
@@ -45,7 +45,8 @@ public class UserConverterTest {
   }
 
   @Test
-  public void convertToTest() {
+  @DisplayName("User to UserDTO test")
+  public void convertUserToDtoTest() {
     // when
     UserDto actual = userConverter.map(user);
 
@@ -54,7 +55,8 @@ public class UserConverterTest {
   }
 
   @Test
-  public void convertFromTest() {
+  @DisplayName("UserDTO to User test")
+  public void convertDtoToUserTest() {
     // when
     User actual = userConverter.mapReverse(userDto);
 
