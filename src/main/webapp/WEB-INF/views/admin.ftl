@@ -1,9 +1,9 @@
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <#import "common-macro.ftl" as common>
-<@common.header title="${title}">
+<@common.header title="Admin Page">
 <@common.navigation
-  pageDisplayName="${(pageDisplayName)!}"
-  pageName="${(pageName)!}"
+  pageDisplayName="Admin Page"
+  pageName="admin"
   currentUserName="${(currentUser)!}"/>
 <main>
     <p>List of users and their roles.</p>

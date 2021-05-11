@@ -1,6 +1,6 @@
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <#import "common-macro.ftl" as common>
-<@common.header title="- Error">
+<@common.header title="Error">
 <@common.navigation
 pageDisplayName="Error Page"
 pageName="validity-error"

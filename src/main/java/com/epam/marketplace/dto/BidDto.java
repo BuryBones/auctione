@@ -23,6 +23,43 @@ public class BidDto implements Dto {
   private Integer dealId;
 
   public BidDto() {
+
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    BidDto bidDto = (BidDto) o;
+
+    if (!getId().equals(bidDto.getId())) {
+      return false;
+    }
+    if (!getDateAndTime().equals(bidDto.getDateAndTime())) {
+      return false;
+    }
+    if (!getOffer().equals(bidDto.getOffer())) {
+      return false;
+    }
+    if (!getUserId().equals(bidDto.getUserId())) {
+      return false;
+    }
+    return getDealId().equals(bidDto.getDealId());
+  }
+
+  @Override
+  public int hashCode() {
+    int result = getId().hashCode();
+    result = 31 * result + getDateAndTime().hashCode();
+    result = 31 * result + getOffer().hashCode();
+    result = 31 * result + getUserId().hashCode();
+    result = 31 * result + getDealId().hashCode();
+    return result;
   }
 
   public Integer getId() {

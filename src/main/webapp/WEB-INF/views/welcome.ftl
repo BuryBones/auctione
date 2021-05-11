@@ -1,9 +1,9 @@
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <#import "common-macro.ftl" as common>
-<@common.header title="${title}">
+<@common.header title="Welcome">
 <@common.navigation
-  pageDisplayName="${(pageDisplayName)!}"
-  pageName="${(pageName)!}"
+  pageDisplayName="Welcome to AuctiOne"
+  pageName="welcome"
   currentUserName="${(currentUser)!}"/>
   <main>
     <p>To participate in online-auctions you need to log in.</p>

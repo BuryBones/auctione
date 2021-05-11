@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class ItemsController {
+public class ItemsController implements ValidityExceptionReporter {
 
   private final Logger logger = Logger.getLogger("application");
   private final ItemService itemService;
@@ -33,9 +33,6 @@ public class ItemsController {
 
   @RequestMapping(value = "/items", method = RequestMethod.GET)
   public String items(Model model) {
-    model.addAttribute("title", " - Items");
-    model.addAttribute("pageDisplayName", "Items");
-    model.addAttribute("pageName", "items");
     model.addAttribute("currentUser", userService.getCurrentUserName());
     List<ItemDto> items = itemService.getItemsByUserId(userService.getCurrentUserId());
     model.addAttribute("items", items);
@@ -45,12 +42,10 @@ public class ItemsController {
   @RequestMapping(value = "/items/sell", method = RequestMethod.POST)
   public String sellItem(@Valid DealDto dealDto, BindingResult result) {
     if ((result != null) && result.hasErrors()) {
-      StringBuilder responseBuilder = new StringBuilder();
-      result.getAllErrors().forEach(e -> responseBuilder.append(e.getDefaultMessage() + "; "));
-      throw new ValidityException(responseBuilder.toString());
+      reportException(result);
     } else {
       dealService.createAuction(dealDto);
-      logger.info("No errors found");
+      logger.info("DealDto is valid");
     }
     return "redirect:/auctions";
   }

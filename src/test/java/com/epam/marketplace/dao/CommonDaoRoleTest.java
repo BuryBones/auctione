@@ -6,25 +6,28 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.epam.marketplace.HibernateUtil;
-import com.epam.marketplace.dao.impl.RoleDaoImpl;
+import com.epam.marketplace.config.TestContextConfig;
 import com.epam.marketplace.entities.Role;
 import com.epam.marketplace.entities.Role_;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+@ExtendWith({H2Extension.class, SpringExtension.class})
+@ContextConfiguration(
+    classes = TestContextConfig.class,
+    loader = AnnotationConfigContextLoader.class)
 public class CommonDaoRoleTest {
 
-  private static RoleDao roleDao;
-
-  @BeforeAll
-  private static void setup() {
-    HibernateUtil.init();
-    roleDao = new RoleDaoImpl();
-  }
+  @Autowired
+  private RoleDao roleDao;
 
   @Test
   public void findByIdRoleTest() {
@@ -39,7 +42,7 @@ public class CommonDaoRoleTest {
     // then
     assertTrue(optionalRole.isPresent());
     assertNotNull(optionalRole.get());
-    assertEquals(optionalRole.get(),expected);
+    assertEquals(optionalRole.get(), expected);
   }
 
   @Test
@@ -70,12 +73,13 @@ public class CommonDaoRoleTest {
     }
 
     // then
-    assertEquals(expected,actual);
+    assertEquals(expected, actual);
 
     // cleanup
     roleDao.delete(expected);
   }
 
+  @Disabled("IGNORED: Test changes NaturalID")
   @Test
   public void updateRoleTest() {
     // given
@@ -95,11 +99,7 @@ public class CommonDaoRoleTest {
     // then
     assertTrue(actual.isPresent());
     assertNotNull(actual.get());
-    assertEquals(expected,actual.get());
-
-    // cleanup
-    expected.setRoleName("TEST_ROLE");
-    roleDao.update(expected);
+    assertEquals(expected, actual.get());
   }
 
   @Test
@@ -130,8 +130,4 @@ public class CommonDaoRoleTest {
     assertNotNull(role);
     assertFalse(role.getUsers().isEmpty());
   }
-
-
-
-
 }

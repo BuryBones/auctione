@@ -45,6 +45,35 @@ public class DealDto implements Dto {
   private boolean status = true;
 
   public DealDto() {
+
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    DealDto dealDto = (DealDto) o;
+
+    if (!getId().equals(dealDto.getId())) {
+      return false;
+    }
+    if (!getSellerId().equals(dealDto.getSellerId())) {
+      return false;
+    }
+    return getItemId().equals(dealDto.getItemId());
+  }
+
+  @Override
+  public int hashCode() {
+    int result = getId().hashCode();
+    result = 31 * result + getSellerId().hashCode();
+    result = 31 * result + getItemId().hashCode();
+    return result;
   }
 
   public Integer getSellerId() {

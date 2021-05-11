@@ -5,10 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.epam.marketplace.HibernateUtil;
-import com.epam.marketplace.dao.impl.BidDaoImpl;
-import com.epam.marketplace.dao.impl.DealDaoImpl;
-import com.epam.marketplace.dao.impl.UserDaoImpl;
+import com.epam.marketplace.config.TestContextConfig;
 import com.epam.marketplace.entities.Bid;
 import com.epam.marketplace.entities.Bid_;
 import com.epam.marketplace.entities.Deal;
@@ -18,29 +15,34 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+@ExtendWith({H2Extension.class, SpringExtension.class})
+@ContextConfiguration(
+    classes = TestContextConfig.class,
+    loader = AnnotationConfigContextLoader.class)
 public class CommonDaoBidTest {
 
-  private static UserDao userDao;
-  private static DealDao dealDao;
-  private static BidDao bidDao;
+  @Autowired
+  private UserDao userDao;
 
-  @BeforeAll
-  private static void setup() {
-    HibernateUtil.init();
-    userDao = new UserDaoImpl();
-    dealDao = new DealDaoImpl();
-    bidDao = new BidDaoImpl();
-  }
+  @Autowired
+  private DealDao dealDao;
+
+  @Autowired
+  private BidDao bidDao;
 
   @Test
   public void findByIdBidTest() {
     // given
     Bid expected = new Bid();
     expected.setId(5);
-    expected.setDateAndTime(LocalDateTime.of(2021,1,2,0,0));
+    expected.setDateAndTime(LocalDateTime.of(2021, 1, 2, 0, 0));
     expected.setOffer(new BigDecimal(21000));
 
     // when
@@ -49,7 +51,7 @@ public class CommonDaoBidTest {
     // then
     assertTrue(optionalBid.isPresent());
     assertNotNull(optionalBid.get());
-    assertEquals(optionalBid.get(),expected);
+    assertEquals(optionalBid.get(), expected);
   }
 
   @Test
@@ -95,7 +97,7 @@ public class CommonDaoBidTest {
     }
 
     // then
-    assertEquals(expected,actual);
+    assertEquals(expected, actual);
 
     // cleanup
     bidDao.refresh(expected);
@@ -121,7 +123,7 @@ public class CommonDaoBidTest {
     // then
     assertTrue(actual.isPresent());
     assertNotNull(actual.get());
-    assertEquals(expected,actual.get());
+    assertEquals(expected, actual.get());
 
     // cleanup
     expected.setOffer(expected.getOffer().subtract(BigDecimal.valueOf(100)));
@@ -163,7 +165,7 @@ public class CommonDaoBidTest {
   public void findByIdWithAttributesBidTest() {
     // when
     Optional<Bid> optionalBid = bidDao.findByIdWithAttributes(
-        1, Bid_.user,Bid_.deal);
+        1, Bid_.user, Bid_.deal);
 
     // then
     assertTrue(optionalBid.isPresent());

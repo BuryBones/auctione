@@ -6,29 +6,31 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.epam.marketplace.HibernateUtil;
-import com.epam.marketplace.dao.impl.RoleDaoImpl;
-import com.epam.marketplace.dao.impl.UserDaoImpl;
+import com.epam.marketplace.config.TestContextConfig;
 import com.epam.marketplace.entities.Role;
 import com.epam.marketplace.entities.User;
 import com.epam.marketplace.entities.User_;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
+@ExtendWith({H2Extension.class, SpringExtension.class})
+@ContextConfiguration(
+    classes = TestContextConfig.class,
+    loader = AnnotationConfigContextLoader.class)
 public class CommonDaoUserTest {
 
-  private static UserDao userDao;
-  private static RoleDao roleDao;
+  @Autowired
+  private UserDao userDao;
 
-  @BeforeAll
-  private static void setup() {
-    HibernateUtil.init();
-    userDao = new UserDaoImpl();
-    roleDao = new RoleDaoImpl();
-  }
+  @Autowired
+  private RoleDao roleDao;
 
   @Test
   public void findByIdUserTest() {
@@ -45,7 +47,7 @@ public class CommonDaoUserTest {
     // then
     assertTrue(optionalUser.isPresent());
     assertNotNull(optionalUser.get());
-    assertEquals(optionalUser.get(),expected);
+    assertEquals(optionalUser.get(), expected);
   }
 
   @Test
@@ -62,12 +64,13 @@ public class CommonDaoUserTest {
   public void saveUserTest() {
     // given
     User expected = new User();
-    expected.setLogin("test_login1");
+    expected.setLogin("test_login9");
+    expected.setEmail("test9@testmail.com");
     expected.setPassword("test_password");
     expected.setFirstName("Test");
     expected.setLastName("Testing");
 
-    Optional<Role> optionalRole = roleDao.findById(1);
+    Optional<Role> optionalRole = roleDao.findById(2);
     if (optionalRole.isPresent()) {
       expected.getUserRoles().add(optionalRole.get());
     } else {
@@ -78,7 +81,7 @@ public class CommonDaoUserTest {
     userDao.save(expected);
     userDao.refresh(expected);
     User actual = null;
-    Optional<User> optionalUser = userDao.findByLogin("test_login1");
+    Optional<User> optionalUser = userDao.findByLogin("test_login9");
     if (optionalUser.isPresent()) {
       actual = optionalUser.get();
     } else {
@@ -86,7 +89,7 @@ public class CommonDaoUserTest {
     }
 
     // then
-    assertEquals(expected,actual);
+    assertEquals(expected, actual);
 
     // cleanup
     userDao.delete(expected);
@@ -111,7 +114,7 @@ public class CommonDaoUserTest {
     // then
     assertTrue(actual.isPresent());
     assertNotNull(actual.get());
-    assertEquals(expected,actual.get());
+    assertEquals(expected, actual.get());
 
     // cleanup
     expected.setFirstName("TEST 1 FIRST");
@@ -123,6 +126,7 @@ public class CommonDaoUserTest {
     // given
     User testUser = new User();
     testUser.setLogin("TO DELETE");
+    testUser.setEmail("delete@testmail.com");
     testUser.setPassword("test_password");
     testUser.setFirstName("Test");
     testUser.setLastName("Testing");

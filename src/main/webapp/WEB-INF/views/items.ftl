@@ -1,9 +1,9 @@
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 <#import "common-macro.ftl" as common>
-<@common.header title="${title}">
+<@common.header title="Items">
 <@common.navigation
-  pageDisplayName="${(pageDisplayName)!}"
-  pageName="${(pageName)!}"
+  pageDisplayName="Items"
+  pageName="items"
   currentUserName="${(currentUser)!}"/>
   <main>
     <p>Here is the list of your items. <a href="new-item">Create new item</a></p>

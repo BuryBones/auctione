@@ -6,7 +6,7 @@
   <style type="text/css">
       <#include "css/styles.css">
   </style>
-  <title>AuctiOne${title}</title>
+  <title>AuctiOne - ${title}</title>
   <meta charset="UTF-8">
   <link rel="icon" href="img/Bag.png">
 </head>
@@ -70,8 +70,10 @@
         <td class="button-cell">
           <#if deal.status && (deal.sellerId != currentUser)>
             <button class="table-button" onclick="bidDialog()">MAKE A BID</button>
-          <#else>
+          <#elseif deal.status && (deal.sellerId == currentUser)>
             <button class="table-button" disabled>YOUR LOT</button>
+          <#else>
+            <button class="table-button" disabled>CLOSED</button>
         </#if>
         </td>
       </@security.authorize>

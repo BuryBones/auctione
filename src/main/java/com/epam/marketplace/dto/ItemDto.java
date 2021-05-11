@@ -21,6 +21,29 @@ public class ItemDto implements Dto {
   private Boolean isOnSale = false;
 
   public ItemDto() {
+
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    ItemDto itemDto = (ItemDto) o;
+
+    if (!getId().equals(itemDto.getId())) {
+      return false;
+    }
+    return getName().equals(itemDto.getName());
+  }
+
+  @Override
+  public int hashCode() {
+    return getId().hashCode();
   }
 
   public Integer getId() {
